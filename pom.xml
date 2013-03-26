@@ -1,0 +1,222 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.softlink</groupId>
+    <artifactId>master</artifactId>
+    <version>0.9</version>
+  </parent>
+  <artifactId>finance</artifactId>
+  
+    <properties>
+        <appengine.app.version>finance</appengine.app.version>
+  </properties>
+  	
+  <dependencies>
+        <!-- Compile/runtime custom dependencies -->
+        <!-- System libs -->
+      <dependency>
+      	  <groupId>com.google.gwt</groupId>
+      	  <artifactId>gwt-user</artifactId>
+      	  <scope>provided</scope>
+      </dependency>
+      
+      <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-api-1.0-sdk</artifactId>
+            <version>${appengine.target.version}</version>
+       </dependency>
+       <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-jpa</artifactId>
+            <version>1.1.5</version>
+            <scope>provided</scope>
+       </dependency>
+        
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+        
+		<!-- Project modules dependencies -->
+      	<!-- <dependency>
+        	<groupId>com.softlink</groupId>
+        	<artifactId>common</artifactId>
+        	<version>0.9</version>
+        	<scope>provided</scope>
+      	</dependency> -->
+      	<dependency>
+        	<groupId>com.googlecode</groupId>
+        	<artifactId>objectify</artifactId>
+        	<version>3.0</version>
+        	<!-- <scope>provided</scope>  -->
+        	<type>jar</type>
+        	<scope>system</scope>
+        	<systemPath>${basedir}/../libs/objectify-3.0.jar</systemPath>
+      	</dependency>
+      
+      	<!-- Test Dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-testing</artifactId>
+            <version>${appengine.target.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-api-stubs</artifactId>
+            <version>${appengine.target.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+        	<groupId>javax.persistence</groupId>
+        	<artifactId>persistence-api</artifactId>
+        	<version>1.0</version>
+        	<scope>provided</scope>
+        </dependency>
+  </dependencies>
+    
+    <build>
+    	<resources>
+      		<resource>
+        		<directory>src/main/java</directory>
+        		<includes>
+          			<include>**/*.java</include>
+          			<include>**/*.gwt.xml</include>
+        		</includes>
+      		</resource>
+      		<resource>
+        		<directory>src/main/webapp</directory>
+        		<includes>
+          			<include>**/*.java</include>
+          			<include>**/*.gwt.xml</include>
+        		</includes>
+      		</resource>
+  		</resources>
+  		
+        <plugins>
+        	<plugin>
+        		<groupId>org.apache.maven.plugins</groupId>
+      			<artifactId>maven-jar-plugin</artifactId>
+      			<version>2.3.1</version>
+      			<executions>
+        			<execution>
+          				<id>make-a-jar</id>
+          				<phase>compile</phase>
+          				<goals>
+            				<goal>jar</goal>
+          				</goals>
+        			</execution>
+      			</executions>
+      			<configuration>
+        			<outputDirectory>../libs</outputDirectory>
+      			</configuration>
+      		</plugin>
+        	<plugin>
+        		<groupId>org.codehaus.mojo</groupId>
+        		<artifactId>gwt-maven-plugin</artifactId>
+        		<configuration> <!--com.softlink.uc.Underconstruction/-->
+          			<runTarget>uc.html</runTarget>
+        		</configuration>
+        		<executions>
+          			<execution>
+          				<id>compiling</id>
+            			<configuration>
+              				<module>com.softlink.finance.Finance</module>
+            			</configuration>
+            			<goals>
+              				<goal>compile</goal>
+            			</goals>
+          			</execution>
+        		</executions>
+      		</plugin>
+      
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <archiveClasses>true</archiveClasses>
+                    <attachClasses>true</attachClasses>
+                    <classesClassifier>classes</classesClassifier>
+                    <!-- <classifier>classes</classifier> -->
+                    <webResources>
+                        <!-- in order to interpolate version from pom into appengine-web.xml -->
+                        <resource>
+                            <directory>${basedir}/src/main/webapp/WEB-INF</directory>
+              				<filtering>true</filtering>
+                            <targetPath>WEB-INF</targetPath>
+                        </resource>
+                        <!-- <resource> 
+              				<directory>${basedir}/../common/target</directory>
+              				<includes>
+          						<include>common-${version}.jar</include>
+        					</includes> 
+              				<targetPath>WEB-INF/lib</targetPath> 
+            			</resource> -->
+                    </webResources>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.google.appengine</groupId>
+                <artifactId>appengine-maven-plugin</artifactId>
+                <version>${appengine.target.version}</version>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+        	<plugins>
+        		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+        		<plugin>
+        			<groupId>org.eclipse.m2e</groupId>
+        			<artifactId>lifecycle-mapping</artifactId>
+        			<version>1.0.0</version>
+        			<configuration>
+        				<lifecycleMappingMetadata>
+        					<pluginExecutions>
+        						<pluginExecution>
+        							<pluginExecutionFilter>
+        								<groupId>
+        									org.apache.maven.plugins
+        								</groupId>
+        								<artifactId>
+        									maven-jar-plugin
+        								</artifactId>
+        								<versionRange>
+        									[2.3.1,)
+        								</versionRange>
+        								<goals>
+        									<goal>jar</goal>
+        								</goals>
+        							</pluginExecutionFilter>
+        							<action>
+        								<ignore></ignore>
+        							</action>
+        						</pluginExecution>
+        					</pluginExecutions>
+        				</lifecycleMappingMetadata>
+        			</configuration>
+        		</plugin>
+        	</plugins>
+        </pluginManagement>
+    </build>
+    
+</project>

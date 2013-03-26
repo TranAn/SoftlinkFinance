@@ -1,0 +1,85 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.important {
+			font-weight: bold;
+		}
+		.button {
+			color: White;
+			font-size: 14px;
+			background-color: #cc3333;
+ 		 }
+ 		.label {
+ 			color: Silver;
+		}
+		.notice {
+			padding: 4px 8px;
+			font-weight: bold;
+			background-color: #ffff99;
+	    }
+	    .background{
+	    	background-color: papayawhip;
+		}
+	    
+	    @sprite .mark {
+     		gwt-image: 'mark';
+   	    }
+   	    @sprite .back {
+     		gwt-image: 'back';
+   	    }
+   	    @sprite .refresh {
+     		gwt-image: 'refresh';
+   	    }
+   	     @sprite .print {
+     		gwt-image: 'print';
+   	    }
+   	    @sprite .setting {
+     		gwt-image: 'setting';
+   	    }
+   	    @sprite .delete {
+     		gwt-image: 'delete';
+   	    }
+	</ui:style>
+	
+	<ui:image field='mark' src='../resource/markbutton.png'/>
+	<ui:image field='back' src='../resource/backbutton.png'/>
+	<ui:image field='refresh' src='../resource/refreshbutton.png'/>
+	<ui:image field='print' src='../resource/printbutton.png'/>
+	<ui:image field='setting' src='../resource/settingbutton.png'/>
+	<ui:image field='delete' src='../resource/trashicon.png'/>
+	
+	<g:AbsolutePanel width="100%" height="100" ui:field="toolbar" styleName="{style.background}">
+		<g:at left="28" top="18">
+			<g:Button width="157px" height="36px" text="Request" styleName="{style.button}" ui:field="request"/>
+		</g:at>
+		<g:at left="230" top="30">
+			<g:Label text="- This positon for Menubar or Toolbar" width="250px" height="16px" styleName="{style.label}" ui:field="defaulttitle"/>
+		</g:at>
+		<g:at left="655" top="0">
+			<g:Label styleName="{style.notice}" ui:field="noticelabel"/>
+		</g:at>
+		<g:at left="230" top="52">
+			<g:Button width="69px" height="28px" styleName="{style.mark}" title="Mark Option" ui:field="markbutton"/>
+		</g:at>
+		<g:at left="321" top="52">
+			<g:Button width="69px" height="28px" styleName="{style.back}" title="Back To List" ui:field="backbutton"/>
+		</g:at>
+		<g:at left="411" top="52">
+			<g:Button width="69px" height="28px" styleName="{style.refresh}" title="Refresh" ui:field="refreshbutton"/>
+		</g:at>
+		<g:at left="502" top="52">
+			<g:Button width="69px" height="28px" styleName="{style.print}" title="Print" ui:field="printbutton"/>
+		</g:at>
+		<g:at left="591" top="52">
+			<g:Button width="69px" height="28px" styleName="{style.setting}" title="Table Setting" ui:field="settingbutton"/>
+		</g:at>
+		<g:at left="685" top="52">
+			<g:Button width="69" height="28px" styleName="{style.delete}" title="Delete Request Forever" ui:field="deletebutton"/>
+		</g:at>
+		<g:at left="1126" top="30">
+			<g:Label ui:field="datelabel" text="Time Start" styleName="{style.label}"/>
+		</g:at>
+	</g:AbsolutePanel>
+
+</ui:UiBinder> 

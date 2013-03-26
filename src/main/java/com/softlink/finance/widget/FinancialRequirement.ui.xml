@@ -1,0 +1,89 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:mail='urn:import:com.softlink.finance.widget'>
+
+  <ui:style>
+  .detail {
+    border: 1px solid #666;
+    background-color: white;
+  }
+
+  .header {
+    background: #eee;
+    border: 1px solid #666;
+    padding: 0.5em;
+  }
+  
+  .title {
+  	font-weight: bold;
+  }
+
+  .headerItem {
+    margin-bottom:0.5em;
+  }
+
+  .body {
+    line-height: 150%;
+    padding: 20px 40px 20px 10px;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  .textbox {
+  	color: Silver;
+  }
+  
+  .label {
+  	color: Gray;
+  }
+  
+  </ui:style>
+  
+<g:ScrollPanel width="100%" height="100%">
+  <g:DockLayoutPanel unit='EM' styleName='{style.detail}' ui:field="docklayoutpanel" height="478px" width="99.85%">
+  	<g:north size="2.9">
+  		<g:AbsolutePanel styleName='{style.header}' ui:field="headerpanel">
+  			<g:at left="10" top="10">
+  				<g:Label text="Financial Requirement" styleName="{style.title}"/>
+  			</g:at>
+  			<g:at left="406" top="10">
+  				<g:ListBox width="103px" height="22px" ui:field="amountlist"/>
+  			</g:at>
+  			<g:at left="939" top="10">
+  				<g:TextBox width="170px" height="16px" text="search for request" styleName="{style.textbox}"/>
+  			</g:at>
+  			<g:at left="907" top="10">
+  				<g:Image width="26px" height="28px" url="resource/searchicon.png" title="Search Request"/>
+  			</g:at>
+  			<g:at left="220" top="10">
+  				<g:Hyperlink text="View All" targetHistoryToken="newHistoryToken" ui:field="viewall"/>
+  			</g:at>
+  			<g:at left="276" top="0">
+  				<g:Image url="resource/thumb_vertical.png" width="9px" height="38px"/>
+  			</g:at>
+  			<g:at left="299" top="10">
+  				<g:Label text="Filter:"/>
+  			</g:at>
+  			<g:at left="351" top="10">
+  				<g:Label text="Amount:" styleName="{style.label}"/>
+  			</g:at>
+  			<g:at left="525" top="10">
+  				<g:Label text="Account:" styleName="{style.label}"/>
+  			</g:at>
+  			<g:at left="583" top="10">
+  				<g:ListBox width="103px" height="22px" ui:field="accountlist"/>
+  			</g:at>
+  			<g:at left="705" top="10">
+  				<g:Label text="Currency:" styleName="{style.label}"/>
+  			</g:at>
+  			<g:at left="767" top="10">
+  				<g:ListBox width="79px" height="22px" ui:field="currencylist"/>
+  			</g:at>
+  		</g:AbsolutePanel>
+  	</g:north>
+  	<g:center>
+  		<mail:RequestList/>
+  	</g:center>
+  </g:DockLayoutPanel>
+  </g:ScrollPanel>
+
+</ui:UiBinder>

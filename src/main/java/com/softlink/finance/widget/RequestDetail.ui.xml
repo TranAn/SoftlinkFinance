@@ -1,0 +1,259 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:mail='urn:import:com.softlink.finance.widget' xmlns:w="urn:import:com.google.gwt.widget.client">
+
+  <ui:style>
+  .detail {
+  	border: 0px dotted White;
+  	background-color: white;
+  }
+  
+  .title{
+  	font-weight: bold;
+  }
+
+  .headerItem {
+  	margin-bottom: 0.5em;
+  	font-weight: bold;
+  }
+
+  .body {
+    line-height: 150%;
+    padding: 20px 40px 20px 10px;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  .textbox{
+  	border: White;
+  }
+  
+  .boxchat {
+  	color: Gray;
+  	border: 1px solid Gray;
+  	background-color: White;
+  }
+  
+  .approvebutton{
+  	color: #008000;
+  	margin: 0;
+	padding: 5px 7px;
+	text-decoration: none;
+	cursor: pointer;
+	cursor: hand;
+	font-size: small;
+	background: url("resource/hborder.png") repeat-x 0px -2077px;
+	border: 1px solid #bbb;
+	border-bottom: 1px solid #a0a0a0;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+  }
+  .approvebutton:hover {
+	border-color: #939393;
+  }
+
+  .denybutton{
+  	color: Red;
+  	margin: 0;
+	padding: 5px 7px;
+	text-decoration: none;
+	cursor: pointer;
+	cursor: hand;
+	font-size: small;
+	background: url("resource/hborder.png") repeat-x 0px -2077px;
+	border: 1px solid #bbb;
+	border-bottom: 1px solid #a0a0a0;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+  }
+  .denybutton:hover {
+	border-color: #939393;
+  }
+  
+  .moreinfobutton{
+  	color: blue;
+  	margin: 0;
+	padding: 5px 7px;
+	text-decoration: none;
+	cursor: pointer;
+	cursor: hand;
+	font-size: small;
+	background: url("resource/hborder.png") repeat-x 0px -2077px;
+	border: 1px solid #bbb;
+	border-bottom: 1px solid #a0a0a0;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+  }
+  .moreinfobutton:hover {
+	border-color: #939393;
+  }
+  
+  .taglabel{
+  }
+  
+  .backbutton{
+  	color: Gray;
+  	font-size: 18px;
+  	font-weight: normal;
+  }
+  
+  .headlabel{
+  	color: Black;
+  }
+  
+  .headtaglabel{
+  	color: Black;
+  	font-weight: bold;
+  }
+  
+  </ui:style>
+
+  <g:DockLayoutPanel unit='EM' width="100%" styleName="{style.detail}" height="100%">
+    <g:center>
+    	<g:AbsolutePanel>
+    		<g:at left="10" top="370">
+    			<g:TextBox width="333px" height="13px" ui:field="comment"/>
+    		</g:at>
+    		<g:at left="10" top="193">
+    			<g:Label text="Comment box:" styleName="{style.headerItem}"/>
+    		</g:at>
+    		<g:at left="10" top="46">
+    			<g:Label text="Description:" styleName="{style.headtaglabel}"/>
+    		</g:at>
+    		<g:at left="91" top="46">
+    			<g:Label text="Request for?" width="663px" height="16px" styleName="{style.taglabel}" ui:field="description"/>
+    		</g:at>
+    		<g:at left="10" top="100">
+    			<g:Label text="Account" styleName="{style.headlabel}"/>
+    		</g:at>
+    		<g:at left="217" top="100">
+    			<g:Label text="Currency" styleName="{style.headlabel}"/>
+    		</g:at>
+    		<g:at left="432" top="100">
+    			<g:Label text="Real Amount" styleName="{style.headlabel}"/>
+    		</g:at>
+    		<g:at left="643" top="100">
+    			<g:Label text="Tax Amount" styleName="{style.headlabel}"/>
+    		</g:at>
+    		<g:at left="10" top="122">
+    			<g:Image url="resource/line2.png" width="703px" height="16px"/>
+    		</g:at>
+    		<g:at left="10" top="144">
+    			<g:Label text="Account" width="168px" height="16px" ui:field="account"/>
+    		</g:at>
+    		<g:at left="197" top="144">
+    			<g:Label text="$" width="100px" height="16px" horizontalAlignment="ALIGN_CENTER" ui:field="currency"/>
+    		</g:at>
+    		<g:at left="327" top="144">
+    			<g:Label text="0" width="180px" height="16px" horizontalAlignment="ALIGN_RIGHT" ui:field="real_amount"/>
+    		</g:at>
+    		<g:at left="545" top="144">
+    			<g:Label text="0" width="168px" height="16px" horizontalAlignment="ALIGN_RIGHT" ui:field="tax_amount"/>
+    		</g:at>
+    		<g:at left="432" top="193">
+    			<g:Label text="Relates Infomation:" styleName="tableStyle"/>
+    		</g:at>
+    		<g:at left="432" top="257">
+    			<g:Label text="CustomID:" styleName="{style.headlabel}"/>
+    		</g:at>
+    		<g:at left="499" top="257">
+    			<g:Label text="CUS000" ui:field="cus_id" width="129px" height="16px"/>
+    		</g:at>
+    		<g:at left="432" top="288">
+    			<g:Label text="AssetsID:" styleName="{style.headlabel}"/>
+    		</g:at>
+    		<g:at left="499" top="288">
+    			<g:Label text="ASS000" ui:field="assets_id" width="129px" height="16px"/>
+    		</g:at>
+    		<g:at left="432" top="379">
+    			<g:Label text="Documents:" styleName="{style.headlabel}"/>
+    		</g:at>
+    		<g:at left="508" top="379">
+    			<g:Hyperlink text="relate with documents?" ui:field="document" styleName="textbox" width="205px" height="16px"/>
+    		</g:at>
+    		<g:at left="432" top="350">
+    			<g:Label text="Reference:" styleName="{style.headlabel}"/>
+    		</g:at>
+    		<g:at left="499" top="350">
+    			<g:Label text="relate with someone?" ui:field="reference" width="214px" height="16px"/>
+    		</g:at>
+    		<g:at left="10" top="348">
+    			<g:Label text="Your comment:" ui:field="commentlabel"/>
+    		</g:at>
+    		<g:at left="10" top="10">
+    			<g:Label text="Reporter:" styleName="{style.headerItem}"/>
+    		</g:at>
+    		<g:at left="432" top="227">
+    			<g:Label text="Requester:" styleName="{style.headlabel}"/>
+    		</g:at>
+    		<g:at left="393" top="10">
+    			<g:Label text="Manager:" styleName="{style.headerItem}"/>
+    		</g:at>
+    		<g:at left="77" top="10">
+    			<g:TextBox text="reporter@gmail.com" width="295px" height="14px" styleName="{style.textbox}" ui:field="reporter" readOnly="true"/>
+    		</g:at>
+    		<g:at left="501" top="227">
+    			<g:TextBox width="210px" height="14px" styleName="{style.textbox}" text="requester@gmail.com" ui:field="requester" readOnly="true"/>
+    		</g:at>
+    		<g:at left="459" top="10">
+    			<g:TextBox width="252px" height="14px" styleName="{style.textbox}" text="manager@gmail.com" ui:field="manager" readOnly="true"/>
+    		</g:at>
+    		<g:at left="848" top="46">
+    			<g:Label text="Init Time:" styleName="{style.headlabel}"/>
+    		</g:at>
+    		<g:at left="848" top="80">
+    			<g:Label text="Update Time:" styleName="{style.headlabel}"/>
+    		</g:at>
+    		<g:at left="848" top="109">
+    			<g:Label text="Req Time:" styleName="{style.headlabel}"/>
+    		</g:at>
+    		<g:at left="479" top="115">
+    			<g:Label/>
+    		</g:at>
+    		<g:at left="848" top="141">
+    			<g:Label text="Status:" styleName="{style.headlabel}"/>
+    		</g:at>
+    		<g:at left="907" top="46">
+    			<g:DateLabel ui:field="init_time"/>
+    		</g:at>
+    		<g:at left="931" top="80">
+    			<g:DateLabel ui:field="update_time"/>
+    		</g:at>
+    		<g:at left="913" top="109">
+    			<g:DateLabel ui:field="req_time"/>
+    		</g:at>
+    		<g:at left="895" top="141">
+    			<g:Label text="PENDING" ui:field="status"/>
+    		</g:at>
+    		<g:at left="759" top="363">
+    			<g:Button width="105px" height="32px" text="Approve"  ui:field="approve" styleName="{style.approvebutton}"/>
+    		</g:at>
+    		<g:at left="877" top="363">
+    			<g:Button width="105px" height="32px" text="Deny"  ui:field="deny" styleName="{style.denybutton}"/>
+    		</g:at>
+    		<g:at left="994" top="363">
+    			<g:Button width="105px" height="32px" text="&lt;&lt; More Info"  ui:field="moreinfo" styleName="{style.moreinfobutton}"/>
+    		</g:at>
+    		<g:at left="848" top="10">
+    			<g:Label text="TimeStamp:" styleName="{style.headerItem}"/>
+    		</g:at>
+    		<g:at left="432" top="319">
+    			<g:Label text="Tags:"/>
+    		</g:at>
+    		<g:at left="470" top="319">
+    			<g:Label text="relate with project?" ui:field="tags" width="243px" height="16px"/>
+    		</g:at>
+    		<g:at left="10" top="215">
+    			<g:TextArea width="339px" height="123px" readOnly="true" ui:field="commentbox" styleName="{style.boxchat}"/>
+    		</g:at>
+    	</g:AbsolutePanel>
+    </g:center>
+    <g:north size="3.1">
+    	<g:AbsolutePanel ui:field="header" styleName="header">
+    		<g:at left="10" top="10">
+    			<g:Label text="Request Detail" styleName="{style.title}"/>
+    		</g:at>
+    	</g:AbsolutePanel>
+    </g:north>
+  </g:DockLayoutPanel>
+
+</ui:UiBinder>
