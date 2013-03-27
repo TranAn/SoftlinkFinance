@@ -6,9 +6,12 @@
 	
 	<inherits name="com.softlink.financedatastore.DataStore"/>
 	
-	<entry-point class='com.softlink.finance.client.Financial'/>
+	<entry-point class='com.softlink.finance.client.Finance'/>
+	
 	<source path="client"/>
 	<source path="datastore"/>
 	<source path="services"/>
 	<source path="widget"/>
+	
+	<set-property name="user.agent" value="gecko1_8,safari"/>
 </module>

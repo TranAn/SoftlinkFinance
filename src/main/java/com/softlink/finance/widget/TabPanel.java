@@ -61,9 +61,9 @@ public class TabPanel extends ResizeComposite {
   //Procedure-----------------------------------------------
   public void setNotifyStyle(int newFinancialRequirement, int newDraft) {
 	  if(newFinancialRequirement==0)
-		  financialrequirement.setText("Financial Requirement");
+		  financialrequirement.setText("Finance Requirement");
 	  if(newFinancialRequirement!=0)
-		  financialrequirement.setText("Financial Requirement ("+newFinancialRequirement+")");
+		  financialrequirement.setText("Finance Requirement ("+newFinancialRequirement+")");
 	  if(newDraft==0)
 		  drafts.setText("Drafts");
 	  if(newDraft!=0)

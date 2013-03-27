@@ -75,7 +75,7 @@ public class ERPproject implements EntryPoint {
 		final Button financialButton = new Button();
 		financialButton.setVisible(false);
 		financialButton.setStyleName("sendButton");
-		financialButton.setText("Financial");
+		financialButton.setText("Finance");
 		absolutePanel_1.add(financialButton, 241, 166);
 		financialButton.setSize("111px", "79px");
 		

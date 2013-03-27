@@ -7,7 +7,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.softlink.financedatastore.client.SeriUser;
 
 /**
- * The async counterpart of <code>FinancialRequirements</code>.
+ * The async counterpart of <code>FinanceRequirements</code>.
  */
 public interface SeriUserObjAsync {
 	void insert(SeriUser user, AsyncCallback<Void> callback);

@@ -34,9 +34,9 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
-import com.softlink.finance.datastore.FinancialRequirementsObj;
-import com.softlink.finance.datastore.FinancialRequirementsObjAsync;
-import com.softlink.financedatastore.client.FinancialRequirements;
+import com.softlink.finance.datastore.FinanceRequirementsObj;
+import com.softlink.finance.datastore.FinanceRequirementsObjAsync;
+import com.softlink.financedatastore.client.FinanceRequirements;
 
 /**
  * A composite for displaying the details of an email message.
@@ -45,9 +45,9 @@ public class RequestDetail extends Composite {
 
   interface Binder extends UiBinder<Widget, RequestDetail> { }
   private static final Binder binder = GWT.create(Binder.class);
-  private final static FinancialRequirementsObjAsync FinancialRequirementsObj = 
-			GWT.create(FinancialRequirementsObj.class);
-  private FinancialRequirements item;
+  private final static FinanceRequirementsObjAsync FinancialRequirementsObj = 
+			GWT.create(FinanceRequirementsObj.class);
+  private FinanceRequirements item;
   private boolean isAdmin;
   private String savecomment="";
   @UiField Button approve;
@@ -78,9 +78,9 @@ public class RequestDetail extends Composite {
   private Listener listener;
 	
   public interface Listener {
-	  void onApproveClick(FinancialRequirements item, String comment);
-	  void onDenyClick(FinancialRequirements item, String comment);
-	  void onMoreInfoClick(FinancialRequirements item, String comment);
+	  void onApproveClick(FinanceRequirements item, String comment);
+	  void onDenyClick(FinanceRequirements item, String comment);
+	  void onMoreInfoClick(FinanceRequirements item, String comment);
 	  void onUpdateUserLog();
   }
 	
@@ -107,7 +107,7 @@ public class RequestDetail extends Composite {
 	  savecomment="";
   }
 
-  public void setItem(final FinancialRequirements item) {
+  public void setItem(final FinanceRequirements item) {
 	  this.item = item;
 	  reporter.setText(item.getReporter());
 	  manager.setText(item.getManager());

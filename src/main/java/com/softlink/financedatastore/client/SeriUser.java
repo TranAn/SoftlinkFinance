@@ -1,12 +1,26 @@
 package com.softlink.financedatastore.client;
 
-import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import com.google.gwt.user.client.rpc.IsSerializable;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Ignore;
+import com.googlecode.objectify.annotation.Index;
 
-public class SeriUser implements Serializable{
+@Entity(name="User")
+@Index
+public class SeriUser implements IsSerializable{
+	
+	/**
+	 * 
+	 */
+	@Id 
+	public Long userid;
+	private String username;
+	private String role;
+	private Date timework;
+	@Ignore String doNotPersist;
 	
 	public SeriUser(Long userid, String username, String role, Date timework) {
 		super();
@@ -15,16 +29,7 @@ public class SeriUser implements Serializable{
 		this.role = role;
 		this.timework = timework;
 	}
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	@Id 
-	public Long userid;
-	private String username;
-	private String role;
-	private Date timework;
-	@Transient String doNotPersist;
+
 
 	public SeriUser() {
 	 	super();	

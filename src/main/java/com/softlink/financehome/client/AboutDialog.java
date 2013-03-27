@@ -39,7 +39,7 @@ public class AboutDialog extends DialogBox {
   
   public AboutDialog() {
     // Use this opportunity to set the dialog's caption.
-    setText("About the Financial Module");
+    setText("About the Finance Module");
     setWidget(binder.createAndBindUi(this));
 
     setAnimationEnabled(true);

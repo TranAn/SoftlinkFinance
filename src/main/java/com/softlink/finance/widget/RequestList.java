@@ -36,22 +36,22 @@ import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.SelectionModel;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.softlink.finance.datastore.FinancialRequirementsObj;
-import com.softlink.finance.datastore.FinancialRequirementsObjAsync;
-import com.softlink.financedatastore.client.FinancialRequirements;
+import com.softlink.finance.datastore.FinanceRequirementsObj;
+import com.softlink.finance.datastore.FinanceRequirementsObjAsync;
+import com.softlink.financedatastore.client.FinanceRequirements;
 
 public class RequestList extends Composite {
 
 	interface Binder extends UiBinder<DockLayoutPanel, RequestList> { }
 	private static final Binder binder = GWT.create(Binder.class);
-	private final static FinancialRequirementsObjAsync FinancialRequirementsObj = 
-			GWT.create(FinancialRequirementsObj.class);
-	@UiField(provided=true) CellTable<FinancialRequirements> cellTable = new 
-			CellTable<FinancialRequirements>();
+	private final static FinanceRequirementsObjAsync FinancialRequirementsObj = 
+			GWT.create(FinanceRequirementsObj.class);
+	@UiField(provided=true) CellTable<FinanceRequirements> cellTable = new 
+			CellTable<FinanceRequirements>();
 	@UiField(provided=true) SimplePager pager;
-	private List<FinancialRequirements> list_fr = new ArrayList<FinancialRequirements>();
-	private List<FinancialRequirements> list_selectedfr = new ArrayList<FinancialRequirements>();
-	private FinancialRequirements selected_fr = null;
+	private List<FinanceRequirements> list_fr = new ArrayList<FinanceRequirements>();
+	private List<FinanceRequirements> list_selectedfr = new ArrayList<FinanceRequirements>();
+	private FinanceRequirements selected_fr = null;
 	private Timer elapsedTimer = null;
 	private Listener listener;
 	private Date UserLog;
@@ -63,8 +63,8 @@ public class RequestList extends Composite {
 	//Inner Function-----------------------------------------------
 	public void setNotifyStyle(final int newFinancialRequirement, Date updateUserLog){
 		UserLog = updateUserLog;
-		 cellTable.setRowStyles(new RowStyles<FinancialRequirements>() {
-			public String getStyleNames(FinancialRequirements row, int rowIndex) {
+		 cellTable.setRowStyles(new RowStyles<FinanceRequirements>() {
+			public String getStyleNames(FinanceRequirements row, int rowIndex) {
 				if((row.getStatus().equals("APPROVED"))&&(rowIndex+1>newFinancialRequirement))
 					return "approvedRowStyle";
 				if((row.getStatus().equals("DENIED"))&&(rowIndex+1>newFinancialRequirement))
@@ -82,7 +82,7 @@ public class RequestList extends Composite {
 	}
 	
 	public interface Listener {
-		void onTableSelected(FinancialRequirements requestselected);
+		void onTableSelected(FinanceRequirements requestselected);
 		void onLoadDataFail();
 		void onLoadComplete();
 		void onDataNotFound();
@@ -96,11 +96,11 @@ public class RequestList extends Composite {
 	    this.listener = listener;
 	}
 	
-	public void RemoveItem(FinancialRequirements item) {
+	public void RemoveItem(FinanceRequirements item) {
 		list_fr.remove(item);
 	}
 	
-	public FinancialRequirements getSelectedfr() {
+	public FinanceRequirements getSelectedfr() {
 		return selected_fr;
 	}
 	
@@ -138,13 +138,13 @@ public class RequestList extends Composite {
 
 	private void getData(){
 		 FinancialRequirementsObj.list_fr(
-	    		 new AsyncCallback<List<FinancialRequirements>>() {
+	    		 new AsyncCallback<List<FinanceRequirements>>() {
 	    	 public void onFailure(Throwable caught) {
 	    		 cellTable.setTitle("Load Data Fail");
 	    		 if(listener!=null)
 	    			 listener.onLoadDataFail();
 			 }
-			 public void onSuccess(List<FinancialRequirements> result) {
+			 public void onSuccess(List<FinanceRequirements> result) {
 				 if(listener!=null)
 					 listener.onLoadComplete();
 				 if(result.isEmpty()) {
@@ -162,20 +162,20 @@ public class RequestList extends Composite {
 	
 	private void getNewData() {
 		FinancialRequirementsObj.list_newfr(list_fr.get(0),
- 	    		 new AsyncCallback<List<FinancialRequirements>>() {
+ 	    		 new AsyncCallback<List<FinanceRequirements>>() {
  	    	 public void onFailure(Throwable caught) {
  	    		 cellTable.setTitle("Update Data Fail");
  	    		 if(listener!=null)
 	    			 listener.onLoadDataFail();
  			 }
-			 public void onSuccess(List<FinancialRequirements> result) {
-	  			 for(FinancialRequirements fr: result) {
+			 public void onSuccess(List<FinanceRequirements> result) {
+	  			 for(FinanceRequirements fr: result) {
 	  				 if(fr.getStatus().equals("PENDING"))
 	  					 list_fr.add(0,fr);
 	  				 if(fr.getStatus().equals("APPROVED")||
 	  						 fr.getStatus().equals("DENIED")) {
 	  					 Long id = fr.getRequest_id();
-	  					 for(FinancialRequirements oldfr: list_fr)
+	  					 for(FinanceRequirements oldfr: list_fr)
 	  						 if(oldfr.getRequest_id().equals(id))
 	  							 list_fr.remove(oldfr);
 	  					 list_fr.add(0,fr);
@@ -183,7 +183,7 @@ public class RequestList extends Composite {
 	  				 if(fr.getStatus().equals("DRAFT")||
 	  						 fr.getStatus().equals("DELETED")) {
 	  					Long id = fr.getRequest_id();
-	  					for(FinancialRequirements oldfr: list_fr)
+	  					for(FinanceRequirements oldfr: list_fr)
 	  						if(oldfr.getRequest_id().equals(id))
 	  							list_fr.remove(oldfr);
 	  				 }
@@ -206,36 +206,36 @@ public class RequestList extends Composite {
 		
 		initWidget(binder.createAndBindUi(this));
 		
-		final SelectionModel<FinancialRequirements> selectionModel = new 
-				MultiSelectionModel<FinancialRequirements>();
+		final SelectionModel<FinanceRequirements> selectionModel = new 
+				MultiSelectionModel<FinanceRequirements>();
 		cellTable.setSelectionModel(selectionModel,
-		        DefaultSelectionEventManager.<FinancialRequirements> createCheckboxManager());
+		        DefaultSelectionEventManager.<FinanceRequirements> createCheckboxManager());
 		
-		final Column<FinancialRequirements, Boolean> checkColumn = 
-				new Column<FinancialRequirements, Boolean>(
+		final Column<FinanceRequirements, Boolean> checkColumn = 
+				new Column<FinanceRequirements, Boolean>(
 		        new CheckboxCell(true, false)) {
 		      @Override
-		      public Boolean getValue(FinancialRequirements object) { 
+		      public Boolean getValue(FinanceRequirements object) { 
 		    	  return selectionModel.isSelected(object);
 			  }
 		    };
 		cellTable.addColumn(checkColumn, SafeHtmlUtils.fromSafeConstant("<br/>"));
 		cellTable.setColumnWidth(checkColumn,"5%");
 		
-		final TextColumn<FinancialRequirements> ReporterColumn = new 
-				TextColumn<FinancialRequirements>() {
+		final TextColumn<FinanceRequirements> ReporterColumn = new 
+				TextColumn<FinanceRequirements>() {
 			@Override
-		    public String getValue(FinancialRequirements object) {
+		    public String getValue(FinanceRequirements object) {
 				return object.getReporter();
 		    }
 		};
 		cellTable.addColumn(ReporterColumn, "Reporter");
 		cellTable.setColumnWidth(ReporterColumn,"20%");
 		
-		final TextColumn<FinancialRequirements> DescriptionColumn = new 
-				TextColumn<FinancialRequirements>() {
+		final TextColumn<FinanceRequirements> DescriptionColumn = new 
+				TextColumn<FinanceRequirements>() {
 			@Override
-			public String getValue(FinancialRequirements object) {
+			public String getValue(FinanceRequirements object) {
 				if (object.getDescription().length()<=65)
 					return object.getDescription();
 				return object.getDescription().substring(0, 65)+" . . .";
@@ -244,10 +244,10 @@ public class RequestList extends Composite {
 		cellTable.addColumn(DescriptionColumn, "Description");
 		cellTable.setColumnWidth(DescriptionColumn,"45%");
 		
-		final Column<FinancialRequirements, Date> Update_TimeColumn = new 
-		    		Column<FinancialRequirements, Date>(new DateCell()) {
+		final Column<FinanceRequirements, Date> Update_TimeColumn = new 
+		    		Column<FinanceRequirements, Date>(new DateCell()) {
 		      @Override
-		      public Date getValue(FinancialRequirements object) {
+		      public Date getValue(FinanceRequirements object) {
 		        return object.getUpdate_time();
 		      }
 		    };
@@ -255,19 +255,19 @@ public class RequestList extends Composite {
 	    cellTable.addColumn(Update_TimeColumn, "Update_Time");
 	    cellTable.setColumnWidth(Update_TimeColumn,"20%");
 		    
-	    final TextColumn<FinancialRequirements> StatusColumn = new 
-	    		TextColumn<FinancialRequirements>() {
+	    final TextColumn<FinanceRequirements> StatusColumn = new 
+	    		TextColumn<FinanceRequirements>() {
 			@Override
-			public String getValue(FinancialRequirements object) {
+			public String getValue(FinanceRequirements object) {
 				return object.getStatus();
 			}
 		};
 		cellTable.addColumn(StatusColumn, "Status");
 		cellTable.setColumnWidth(StatusColumn,"10%");
 			
-		cellTable.addCellPreviewHandler(new Handler<FinancialRequirements>(){
+		cellTable.addCellPreviewHandler(new Handler<FinanceRequirements>(){
 			public void onCellPreview(
-					CellPreviewEvent<FinancialRequirements> event) {
+					CellPreviewEvent<FinanceRequirements> event) {
 				if (BrowserEvents.CLICK.equals(event.getNativeEvent().getType())) {
 					if(event.getColumn()!=0){
 						selected_fr = event.getValue();
@@ -280,7 +280,7 @@ public class RequestList extends Composite {
 												listener.onUpdateUserLog();
 										}	
 							});
-						FinancialRequirements requestselected = event.getValue();
+						FinanceRequirements requestselected = event.getValue();
 				        if (requestselected != null) {	        	
 				        	if (listener != null) 
 				        		listener.onTableSelected(requestselected);			        		        
@@ -296,8 +296,8 @@ public class RequestList extends Composite {
 			}
 		});
 		    
-	    cellTable.setRowStyles(new RowStyles<FinancialRequirements>() {
-			public String getStyleNames(FinancialRequirements row, int rowIndex) {
+	    cellTable.setRowStyles(new RowStyles<FinanceRequirements>() {
+			public String getStyleNames(FinanceRequirements row, int rowIndex) {
 				if(row.getStatus().equals("APPROVED"))
 					return "approvedRowStyle";
 				if(row.getStatus().equals("DENIED"))
@@ -307,14 +307,14 @@ public class RequestList extends Composite {
 		});
 		
 		// Create a data provider.
-	    final ListDataProvider<FinancialRequirements> dataProvider = new 
-			 ListDataProvider<FinancialRequirements>();
+	    final ListDataProvider<FinanceRequirements> dataProvider = new 
+			 ListDataProvider<FinanceRequirements>();
 		 
-		ListHandler<FinancialRequirements> columnSortHandler = 
-		    		new ListHandler<FinancialRequirements>(list_fr);
-		columnSortHandler.setComparator(Update_TimeColumn, new Comparator<FinancialRequirements>() {
+		ListHandler<FinanceRequirements> columnSortHandler = 
+		    		new ListHandler<FinanceRequirements>(list_fr);
+		columnSortHandler.setComparator(Update_TimeColumn, new Comparator<FinanceRequirements>() {
 		      @Override
-		      public int compare(FinancialRequirements o1, FinancialRequirements o2) {		    	  
+		      public int compare(FinanceRequirements o1, FinanceRequirements o2) {		    	  
 		    	  return o1.getUpdate_time().compareTo(o2.getUpdate_time());	    	  
 		      }
 		});
@@ -352,7 +352,7 @@ public class RequestList extends Composite {
 	void onDeleteClick(ClickEvent event) {
 		if(list_selectedfr.isEmpty()==false)
 			if(Window.confirm("All denied request selected will be delete, are you sure to do that?")==true)
-				for(final FinancialRequirements fr: list_selectedfr) {
+				for(final FinanceRequirements fr: list_selectedfr) {
 					final Date date = new Date(System.currentTimeMillis());
 					if(fr.getStatus().equals("DENIED"))
 						FinancialRequirementsObj.approveRequest(fr, "DELETED", date, "", 

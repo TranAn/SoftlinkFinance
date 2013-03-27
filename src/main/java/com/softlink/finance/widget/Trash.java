@@ -35,24 +35,24 @@ import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.SelectionModel;
 import com.google.gwt.user.client.ui.ScrollPanel;
-import com.softlink.finance.datastore.FinancialRequirementsObj;
-import com.softlink.finance.datastore.FinancialRequirementsObjAsync;
-import com.softlink.financedatastore.client.FinancialRequirements;
+import com.softlink.finance.datastore.FinanceRequirementsObj;
+import com.softlink.finance.datastore.FinanceRequirementsObjAsync;
+import com.softlink.financedatastore.client.FinanceRequirements;
 
 public class Trash extends Composite {
 
 	interface Binder extends UiBinder<Widget, Trash> {}
 	private static final Binder binder = GWT.create(Binder.class);
 	
-	private final static FinancialRequirementsObjAsync FinancialRequirementsObj = 
-			GWT.create(FinancialRequirementsObj.class);
+	private final static FinanceRequirementsObjAsync FinancialRequirementsObj = 
+			GWT.create(FinanceRequirementsObj.class);
 	private ToolBarPanel toolbar;
-	@UiField(provided=true) CellTable<FinancialRequirements> cellTable = new 
-			CellTable<FinancialRequirements>();
+	@UiField(provided=true) CellTable<FinanceRequirements> cellTable = new 
+			CellTable<FinanceRequirements>();
 	@UiField(provided=true) SimplePager pager;
-	private List<FinancialRequirements> list_fr = new ArrayList<FinancialRequirements>();
-	private List<FinancialRequirements> list_selectedfr = new ArrayList<FinancialRequirements>();
-	private FinancialRequirements selectedfr = null;
+	private List<FinanceRequirements> list_fr = new ArrayList<FinanceRequirements>();
+	private List<FinanceRequirements> list_selectedfr = new ArrayList<FinanceRequirements>();
+	private FinanceRequirements selectedfr = null;
 	private Timer elapsedTimer = null;
 	private RequestDetail requestdetail =  new RequestDetail();
 	private AbsolutePanel panel = new AbsolutePanel();
@@ -119,12 +119,12 @@ public class Trash extends Composite {
 	
 	private void getData(){
 		 FinancialRequirementsObj.list_trashfr(
-	    		 new AsyncCallback<List<FinancialRequirements>>() {
+	    		 new AsyncCallback<List<FinanceRequirements>>() {
 	    	 public void onFailure(Throwable caught) {
 	    		 toolbar.setVisibleNotice();
 				 toolbar.setTextNotice("Load failure, the connetion has been interupt!");
 			 }
-			 public void onSuccess(List<FinancialRequirements> result) { 
+			 public void onSuccess(List<FinanceRequirements> result) { 
 				 toolbar.setHideNotice();
 				 if(result.isEmpty()) {
 					 table.remove(cellTable);
@@ -140,15 +140,15 @@ public class Trash extends Composite {
 	}
 	
 //	private void getNewData() {
-//		FinancialRequirementsObj.list_newtrashfr(list_fr.get(0),
-// 	    		 new AsyncCallback<List<FinancialRequirements>>() {
+//		FinanceRequirementsObj.list_newtrashfr(list_fr.get(0),
+// 	    		 new AsyncCallback<List<FinanceRequirements>>() {
 // 	    	 public void onFailure(Throwable caught) {
 // 	    		toolbar.setVisibleNotice();
 //				toolbar.setTextNotice("Load failure, the connetion has been interupt!");
 // 			 }
-//			 public void onSuccess(List<FinancialRequirements> result) {
+//			 public void onSuccess(List<FinanceRequirements> result) {
 //				 toolbar.setHideNotice();
-//	  			 for(FinancialRequirements fr: result)   				
+//	  			 for(FinanceRequirements fr: result)   				
 //	  				 list_fr.add(0,fr);
 //	  		 }
 // 		 });
@@ -168,46 +168,46 @@ public class Trash extends Composite {
 		initWidget(binder.createAndBindUi(this));
 		this.toolbar = toolbar;
 		
-		final SelectionModel<FinancialRequirements> selectionModel = new 
-				MultiSelectionModel<FinancialRequirements>();
+		final SelectionModel<FinanceRequirements> selectionModel = new 
+				MultiSelectionModel<FinanceRequirements>();
 		cellTable.setSelectionModel(selectionModel,
-		        DefaultSelectionEventManager.<FinancialRequirements> createCheckboxManager());
+		        DefaultSelectionEventManager.<FinanceRequirements> createCheckboxManager());
 		
-		final Column<FinancialRequirements, Boolean> checkColumn = 
-				new Column<FinancialRequirements, Boolean>(
+		final Column<FinanceRequirements, Boolean> checkColumn = 
+				new Column<FinanceRequirements, Boolean>(
 		        new CheckboxCell(true, false)) {
 		      @Override
-		      public Boolean getValue(FinancialRequirements object) { 
+		      public Boolean getValue(FinanceRequirements object) { 
 		    	  return selectionModel.isSelected(object);
 			  }
 		    };
 		cellTable.addColumn(checkColumn, SafeHtmlUtils.fromSafeConstant("<br/>"));
 		cellTable.setColumnWidth(checkColumn,"5%");
 		
-		final TextColumn<FinancialRequirements> RequestIDColumn = new 
-				TextColumn<FinancialRequirements>() {
+		final TextColumn<FinanceRequirements> RequestIDColumn = new 
+				TextColumn<FinanceRequirements>() {
 			@Override
-		    public String getValue(FinancialRequirements object) {
+		    public String getValue(FinanceRequirements object) {
 				return String.valueOf(object.getRequest_id());
 		    }
 		};
 		cellTable.addColumn(RequestIDColumn, "Request ID");
 		cellTable.setColumnWidth(RequestIDColumn,"10%");
 		
-		final TextColumn<FinancialRequirements> ReporterColumn = new 
-				TextColumn<FinancialRequirements>() {
+		final TextColumn<FinanceRequirements> ReporterColumn = new 
+				TextColumn<FinanceRequirements>() {
 			@Override
-			public String getValue(FinancialRequirements object) {
+			public String getValue(FinanceRequirements object) {
 				return object.getReporter();
 			}
 		};
 		cellTable.addColumn(ReporterColumn, "Reporter");
 		cellTable.setColumnWidth(ReporterColumn,"15%");
 		
-		final TextColumn<FinancialRequirements> DescriptionColumn = new 
-				TextColumn<FinancialRequirements>() {
+		final TextColumn<FinanceRequirements> DescriptionColumn = new 
+				TextColumn<FinanceRequirements>() {
 			@Override
-			public String getValue(FinancialRequirements object) {
+			public String getValue(FinanceRequirements object) {
 				if (object.getDescription().length()<=51)
 					return object.getDescription();
 				return object.getDescription().substring(0, 51)+" . . .";
@@ -216,10 +216,10 @@ public class Trash extends Composite {
 		cellTable.addColumn(DescriptionColumn, "Description");
 		cellTable.setColumnWidth(DescriptionColumn,"35%");
 		
-		final Column<FinancialRequirements, Date> Update_TimeColumn = new 
-		    		Column<FinancialRequirements, Date>(new DateCell()) {
+		final Column<FinanceRequirements, Date> Update_TimeColumn = new 
+		    		Column<FinanceRequirements, Date>(new DateCell()) {
 		      @Override
-		      public Date getValue(FinancialRequirements object) {
+		      public Date getValue(FinanceRequirements object) {
 		        return object.getUpdate_time();
 		      }
 		    };
@@ -227,19 +227,19 @@ public class Trash extends Composite {
 	    cellTable.addColumn(Update_TimeColumn, "Update_Time");
 	    cellTable.setColumnWidth(Update_TimeColumn,"25%");
 		    
-	    final TextColumn<FinancialRequirements> StatusColumn = new 
-	    		TextColumn<FinancialRequirements>() {
+	    final TextColumn<FinanceRequirements> StatusColumn = new 
+	    		TextColumn<FinanceRequirements>() {
 			@Override
-			public String getValue(FinancialRequirements object) {
+			public String getValue(FinanceRequirements object) {
 				return object.getStatus();
 			}
 		};
 		cellTable.addColumn(StatusColumn, "Status");
 		cellTable.setColumnWidth(StatusColumn,"10%");
 			
-		cellTable.addCellPreviewHandler(new Handler<FinancialRequirements>(){
+		cellTable.addCellPreviewHandler(new Handler<FinanceRequirements>(){
 			public void onCellPreview(
-					CellPreviewEvent<FinancialRequirements> event) {
+					CellPreviewEvent<FinanceRequirements> event) {
 				if (BrowserEvents.CLICK.equals(event.getNativeEvent().getType())) {
 					if(event.getColumn()!=0){
 						selectedfr = event.getValue();
@@ -259,21 +259,21 @@ public class Trash extends Composite {
 			}
 		});
 		    
-	    cellTable.setRowStyles(new RowStyles<FinancialRequirements>() {
-			public String getStyleNames(FinancialRequirements row, int rowIndex) {
+	    cellTable.setRowStyles(new RowStyles<FinanceRequirements>() {
+			public String getStyleNames(FinanceRequirements row, int rowIndex) {
 				return null;
 			}
 		});
 		
 		// Create a data provider.
-	    final ListDataProvider<FinancialRequirements> dataProvider = new 
-			 ListDataProvider<FinancialRequirements>();
+	    final ListDataProvider<FinanceRequirements> dataProvider = new 
+			 ListDataProvider<FinanceRequirements>();
 		 
-		ListHandler<FinancialRequirements> columnSortHandler = 
-		    		new ListHandler<FinancialRequirements>(list_fr);
-		columnSortHandler.setComparator(Update_TimeColumn, new Comparator<FinancialRequirements>() {
+		ListHandler<FinanceRequirements> columnSortHandler = 
+		    		new ListHandler<FinanceRequirements>(list_fr);
+		columnSortHandler.setComparator(Update_TimeColumn, new Comparator<FinanceRequirements>() {
 		      @Override
-		      public int compare(FinancialRequirements o1, FinancialRequirements o2) {		    	  
+		      public int compare(FinanceRequirements o1, FinanceRequirements o2) {		    	  
 		    	  return o1.getUpdate_time().compareTo(o2.getUpdate_time());    	  
 		      }
 		});
@@ -305,7 +305,7 @@ public class Trash extends Composite {
 				final Date date = new Date(System.currentTimeMillis());
 				if(list_selectedfr.isEmpty()==false)
 					if(Window.confirm("Do you want to restore all selected request?"))
-						for(final FinancialRequirements fr: list_selectedfr)
+						for(final FinanceRequirements fr: list_selectedfr)
 							FinancialRequirementsObj.approveRequest(fr, "DENIED", date, "", 
 									new AsyncCallback<Void>() {
 								@Override
@@ -331,7 +331,7 @@ public class Trash extends Composite {
 			public void onDeleteButtonClick() {
 				if(list_selectedfr.isEmpty()==false)
 					if(Window.confirm("Do you want to remove all selected request?"))
-						for(final FinancialRequirements fr: list_selectedfr)
+						for(final FinanceRequirements fr: list_selectedfr)
 							FinancialRequirementsObj.delete(fr, new AsyncCallback<Void>() {
 								@Override
 								public void onFailure(Throwable caught) {

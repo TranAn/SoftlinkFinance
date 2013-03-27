@@ -6,6 +6,7 @@
     <version>0.9</version>
   </parent>
   <artifactId>finance</artifactId>
+  <packaging>war</packaging>
   
     <properties>
         <appengine.app.version>finance</appengine.app.version>
@@ -45,28 +46,34 @@
         </dependency>
         
 		<!-- Project modules dependencies -->
-      	<!-- <dependency>
+      	<dependency>
         	<groupId>com.softlink</groupId>
         	<artifactId>common</artifactId>
         	<version>0.9</version>
         	<scope>provided</scope>
-      	</dependency> -->
-      	<dependency>
+      	</dependency>
+      	<!-- <dependency>
         	<groupId>com.googlecode</groupId>
         	<artifactId>objectify</artifactId>
         	<version>3.0</version>
-        	<!-- <scope>provided</scope>  -->
         	<type>jar</type>
         	<scope>system</scope>
         	<systemPath>${basedir}/../libs/objectify-3.0.jar</systemPath>
-      	</dependency>
+      	</dependency> -->
       	
-      	<!-- <dependency>
+      	<dependency>
       		<groupId>com.googlecode.objectify</groupId>
       		<artifactId>objectify</artifactId>
       		<version>4.0b1</version>
       		<scope>provided</scope>
-    	</dependency>-->
+    	</dependency>
+    	
+    	<dependency>
+      		<groupId>com.googlecode.objectify</groupId>
+      		<artifactId>objectify</artifactId>
+      		<version>4.0b1</version>
+      		<scope>runtime</scope>
+    	</dependency>
       	<!-- Test Dependencies -->
         <dependency>
             <groupId>junit</groupId>

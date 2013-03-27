@@ -27,13 +27,13 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
-import com.softlink.finance.datastore.FinancialRequirementsObj;
-import com.softlink.finance.datastore.FinancialRequirementsObjAsync;
+import com.softlink.finance.datastore.FinanceRequirementsObj;
+import com.softlink.finance.datastore.FinanceRequirementsObjAsync;
 import com.softlink.finance.services.MailServices;
 import com.softlink.finance.services.MailServicesAsync;
 import com.softlink.finance.services.UserServices;
 import com.softlink.finance.services.UserServicesAsync;
-import com.softlink.financedatastore.client.FinancialRequirements;
+import com.softlink.financedatastore.client.FinanceRequirements;
 import com.softlink.financedatastore.client.SeriUser;
 
 public class RequestDialog extends DialogBox{
@@ -42,8 +42,8 @@ public class RequestDialog extends DialogBox{
 	private static final Binder binder = GWT.create(Binder.class);
 	private final static UserServicesAsync userservices = 
 			  GWT.create(UserServices.class);
-	private final FinancialRequirementsObjAsync FinancialRequirementsObj = GWT
-			  .create(FinancialRequirementsObj.class);
+	private final FinanceRequirementsObjAsync FinancialRequirementsObj = GWT
+			  .create(FinanceRequirementsObj.class);
 	private final MailServicesAsync MailServices = GWT
 			  .create(MailServices.class);
 	
@@ -246,7 +246,7 @@ public class RequestDialog extends DialogBox{
 	@UiHandler("sendrequest")
 	void onSendrequestClick(ClickEvent event) {
 		if(VerifyField()) {
-			FinancialRequirements fr = new FinancialRequirements();
+			FinanceRequirements fr = new FinanceRequirements();
 			fr.setReporter(reporter.getText());
 			fr.setRequester(requester.getText());
 			fr.setManager(manager.getValue(manager.getSelectedIndex()));
@@ -279,7 +279,7 @@ public class RequestDialog extends DialogBox{
 			final String fromAddress = reporter.getText();
 			final String toAddress = manager.getValue(manager.getSelectedIndex());
 			final String subject = "ITPRO-New Request # real_amount: "+real_amount.getText()+fr.getCurrency()+", tax_amount: "+tax_amount.getText()+fr.getCurrency()+" # for "+description.getText();
-			final String url = Window.Location.getHost()+"/financial/#Financial%20Requirement";
+			final String url = Window.Location.getHost()+"/financial/#Finance%20Requirement";
 			final String msgBody = "see Detail: "
 					  +"\r\n "+url;
 			FinancialRequirementsObj.insert(fr, new AsyncCallback<Void>() {
@@ -341,7 +341,7 @@ public class RequestDialog extends DialogBox{
 	
 	@UiHandler("draft")
 	void onDraftClick(ClickEvent event) {
-		FinancialRequirements fr = new FinancialRequirements();
+		FinanceRequirements fr = new FinanceRequirements();
 		fr.setReporter(reporter.getText());
 		fr.setRequester(requester.getText());
 		fr.setManager(manager.getValue(manager.getSelectedIndex()));
