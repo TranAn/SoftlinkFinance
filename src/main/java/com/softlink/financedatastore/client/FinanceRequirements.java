@@ -12,31 +12,6 @@ import com.googlecode.objectify.annotation.Index;
 @Index
 public class FinanceRequirements implements IsSerializable{
 	
-	/**
-	 * 
-	 */
-	@Id 
-	 public Long request_id;
-	 private Long cus_id;	
-	 private Long assets_id;
-	 private Date init_time;
-	 private Date req_time;
-	 private Date update_time;
-	 private int real_amount;
-	 private int tax_amount;
-	 private String reporter;
-	 private String requester;
-	 private String manager;
-	 private String status;
-	 private String comment;
-	 private String document;
-	 private String refference;
-	 private String tags;
-	 private String account;
-	 private String currency;
-	 private String description;
-	 @Ignore String doNotPersist;
-	
 	public FinanceRequirements(Long request_id, Long cus_id, Long assets_id,
 			Date init_time, Date req_time, Date update_time, int real_amount,
 			int tax_amount, String reporter, String requester, String manager,
@@ -63,6 +38,30 @@ public class FinanceRequirements implements IsSerializable{
 		this.currency = currency;
 		this.description = description;
 	}
+	/**
+	 * 
+	 */
+	@Id 
+	 public Long request_id;
+	 private Long cus_id;	
+	 private Long assets_id;
+	 private Date init_time;
+	 private Date req_time;
+	 private Date update_time;
+	 private int real_amount;
+	 private int tax_amount;
+	 private String reporter;
+	 private String requester;
+	 private String manager;
+	 private String status;
+	 private String comment;
+	 private String document;
+	 private String refference;
+	 private String tags;
+	 private String account;
+	 private String currency;
+	 private String description;
+	@Ignore String doNotPersist;
 
 	 public FinanceRequirements() {
 	 	super();	

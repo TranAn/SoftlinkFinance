@@ -237,7 +237,7 @@ public class Finance implements EntryPoint {
 		        	  trash.stop();
 		        	  tabPanel.openStack(2);
 		        	  tabPanel.setStaticExpensesStyle();
-		          } if (historyToken.equals("Finance Requirement")) {
+		          } if (historyToken.equals("Financial Requirement")) {
 		        	  dockLayoutPanel.clear();
 		        	  dockLayoutPanel.add(financialRequirement);
 		        	  toolbarpanel.setFinancialRequirementToolBar();

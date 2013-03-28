@@ -8,10 +8,17 @@ import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Index;
 
-@Entity(name="User")
+@Entity
 @Index
 public class SeriUser implements IsSerializable{
 	
+	public SeriUser(Long userid, String username, String role, Date timework) {
+		super();
+		this.userid = userid;
+		this.username = username;
+		this.role = role;
+		this.timework = timework;
+	}
 	/**
 	 * 
 	 */
@@ -21,15 +28,6 @@ public class SeriUser implements IsSerializable{
 	private String role;
 	private Date timework;
 	@Ignore String doNotPersist;
-	
-	public SeriUser(Long userid, String username, String role, Date timework) {
-		super();
-		this.userid = userid;
-		this.username = username;
-		this.role = role;
-		this.timework = timework;
-	}
-
 
 	public SeriUser() {
 	 	super();	

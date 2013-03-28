@@ -10,10 +10,10 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.ResizeComposite;
 import com.google.gwt.user.client.ui.Widget;
 import com.softlink.finance.datastore.FinanceRequirementsObj;
 import com.softlink.finance.datastore.FinanceRequirementsObjAsync;
@@ -21,7 +21,7 @@ import com.softlink.finance.services.UserServices;
 import com.softlink.finance.services.UserServicesAsync;
 import com.softlink.financedatastore.client.FinanceRequirements;
 
-public class FinanceRequirement extends ResizeComposite {
+public class FinanceRequirement extends Composite {
 	
 	interface Binder extends UiBinder<Widget, FinanceRequirement> { }
 	private static final Binder binder = GWT.create(Binder.class);

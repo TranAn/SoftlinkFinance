@@ -1,6 +1,5 @@
 package com.softlink.finance.server;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,6 +11,8 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.softlink.finance.datastore.FinanceRequirementsObj;
 import com.softlink.financedatastore.client.FinanceRequirements;
 import com.softlink.financedatastore.client.SeriUser;
+
+import static com.googlecode.objectify.ObjectifyService.ofy;
 
 /**
  * The server side implementation of the RPC service.
@@ -173,7 +174,9 @@ public class FinanceRequirementsObjImpl extends RemoteServiceServlet implements
 		List<SeriUser> q = ofy().load().type(SeriUser.class)
 				.filter("username", getUserName())
 				.list();
-		if(q.isEmpty())
+		List<SeriUser> l = new ArrayList<SeriUser>();
+		l.addAll(q);
+		if(l.isEmpty())
 			return null;
 		else {
 			if(checkUserAdminRole()) {
@@ -182,33 +185,37 @@ public class FinanceRequirementsObjImpl extends RemoteServiceServlet implements
 						.filter("update_time >", q.get(0).getTimework())
 						.order("update_time")
 						.list();
+				List<FinanceRequirements> l1 = new ArrayList<FinanceRequirements>();
+				l1.addAll(q1);
 				List<FinanceRequirements> q2 = ofy().load().type(FinanceRequirements.class)
 						.filter("reporter", getUserName())
 						.filter("status", "DRAFT")
 						.filter("update_time >", q.get(0).getTimework())
 						.order("update_time")
 						.list();
-				List<FinanceRequirements> l = new ArrayList<FinanceRequirements>();
-				if(q1.isEmpty()==false&&q2.isEmpty()==false) {
-					if(q1.get(0).getUpdate_time().after(q2.get(0).getUpdate_time())){
-						for(FinanceRequirements fr: q2)
-							l.add(fr);
-						for(FinanceRequirements fr: q1)
-							l.add(fr);
+				List<FinanceRequirements> l2 = new ArrayList<FinanceRequirements>();
+				l2.addAll(q2);
+				List<FinanceRequirements> l3 = new ArrayList<FinanceRequirements>();
+				if(l1.isEmpty()==false&&l2.isEmpty()==false) {
+					if(l1.get(0).getUpdate_time().after(l2.get(0).getUpdate_time())){
+						for(FinanceRequirements fr: l2)
+							l3.add(fr);
+						for(FinanceRequirements fr: l1)
+							l3.add(fr);
 					} else {
-						for(FinanceRequirements fr: q1)
-							l.add(fr);
-						for(FinanceRequirements fr: q2)
-							l.add(fr);
+						for(FinanceRequirements fr: l1)
+							l3.add(fr);
+						for(FinanceRequirements fr: l2)
+							l3.add(fr);
 					}
 				}
-				if(q2.isEmpty())
-					for(FinanceRequirements fr: q1)
-						l.add(fr);
-				if(q1.isEmpty())
-					for(FinanceRequirements fr: q2)
-						l.add(fr);
-				return l;
+				if(l2.isEmpty())
+					for(FinanceRequirements fr: l1)
+						l3.add(fr);
+				if(l1.isEmpty())
+					for(FinanceRequirements fr: l2)
+						l3.add(fr);
+				return l3;
 			} else {
 				kindfr.add("DRAFT");
 				List<FinanceRequirements> q1 = ofy().load().type(FinanceRequirements.class)
@@ -217,9 +224,9 @@ public class FinanceRequirementsObjImpl extends RemoteServiceServlet implements
 						.filter("update_time >", q.get(0).getTimework())
 						.order("update_time")
 						.list();
-				List<FinanceRequirements> l = new ArrayList<FinanceRequirements>();
-				l.addAll(q1);
-				return l;
+				List<FinanceRequirements> l3 = new ArrayList<FinanceRequirements>();
+				l3.addAll(q1);
+				return l3;
 			}
 		}
 	}
@@ -228,10 +235,12 @@ public class FinanceRequirementsObjImpl extends RemoteServiceServlet implements
 		List<SeriUser> q = ofy().load().type(SeriUser.class)
 				.filter("username", getUserName())
 				.list();
-		if(q.isEmpty())
+		List<SeriUser> l = new ArrayList<SeriUser>();
+		l.addAll(q);
+		if(l.isEmpty())
 			return false;
 		else {
-			if(q.get(0).getRole().equals("Officer"))
+			if(l.get(0).getRole().equals("Officer"))
 				return true;
 			else
 				return false;
@@ -272,6 +281,5 @@ public class FinanceRequirementsObjImpl extends RemoteServiceServlet implements
 		else
 			return l.get(0);
 	}
-	
 	
 }

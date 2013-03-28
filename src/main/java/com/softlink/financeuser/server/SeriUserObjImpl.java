@@ -3,11 +3,12 @@ package com.softlink.financeuser.server;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.softlink.financedatastore.client.SeriUser;
 import com.softlink.financeuser.datastore.SeriUserObj;
+
+import static com.googlecode.objectify.ObjectifyService.ofy;
 
 /**
  * The server side implementation of the RPC service.

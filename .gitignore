@@ -15,6 +15,7 @@ test-output/
 #.project
 war/
 gwt-unitCache/
+.gwt/
 temp-testng-customsuite.xml
 test-output
 .externalToolBuilders
