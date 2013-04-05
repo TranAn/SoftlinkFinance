@@ -90,7 +90,7 @@
   <security-constraint>
     <web-resource-collection>
     	<web-resource-name>FinancialModule</web-resource-name>
-        <url-pattern>/financial/*</url-pattern>
+        <url-pattern>/a/finance/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
         <role-name>*</role-name>
@@ -100,7 +100,7 @@
   <security-constraint>
     <web-resource-collection>
     	<web-resource-name>UserService</web-resource-name>
-        <url-pattern>/user/*</url-pattern>
+        <url-pattern>/a/finance/user/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
         <role-name>admin</role-name>

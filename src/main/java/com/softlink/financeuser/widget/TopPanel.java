@@ -64,16 +64,21 @@ public TopPanel() {
     };
     homeMenu.setCommand(homeMenuCommand);
     
+    final String hostname = Window.Location.getHostName();
+    final String port = Window.Location.getPort();
+    
     Command financialMenuCommand = new Command() {
         public void execute() {
-        	Window.Location.replace("../financial/");
+        	String replaceUrl = "http://"+hostname+":"+port+"/a/finance/";
+        	Window.Location.replace(replaceUrl);
         }
     };
     financialMenu.setCommand(financialMenuCommand);
     
     Command userMenuCommand = new Command() {
         public void execute() {
-        	Window.Location.replace("../user/");
+        	String replaceUrl = "http://"+hostname+":"+port+"/a/finance/user/";
+        	Window.Location.replace(replaceUrl);
         }
     };
     userMenu.setCommand(userMenuCommand);

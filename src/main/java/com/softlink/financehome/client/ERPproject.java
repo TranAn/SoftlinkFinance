@@ -125,14 +125,14 @@ public class ERPproject implements EntryPoint {
 		financialButton.addClickHandler(new ClickHandler(){
 			@Override
 			public void onClick(ClickEvent event) {
-				Window.Location.replace("financial/");
+				Window.Location.replace("a/finance/");
 			}
 		});
 		
 		userButton.addClickHandler(new ClickHandler(){
 			@Override
 			public void onClick(ClickEvent event) {
-				Window.Location.replace("user/");
+				Window.Location.replace("a/finance/user/");
 			}
 		});
 		

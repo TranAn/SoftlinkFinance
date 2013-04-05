@@ -8,7 +8,7 @@ import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Index;
 
-@Entity
+@Entity(name="finance-user")
 @Index
 public class SeriUser implements IsSerializable{
 	
