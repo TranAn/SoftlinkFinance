@@ -1,6 +1,5 @@
 package com.softlink.finance.widget;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -46,6 +45,7 @@ import com.google.gwt.view.client.DefaultSelectionEventManager;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.SelectionModel;
+
 import com.softlink.finance.datastore.FinanceRequirementsObj;
 import com.softlink.finance.datastore.FinanceRequirementsObjAsync;
 import com.softlink.finance.services.MailServices;
@@ -71,6 +71,8 @@ public class Drafts extends Composite {
 	private Timer elapsedTimer = null;
 	private AbsolutePanel panel = new AbsolutePanel();
 	private Label label = new Label("<Folder is empty>");
+	private int newDraft;
+	
 	private Listener listener;
 	
 	public interface Listener {
@@ -111,18 +113,12 @@ public class Drafts extends Composite {
 	//Inner Function-----------------------------------------------
 	public void setNotifyStyle(final int newDraft, Date updateUserLog) {
 		UserLog = updateUserLog;
-		 draftcellTable.setRowStyles(new RowStyles<FinanceRequirements>() {
-			public String getStyleNames(FinanceRequirements row, int rowIndex) {
-				if((row.getComment().length()>0)&&(rowIndex+1>newDraft))
-					return "moreinfoRowStyle";
-				if((row.getComment().length()>0)&&(rowIndex+1<=newDraft))
-					return "moreinfoBoldRowStyle";
-				if((row.getComment().length()<=0)&&(rowIndex+1<=newDraft))
-					return "normalBoldRowStyle";
-				return null;
-			}
-		});
-		draftcellTable.redraw();
+		this.newDraft = newDraft;
+		 if(list_fr.isEmpty())
+			 getData();
+		 else {
+	  		 getNewData();
+		 }
 	}
 	
 	public void setDocSize(String width, String height) {
@@ -149,7 +145,22 @@ public class Drafts extends Composite {
 	}
 	
 	public void start() {
-		warmUpRequest();
+//		warmUpRequest();
+	}
+	
+	private void redrawTable() {
+		draftcellTable.setRowStyles(new RowStyles<FinanceRequirements>() {
+			public String getStyleNames(FinanceRequirements row, int rowIndex) {
+				if((row.getComment().length()>0)&&(rowIndex+1>newDraft))
+					return "moreinfoRowStyle";
+				if((row.getComment().length()>0)&&(rowIndex+1<=newDraft))
+					return "moreinfoBoldRowStyle";
+				if((row.getComment().length()<=0)&&(rowIndex+1<=newDraft))
+					return "normalBoldRowStyle";
+				return null;
+			}
+		});
+		draftcellTable.redraw();
 	}
 	
 	boolean VerifyField(){
@@ -169,24 +180,22 @@ public class Drafts extends Composite {
 		return check;	
 	}
 	
-	//Periodically Time--------------------------------------------
-	private void warmUpRequest() {
-		elapsedTimer = new Timer () {
-			 public void run() {
-				//RPC call to get new data
-				 if(list_fr.isEmpty())
-					 getData();
-				 else {
-			  		 getNewData();
-				 }
-		  	 }
-		 };
-		 elapsedTimer.scheduleRepeating(10000);
-		 // ... The elapsed timer has started ...
-	}
+//	private void warmUpRequest() {
+//		elapsedTimer = new Timer () {
+//			 public void run() {
+//				//RPC call to get new data
+//				 if(list_fr.isEmpty())
+//					 getData();
+//				 else {
+//			  		 getNewData();
+//				 }
+//		  	 }
+//		 };
+//		 elapsedTimer.scheduleRepeating(15000);
+//		 // ... The elapsed timer has started ...
+//	}
 	
 	//RPC call-----------------------------------------------------
-	
 	private void getData(){
 		 FinancialRequirementsObj.list_draftfr(
 	    		 new AsyncCallback<List<FinanceRequirements>>() {
@@ -205,6 +214,7 @@ public class Drafts extends Composite {
 					 scrollpanel.remove(panel);
 					 scrollpanel.add(draftcellTable);
 				 }
+				 redrawTable();
 			 }
 		 });
 	}
@@ -217,13 +227,15 @@ public class Drafts extends Composite {
 				toolbar.setTextNotice("Load failure, the connetion has been interupt!");
  			 }
 			 public void onSuccess(List<FinanceRequirements> result) {
-				 toolbar.setHideNotice();
 	  			 for(FinanceRequirements fr: result)   				
 	  				 list_fr.add(0,fr);
+	  			 redrawTable();
+	  			 toolbar.setHideNotice();
 	  		 }
  		 });
 	}
-
+	
+	//Contructor-------------------------------------------------------
 	public Drafts(final ToolBarPanel toolbar) {
 		 // Do not refresh the headers and footers every time the data is updated.
 	    draftcellTable.setAutoHeaderRefreshDisabled(true);
@@ -413,6 +425,7 @@ public class Drafts extends Composite {
 				toolbar.setVisibleNotice();
 				toolbar.setTextNotice("Loading...");
 				getData();
+				draftcellTable.redraw();
 			}
 		});
 	}

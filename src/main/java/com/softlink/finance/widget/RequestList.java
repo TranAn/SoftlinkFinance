@@ -1,6 +1,5 @@
 package com.softlink.finance.widget;
 
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -36,6 +35,7 @@ import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.SelectionModel;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
+
 import com.softlink.finance.datastore.FinanceRequirementsObj;
 import com.softlink.finance.datastore.FinanceRequirementsObjAsync;
 import com.softlink.financedatastore.client.FinanceRequirements;
@@ -57,28 +57,19 @@ public class RequestList extends Composite {
 	private Date UserLog;
 	private AbsolutePanel panel = new AbsolutePanel();
 	private Label label = new Label("<Folder is empty>");
+	private int newFinancialRequirement;
 	
 	@UiField ScrollPanel scrollpanel;
 	
 	//Inner Function-----------------------------------------------
-	public void setNotifyStyle(final int newFinancialRequirement, Date updateUserLog){
+	public void setNotifyStyle(int newFinancialRequirement, Date updateUserLog){
 		UserLog = updateUserLog;
-		 cellTable.setRowStyles(new RowStyles<FinanceRequirements>() {
-			public String getStyleNames(FinanceRequirements row, int rowIndex) {
-				if((row.getStatus().equals("APPROVED"))&&(rowIndex+1>newFinancialRequirement))
-					return "approvedRowStyle";
-				if((row.getStatus().equals("DENIED"))&&(rowIndex+1>newFinancialRequirement))
-					return "deniedRowStyle";
-				if((row.getStatus().equals("APPROVED"))&&(rowIndex+1<=newFinancialRequirement))
-					return "approvedBoldRowStyle";
-				if((row.getStatus().equals("DENIED"))&&(rowIndex+1<=newFinancialRequirement))
-					return "deniedBoldRowStyle";
-				if((row.getStatus().equals("PENDING"))&&(rowIndex+1<=newFinancialRequirement))
-					return "normal1BoldRowStyle";
-				return null;
-			}
-		});
-		cellTable.redraw();
+		this.newFinancialRequirement = newFinancialRequirement;
+		 if(list_fr.isEmpty())
+			 getData();
+		 else {
+	  		 getNewData();
+		 }
 	}
 	
 	public interface Listener {
@@ -122,6 +113,7 @@ public class RequestList extends Composite {
 		if(listener!=null)
 		 	listener.onLoading();
 		getData();
+		cellTable.redraw();
 	}
 	
 	protected void stop() {
@@ -131,11 +123,29 @@ public class RequestList extends Composite {
 	}
 	
 	protected void start() {
-		warmUpRequest();
+//		warmUpRequest();
+	}
+	
+	private void redrawTable() {
+		cellTable.setRowStyles(new RowStyles<FinanceRequirements>() {
+			public String getStyleNames(FinanceRequirements row, int rowIndex) {
+				if((row.getStatus().equals("APPROVED"))&&(rowIndex+1>newFinancialRequirement))
+					return "approvedRowStyle";
+				if((row.getStatus().equals("DENIED"))&&(rowIndex+1>newFinancialRequirement))
+					return "deniedRowStyle";
+				if((row.getStatus().equals("APPROVED"))&&(rowIndex+1<=newFinancialRequirement))
+					return "approvedBoldRowStyle";
+				if((row.getStatus().equals("DENIED"))&&(rowIndex+1<=newFinancialRequirement))
+					return "deniedBoldRowStyle";
+				if((row.getStatus().equals("PENDING"))&&(rowIndex+1<=newFinancialRequirement))
+					return "normal1BoldRowStyle";
+				return null;
+			}
+		});
+		cellTable.redraw();
 	}
 	
 	//RPC call-----------------------------------------------------
-
 	private void getData(){
 		 FinancialRequirementsObj.list_fr(
 	    		 new AsyncCallback<List<FinanceRequirements>>() {
@@ -156,6 +166,7 @@ public class RequestList extends Composite {
 					 scrollpanel.remove(panel);
 					 scrollpanel.add(cellTable);
 				 }
+				 redrawTable();
 			 }
 		 });
 	}
@@ -188,12 +199,14 @@ public class RequestList extends Composite {
 	  							list_fr.remove(oldfr);
 	  				 }
 	  			 }
-	  			 if(listener!=null)
-	    			 listener.onLoadComplete();
+	  			redrawTable();
+	  			if(listener!=null)
+	  				listener.onLoadComplete();
 	  		 }
  		 });
 	}
-
+	
+	//Contructor---------------------------------------------
 	public RequestList() {
 		 // Do not refresh the headers and footers every time the data is updated.
 	    cellTable.setAutoHeaderRefreshDisabled(true);
@@ -331,20 +344,20 @@ public class RequestList extends Composite {
 	}
 	
 	//Periodically Time--------------------------------------------
-	private void warmUpRequest() {
-		elapsedTimer = new Timer () {
-			 public void run() {
-				//RPC call to get new data
-				 if(list_fr.isEmpty())
-					 getData();
-				 else {
-			  		 getNewData();
-				 }
-		  	 }
-		 };
-		 elapsedTimer.scheduleRepeating(10000);
-		 // ... The elapsed timer has started ...
-	}
+//	private void warmUpRequest() {
+//		elapsedTimer = new Timer () {
+//			 public void run() {
+//				//RPC call to get new data
+//				 if(list_fr.isEmpty())
+//					 getData();
+//				 else {
+//			  		 getNewData();
+//				 }
+//		  	 }
+//		 };
+//		 elapsedTimer.scheduleRepeating(10000);
+//		 // ... The elapsed timer has started ...
+//	}
 	
 	//Event Handler------------------------------------------------
 

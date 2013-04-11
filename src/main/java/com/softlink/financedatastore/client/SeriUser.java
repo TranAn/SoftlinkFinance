@@ -1,44 +1,46 @@
 package com.softlink.financedatastore.client;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Index;
+import com.googlecode.objectify.annotation.Unindex;
 
 @Entity(name="finance-user")
 @Index
-public class SeriUser implements IsSerializable{
+/**
+ * 
+ * @author Tranan
+ *
+ */
+public class SeriUser implements Serializable{
 	
-	public SeriUser(Long userid, String username, String role, Date timework) {
-		super();
-		this.userid = userid;
-		this.username = username;
-		this.role = role;
-		this.timework = timework;
-	}
 	/**
 	 * 
 	 */
-	@Id 
-	public Long userid;
-	private String username;
+	private static final long serialVersionUID = 1L;
+
+	public SeriUser(String username, String role, Date timework,
+			int count) {
+		super();
+		this.username = username;
+		this.role = role;
+		this.timework = timework;
+		this.count = count;
+	}
+
+	/**
+	 * 
+	 */
+	@Id private String username;
 	private String role;
 	private Date timework;
-	@Ignore String doNotPersist;
+	@Unindex int count;
 
 	public SeriUser() {
 	 	super();	
-	}
-
-	public Long getUserid() {
-		return userid;
-	}
-
-	public void setUserid(Long userid) {
-		this.userid = userid;
 	}
 
 	public String getUsername() {
@@ -63,6 +65,14 @@ public class SeriUser implements IsSerializable{
 
 	public void setTimework(Date timework) {
 		this.timework = timework;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
 	}
 
 }

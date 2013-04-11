@@ -3,7 +3,6 @@ package com.softlink.finance.client;
 import java.util.Date;
 import java.util.List;
 
-
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
@@ -18,8 +17,11 @@ import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
+
 import com.softlink.finance.datastore.FinanceRequirementsObj;
 import com.softlink.finance.datastore.FinanceRequirementsObjAsync;
+import com.softlink.finance.datastore.SeriUserObjAsync;
+import com.softlink.finance.datastore.SeriUserObj;
 import com.softlink.finance.services.UserServices;
 import com.softlink.finance.services.UserServicesAsync;
 import com.softlink.finance.widget.Drafts;
@@ -47,6 +49,8 @@ public class Finance implements EntryPoint {
 			  GWT.create(UserServices.class);
 	private final static FinanceRequirementsObjAsync FinancialRequirementsObj = 
 			GWT.create(FinanceRequirementsObj.class);
+	private final static SeriUserObjAsync SeriUserObj =
+			GWT.create(SeriUserObj.class);
 	private Double tabPanelSize;
 	private DockPanel dockPanel = new DockPanel();
 	private TopPanel topPanel = new TopPanel();
@@ -301,9 +305,23 @@ public class Finance implements EntryPoint {
 	    
 	    Timer elapsedTimer = new Timer () {
 			 public void run() {
-				 checkNotify();
+				 SeriUserObj.loadUserFromMemcache(new AsyncCallback<Boolean>() {
+					public void onFailure(Throwable caught) {}
+					public void onSuccess(Boolean result) {
+						if(result){
+							SeriUserObj.onLoadComplete(new AsyncCallback<Void>(){
+								public void onFailure(Throwable caught) {}
+								public void onSuccess(Void result) {
+									checkNotify();
+								}
+								
+							});
+						}
+						
+					}
+				 });
 		  	 }
 		 };
-		 elapsedTimer.scheduleRepeating(10000);
+		 elapsedTimer.scheduleRepeating(20000);
 	}
 }

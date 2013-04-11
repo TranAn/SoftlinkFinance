@@ -1,6 +1,5 @@
 package com.softlink.finance.widget;
 
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -35,6 +34,7 @@ import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.SelectionModel;
 import com.google.gwt.user.client.ui.ScrollPanel;
+
 import com.softlink.finance.datastore.FinanceRequirementsObj;
 import com.softlink.finance.datastore.FinanceRequirementsObjAsync;
 import com.softlink.financedatastore.client.FinanceRequirements;

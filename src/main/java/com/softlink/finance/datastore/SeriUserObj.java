@@ -1,4 +1,4 @@
-package com.softlink.financeuser.datastore;
+package com.softlink.finance.datastore;
 
 
 import java.util.List;

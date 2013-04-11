@@ -1,4 +1,4 @@
-package com.softlink.financeuser.server;
+package com.softlink.finance.server;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
@@ -12,7 +12,7 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.softlink.financedatastore.client.SeriUser;
-import com.softlink.financeuser.datastore.SeriUserObj;
+import com.softlink.finance.datastore.SeriUserObj;
 
 /**
  * The server side implementation of the RPC service.

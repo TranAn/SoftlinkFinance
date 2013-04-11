@@ -1,17 +1,27 @@
 package com.softlink.financedatastore.client;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Index;
+import com.googlecode.objectify.annotation.Unindex;
 
 @Entity(name="finance-data")
 @Index
-public class FinanceRequirements implements IsSerializable{
+/**
+ * 
+ * @author Tranan
+ *
+ */
+public class FinanceRequirements implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public FinanceRequirements(Long request_id, Long cus_id, Long assets_id,
 			Date init_time, Date req_time, Date update_time, int real_amount,
 			int tax_amount, String reporter, String requester, String manager,
@@ -45,23 +55,22 @@ public class FinanceRequirements implements IsSerializable{
 	 public Long request_id;
 	 private Long cus_id;	
 	 private Long assets_id;
-	 private Date init_time;
-	 private Date req_time;
+	 @Unindex private Date init_time;
+	 @Unindex private Date req_time;
 	 private Date update_time;
-	 private int real_amount;
-	 private int tax_amount;
+	 @Unindex private int real_amount;
+	 @Unindex private int tax_amount;
 	 private String reporter;
 	 private String requester;
 	 private String manager;
 	 private String status;
-	 private String comment;
-	 private String document;
-	 private String refference;
-	 private String tags;
+	 @Unindex private String comment;
+	 @Unindex private String document;
+	 @Unindex private String refference;
+	 @Unindex private String tags;
 	 private String account;
 	 private String currency;
 	 private String description;
-	@Ignore String doNotPersist;
 
 	 public FinanceRequirements() {
 	 	super();	

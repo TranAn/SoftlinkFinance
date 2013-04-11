@@ -14,7 +14,7 @@
     <load-on-startup>0</load-on-startup>
   </servlet>
 
-  <!-- Home Servlets -->
+  <!-- Home Module Servlets -->
   <servlet>
     <servlet-name>Home-userservice</servlet-name>
     <servlet-class>com.softlink.financehome.server.UserServicesImpl</servlet-class>
@@ -35,6 +35,15 @@
   </servlet-mapping> 
   
   <servlet>
+    <servlet-name>Financial-seriuserImpl</servlet-name>
+    <servlet-class>com.softlink.finance.server.SeriUserObjImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Financial-seriuserImpl</servlet-name>
+    <url-pattern>/finance/seriuserImpl</url-pattern>
+  </servlet-mapping> 
+  
+  <servlet>
     <servlet-name>Financial-userservice</servlet-name>
     <servlet-class>com.softlink.finance.server.UserServicesImpl</servlet-class>
   </servlet>
@@ -43,7 +52,7 @@
     <url-pattern>/finance/userservice</url-pattern>
   </servlet-mapping>
   
-    <servlet>
+  <servlet>
     <servlet-name>Financial-mailservice</servlet-name>
     <servlet-class>com.softlink.finance.server.MailServicesImpl</servlet-class>
   </servlet>

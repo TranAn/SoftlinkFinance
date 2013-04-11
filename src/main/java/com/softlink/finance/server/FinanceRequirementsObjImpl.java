@@ -1,18 +1,20 @@
 package com.softlink.finance.server;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
+import com.google.appengine.api.memcache.MemcacheService;
+import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import com.softlink.finance.datastore.FinanceRequirementsObj;
 import com.softlink.financedatastore.client.FinanceRequirements;
 import com.softlink.financedatastore.client.SeriUser;
-
-import static com.googlecode.objectify.ObjectifyService.ofy;
+import com.softlink.finance.datastore.FinanceRequirementsObj;
 
 /**
  * The server side implementation of the RPC service.
@@ -21,12 +23,25 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 public class FinanceRequirementsObjImpl extends RemoteServiceServlet implements
 		FinanceRequirementsObj {
 	
+	private static final Logger log = Logger.getLogger(FinanceRequirementsObjImpl.class.getName());
+	
+	private static MemcacheService memcache = MemcacheServiceFactory.getMemcacheService();
+	
 	private final static UserService userService = 
 			UserServiceFactory.getUserService();
 
 	public void insert(FinanceRequirements fr) {
 		ofy().save().entity(fr);
-		assert fr.request_id != null;
+		if(fr.getStatus().equals("DRAFT")==false) {
+			List<SeriUser> list_user = list_manager();
+			for(SeriUser user:list_user) {
+				user.setCount(user.getCount()+1);
+				ofy().save().entity(user);
+				memcache.put(user.getUsername(), user);
+				
+				log.info("Key: "+user.getUsername()+" has been put into memcache");
+			}
+		}
 	}
 	
 	public void approveRequest(FinanceRequirements fr, String status, Date update_time, String comment) {
@@ -40,6 +55,17 @@ public class FinanceRequirementsObjImpl extends RemoteServiceServlet implements
 			else
 				fr.setComment(fr.getComment()+comment);
 			ofy().save().entity(fr);
+			SeriUser reporter = ofy().load().type(SeriUser.class)
+					.filter("username", fr.getReporter()).first().get();
+			List<SeriUser> list_user = list_manager();
+			list_user.add(reporter);
+			for(SeriUser user:list_user) {
+				user.setCount(user.getCount()+1);
+				ofy().save().entity(user);
+				memcache.put(user.getUsername(), user);
+				
+				log.info("Key: "+user.getUsername()+" has been put into memcache");
+			}
 		}
 	}
 
