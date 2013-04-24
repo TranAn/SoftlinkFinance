@@ -3,3 +3,16 @@ Fix loi chinh ta:
 + Link http://finance.softlink.vn/a/finance/#Financial%20Requirement => http://finance.softlink.vn/a/finance/#finance_Reqs
 + "Make request" form => "Create request" form
 + "An Email and Request will be send to Manager" ==>> "send" must be "sent"
+
+
+- Ghep expense/income vao lam 1:
+	+ Expense co gia tri (-), Income co gia tri (+)
+	+ Co ky hieu canh hop check box de phan biet
+
+- Qui doi gia tri VND/USD (default rate is 1)
+
+- Fix cac loi Approval/Deny => Thong tin can cap nhat ngay khi bam nut
+
+====== LOW PRIORITY ======
+- Trong bang tong hop chua co gia tien, tool-tip account khi tro vao gia tien
+- Cho phep sua request (chi tien truoc, lay hoa don thue sau)
