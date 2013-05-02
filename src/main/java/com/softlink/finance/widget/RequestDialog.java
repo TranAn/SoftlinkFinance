@@ -58,6 +58,9 @@ public class RequestDialog extends DialogBox{
 		this.listener = listener;
 	}
 	
+	private String income_req = "income";
+	private String expenses_req = "expenses";
+	
 	@UiField Button closebutton;
 	@UiField Label reporter;
 	@UiField TextBox requester;
@@ -79,10 +82,11 @@ public class RequestDialog extends DialogBox{
 	@UiField TextArea description;
 	@UiField Label descriptionlabel;
 	@UiField TextArea document;
+	@UiField Button btnFinance;
 
 	public RequestDialog() {
 		// Use this opportunity to set the dialog's caption.
-	    setText("Make Request");
+	    setText("Create Request");
 		setWidget(binder.createAndBindUi(this));
 		
 		setAnimationEnabled(true);
@@ -123,6 +127,7 @@ public class RequestDialog extends DialogBox{
 	    currency.addItem("VND");
 	    cus_id.addItem("null");
 	    assets_id.addItem("null");
+	    btnFinance.setTitle("Create income request");
 	}
 	
 	@Override
@@ -410,5 +415,20 @@ public class RequestDialog extends DialogBox{
 	@UiHandler("document")
 	void onDocumentMouseOut(MouseOutEvent event) {
 		document.setHeight("27px");
+	}
+	
+	@UiHandler("btnFinance")
+	void onBtnFinanceClick(ClickEvent event) {
+		if(btnFinance.getText().equals(income_req)){
+			btnFinance.setText("expenses");
+			btnFinance.removeStyleName("incomebtn");
+			btnFinance.setStyleName("expensesbtn");
+			btnFinance.setTitle("Create expenses request");
+		} else {
+			btnFinance.setText("income");
+			btnFinance.removeStyleName("expensesbtn");
+			btnFinance.setStyleName("incomebtn");
+			btnFinance.setTitle("Create income request");
+		}
 	}
 }

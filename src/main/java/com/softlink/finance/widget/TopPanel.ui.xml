@@ -46,7 +46,7 @@
   			<g:MenuItem text="User Center" ui:field="userMenu"/>
   			<g:MenuItem text="Modules" width="70">
   				<g:MenuBar vertical="true">
-  					<g:MenuItem text="Financial" ui:field="financialMenu"/>
+  					<g:MenuItem text="Finance" ui:field="financialMenu"/>
   				</g:MenuBar>
   			</g:MenuItem>
   			<g:MenuItemSeparator/>

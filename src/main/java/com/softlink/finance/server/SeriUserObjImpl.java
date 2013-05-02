@@ -57,7 +57,7 @@ public class SeriUserObjImpl extends RemoteServiceServlet implements
 			else
 				return false;	
 		}
-		log.info("Key: "+username+" not exist in memcache");
+//		log.info("Key: "+username+" not exist in memcache");
 		return false;
 	}
 

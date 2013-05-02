@@ -72,31 +72,23 @@
   <ui:image field='contactsgroup' src='../resource/expenses.png'/>
   <ui:image field='tasksgroup' src='../resource/income.png'/>
   <ui:image field='gradient' src='../resource/gradient_bg_dark.png' repeatStyle='Horizontal'/>
+  
   <g:StackLayoutPanel styleName='{style.shortcuts}' unit='EM' ui:field="stackpanel">
-    
-    <g:stack>
-    	<g:header size='3'><div class='{style.stackHeader}'><div class='{style.mailboxesIcon}'/> Statistics</div></g:header>
+  	<g:stack>
+    	<g:header size='3'><div class='{style.stackHeader}'><div class='{style.mailboxesIcon}'/>&#160; Finance</div></g:header>
     	<g:Tree>
-    		<g:Hyperlink text="Statistics" targetHistoryToken="Statistics" ui:field="statistics"/>
+    		<g:Hyperlink text="Static Finance" targetHistoryToken="static_finance" ui:field="staticexpenses"/>
+    		<g:Hyperlink text="Finance Requirement" targetHistoryToken="finance_reqs" ui:field="financialrequirement"/>
+    		<g:Hyperlink text="Future" targetHistoryToken="future" ui:field="future"/>
+    		<g:Hyperlink text="Drafts" targetHistoryToken="drafts" ui:field="drafts"/>
+    		<g:Hyperlink text="Trash" targetHistoryToken="trash" ui:field="trash"/>
     	</g:Tree>
     </g:stack>
     
     <g:stack>
-    	<g:header size='3'><div class='{style.stackHeader}'><div class='{style.tasksIcon}'/> Income</div></g:header>
+    	<g:header size='3'><div class='{style.stackHeader}'><div class='{style.tasksIcon}'/>&#160; Statistics</div></g:header>
     	<g:Tree>
-    		<g:Hyperlink text="Static Income" targetHistoryToken="Static Income" ui:field="staticincome"/>
-    		<g:Hyperlink text="Arising Income" targetHistoryToken="Arising Income" ui:field="arisingincome"/>
-    	</g:Tree>
-    </g:stack>
-    
-    <g:stack>
-    	<g:header size='3'><div class='{style.stackHeader}'><div class='{style.contactsIcon}'/> Expenses</div></g:header>
-    	<g:Tree>
-    		<g:Hyperlink text="Static Expenses" targetHistoryToken="Static Expenses" ui:field="staticexpenses"/>
-    		<g:Hyperlink text="Financial Requirement" targetHistoryToken="Financial Requirement" ui:field="financialrequirement"/>
-    		<g:Hyperlink text="Future" targetHistoryToken="Future" ui:field="future"/>
-    		<g:Hyperlink text="Drafts" targetHistoryToken="Drafts" ui:field="drafts"/>
-    		<g:Hyperlink text="Trash" targetHistoryToken="Trash" ui:field="trash"/>
+    		<g:Hyperlink text="Statistics" targetHistoryToken="statistics" ui:field="statistics"/>
     	</g:Tree>
     </g:stack>
     

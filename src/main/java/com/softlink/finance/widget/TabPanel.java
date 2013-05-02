@@ -49,10 +49,8 @@ public class TabPanel extends ResizeComposite {
   }
   
   @UiField Hyperlink statistics;
-  @UiField Hyperlink staticincome;
   @UiField Hyperlink staticexpenses;
   @UiField Hyperlink financialrequirement;
-  @UiField Hyperlink arisingincome;
   @UiField StackLayoutPanel stackpanel;
   @UiField Hyperlink drafts;
   @UiField Hyperlink trash;
@@ -86,16 +84,6 @@ public class TabPanel extends ResizeComposite {
 	  statistics.setStyleName("gwt-Hyperlink");
   }
   
-  public void setStaticIncomeStyle() {
-	  RemoveStyle();
-	  staticincome.setStyleName("gwt-Hyperlink");
-  }
-  
-  public void setArisingIncomeStyle() {
-	  RemoveStyle();
-	  arisingincome.setStyleName("gwt-Hyperlink");
-  }
-  
   public void setStaticExpensesStyle() {
 	  RemoveStyle();
 	  staticexpenses.setStyleName("gwt-Hyperlink");
@@ -127,8 +115,6 @@ public class TabPanel extends ResizeComposite {
   
   public void RemoveStyle() {
 	  statistics.removeStyleName("gwt-Hyperlink");
-	  staticincome.removeStyleName("gwt-Hyperlink");
-	  arisingincome.removeStyleName("gwt-Hyperlink");
 	  staticexpenses.removeStyleName("gwt-Hyperlink");
 	  financialrequirement.removeStyleName("gwt-Hyperlink");
 	  future.removeStyleName("gwt-Hyperlink");

@@ -205,86 +205,68 @@ public class Finance implements EntryPoint {
 
 		        // Parse the history token
 		        try {
-		          if (historyToken.equals("Statistics")) {
+		          if (historyToken.equals("statistics")) {
 		        	  dockLayoutPanel.clear();
 		        	  dockLayoutPanel.add(serviceUnAvaiable);
 		        	  toolbarpanel.setDefault();
-		        	  financialRequirement.stop();
-		        	  drafts.stop();
-		        	  trash.stop();
-		        	  tabPanel.openStack(0);
+//		        	  financialRequirement.stop();
+//		        	  drafts.stop();
+//		        	  trash.stop();
+		        	  tabPanel.openStack(1);
 		        	  tabPanel.setStatisticStyle();
-		          } if (historyToken.equals("Static Income")) {
+		          } if (historyToken.equals("static_finance")) {
 		        	  dockLayoutPanel.clear();
 		        	  dockLayoutPanel.add(serviceUnAvaiable);
 		        	  toolbarpanel.setDefault();
-		        	  financialRequirement.stop();
-		        	  drafts.stop();
-		        	  trash.stop();    	 
-		        	  tabPanel.openStack(1);
-		        	  tabPanel.setStaticIncomeStyle();
-		          } if (historyToken.equals("Arising Income")) {
-		        	  dockLayoutPanel.clear();
-		        	  dockLayoutPanel.add(serviceUnAvaiable);
-		        	  toolbarpanel.setDefault();
-		        	  financialRequirement.stop();
-		        	  drafts.stop();
-		        	  trash.stop();
-		        	  tabPanel.openStack(1);
-		        	  tabPanel.setArisingIncomeStyle();
-		          } if (historyToken.equals("Static Expenses")) {
-		        	  dockLayoutPanel.clear();
-		        	  dockLayoutPanel.add(serviceUnAvaiable);
-		        	  toolbarpanel.setDefault();
-		        	  financialRequirement.stop();
-		        	  drafts.stop();
-		        	  trash.stop();
-		        	  tabPanel.openStack(2);
+//		        	  financialRequirement.stop();
+//		        	  drafts.stop();
+//		        	  trash.stop();
+		        	  tabPanel.openStack(0);
 		        	  tabPanel.setStaticExpensesStyle();
-		          } if (historyToken.equals("Financial Requirement")) {
+		          } if (historyToken.equals("finance_reqs")) {
 		        	  dockLayoutPanel.clear();
 		        	  dockLayoutPanel.add(financialRequirement);
 		        	  toolbarpanel.setFinancialRequirementToolBar();
-		        	  financialRequirement.start();
-		        	  drafts.stop();
-		        	  trash.stop();
-		        	  tabPanel.openStack(2);
+//		        	  financialRequirement.start();
+//		        	  drafts.stop();
+//		        	  trash.stop();
+		        	  tabPanel.openStack(0);
 		        	  tabPanel.setFinancialRequirementStyle();	
-		          } if (historyToken.equals("Future")) {
+		          } if (historyToken.equals("future")) {
 		        	  dockLayoutPanel.clear();
 		        	  dockLayoutPanel.add(serviceUnAvaiable);
 		        	  toolbarpanel.setDefault();
-		        	  financialRequirement.stop();
-		        	  drafts.stop();
-		        	  trash.stop();	        	 
-		        	  tabPanel.openStack(2);
+//		        	  financialRequirement.stop();
+//		        	  drafts.stop();
+//		        	  trash.stop();	        	 
+		        	  tabPanel.openStack(0);
 		        	  tabPanel.setFutureStyle();	 
-		          } if (historyToken.equals("Drafts")) {
+		          } if (historyToken.equals("drafts")) {
 		        	  dockLayoutPanel.clear();
 		        	  dockLayoutPanel.add(drafts);
 		        	  toolbarpanel.setDraftsToolBar();
-		        	  financialRequirement.stop();
-		        	  drafts.start();
-		        	  trash.stop();       	 
-		        	  tabPanel.openStack(2);
+//		        	  financialRequirement.stop();
+//		        	  drafts.start();
+//		        	  trash.stop();       	 
+		        	  tabPanel.openStack(0);
 		        	  tabPanel.setDraftStyle();	
-		          } if (historyToken.equals("Trash")) {
+		          } if (historyToken.equals("trash")) {
 		        	  dockLayoutPanel.clear();
 		        	  dockLayoutPanel.add(trash);
 		        	  toolbarpanel.setTrashToolBar();
-		        	  financialRequirement.stop();
-		        	  drafts.stop();
-		        	  trash.start();
-		        	  tabPanel.openStack(2);
+//		        	  financialRequirement.stop();
+//		        	  drafts.stop();
+//		        	  trash.start();
+		        	  tabPanel.openStack(0);
 		        	  tabPanel.setTrashStyle();
 		          } if (historyToken.equals("")) {
 		        	  dockLayoutPanel.clear();
 		        	  dockLayoutPanel.add(absolutePanel);
 		        	  absolutePanel.add(lblNewLabel, 277, 245);
 		        	  toolbarpanel.setDefault();
-		        	  financialRequirement.stop();
-		        	  drafts.stop();
-		        	  trash.stop();
+//		        	  financialRequirement.stop();
+//		        	  drafts.stop();
+//		        	  trash.stop();
 		        	  tabPanel.openStack(0);
 		        	  tabPanel.RemoveStyle();
 		          }
@@ -293,9 +275,9 @@ public class Finance implements EntryPoint {
 		        	dockLayoutPanel.add(absolutePanel);
 		        	absolutePanel.add(lblNewLabel, 277, 245);
 		        	toolbarpanel.setDefault();
-		        	financialRequirement.stop();
-		        	drafts.stop();
-		        	trash.stop();
+//		        	financialRequirement.stop();
+//		        	drafts.stop();
+//		        	trash.stop();
 		        }
 		      }
 		});

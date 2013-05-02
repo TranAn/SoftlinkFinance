@@ -1,20 +1,19 @@
 package com.softlink.finance.widget;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
 import com.google.gwt.cell.client.CheckboxCell;
-import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.BrowserEvents;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
-import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 import com.google.gwt.user.cellview.client.RowStyles;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
@@ -33,9 +32,6 @@ import com.google.gwt.view.client.DefaultSelectionEventManager;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.SelectionModel;
-import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.event.dom.client.ClickEvent;
-
 import com.softlink.finance.datastore.FinanceRequirementsObj;
 import com.softlink.finance.datastore.FinanceRequirementsObjAsync;
 import com.softlink.financedatastore.client.FinanceRequirements;
@@ -224,6 +220,9 @@ public class RequestList extends Composite {
 		cellTable.setSelectionModel(selectionModel,
 		        DefaultSelectionEventManager.<FinanceRequirements> createCheckboxManager());
 		
+//		ListHandler<FinanceRequirements> columnSortHandler = 
+//	    		new ListHandler<FinanceRequirements>(list_fr);
+		
 		final Column<FinanceRequirements, Boolean> checkColumn = 
 				new Column<FinanceRequirements, Boolean>(
 		        new CheckboxCell(true, false)) {
@@ -233,7 +232,7 @@ public class RequestList extends Composite {
 			  }
 		    };
 		cellTable.addColumn(checkColumn, SafeHtmlUtils.fromSafeConstant("<br/>"));
-		cellTable.setColumnWidth(checkColumn,"5%");
+		cellTable.setColumnWidth(checkColumn,"10px");
 		
 		final TextColumn<FinanceRequirements> ReporterColumn = new 
 				TextColumn<FinanceRequirements>() {
@@ -243,30 +242,39 @@ public class RequestList extends Composite {
 		    }
 		};
 		cellTable.addColumn(ReporterColumn, "Reporter");
-		cellTable.setColumnWidth(ReporterColumn,"20%");
+		cellTable.setColumnWidth(ReporterColumn,"15%");
 		
 		final TextColumn<FinanceRequirements> DescriptionColumn = new 
 				TextColumn<FinanceRequirements>() {
 			@Override
 			public String getValue(FinanceRequirements object) {
-				if (object.getDescription().length()<=65)
+				if (object.getDescription().length()<=45)
 					return object.getDescription();
-				return object.getDescription().substring(0, 65)+" . . .";
+				return object.getDescription().substring(0, 45)+" . . .";
 			}
 		};
 		cellTable.addColumn(DescriptionColumn, "Description");
-		cellTable.setColumnWidth(DescriptionColumn,"45%");
+		cellTable.setColumnWidth(DescriptionColumn,"35%");
 		
-		final Column<FinanceRequirements, Date> Update_TimeColumn = new 
-		    		Column<FinanceRequirements, Date>(new DateCell()) {
+		final TextColumn<FinanceRequirements> Real_AmountColumn = new 
+				TextColumn<FinanceRequirements>() {
 		      @Override
-		      public Date getValue(FinanceRequirements object) {
-		        return object.getUpdate_time();
+		      public String getValue(FinanceRequirements object) {
+		        return String.valueOf(object.getReal_amount());
 		      }
 		    };
-	    Update_TimeColumn.setSortable(true);
-	    cellTable.addColumn(Update_TimeColumn, "Update_Time");
-	    cellTable.setColumnWidth(Update_TimeColumn,"20%");
+	    cellTable.addColumn(Real_AmountColumn, "Real_Amount");
+	    cellTable.setColumnWidth(Real_AmountColumn,"20%");
+	    
+	    final TextColumn<FinanceRequirements> Tax_AmountColumn = new 
+				TextColumn<FinanceRequirements>() {
+		      @Override
+		      public String getValue(FinanceRequirements object) {
+		        return String.valueOf(object.getTax_amount());
+		      }
+		    };
+	    cellTable.addColumn(Tax_AmountColumn, "Tax_Amount");
+	    cellTable.setColumnWidth(Tax_AmountColumn,"20%");
 		    
 	    final TextColumn<FinanceRequirements> StatusColumn = new 
 	    		TextColumn<FinanceRequirements>() {
@@ -322,16 +330,6 @@ public class RequestList extends Composite {
 		// Create a data provider.
 	    final ListDataProvider<FinanceRequirements> dataProvider = new 
 			 ListDataProvider<FinanceRequirements>();
-		 
-		ListHandler<FinanceRequirements> columnSortHandler = 
-		    		new ListHandler<FinanceRequirements>(list_fr);
-		columnSortHandler.setComparator(Update_TimeColumn, new Comparator<FinanceRequirements>() {
-		      @Override
-		      public int compare(FinanceRequirements o1, FinanceRequirements o2) {		    	  
-		    	  return o1.getUpdate_time().compareTo(o2.getUpdate_time());	    	  
-		      }
-		});
-	    cellTable.addColumnSortHandler(columnSortHandler);
 		 
 		dataProvider.addDataDisplay(cellTable);
  		list_fr = dataProvider.getList();

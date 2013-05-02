@@ -112,3 +112,15 @@ h1 {
  .moreinfostatus {
  	color: blue;
  }
+ 
+ .incomebtn{
+	color: White;
+	font-size: 11px;
+	background-color: Green;
+}
+
+.expensesbtn{
+	color: White;
+	font-size: 11px;
+	background-color: Red;
+}

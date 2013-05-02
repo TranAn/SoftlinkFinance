@@ -43,7 +43,7 @@
   	<g:north size="2.9">
   		<g:AbsolutePanel styleName='{style.header}' ui:field="headerpanel">
   			<g:at left="10" top="10">
-  				<g:Label text="Financial Requirement" styleName="{style.title}"/>
+  				<g:Label text="Finance Requirement" styleName="{style.title}"/>
   			</g:at>
   			<g:at left="406" top="10">
   				<g:ListBox width="103px" height="22px" ui:field="amountlist"/>

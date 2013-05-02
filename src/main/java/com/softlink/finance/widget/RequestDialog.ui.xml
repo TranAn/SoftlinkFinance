@@ -38,7 +38,7 @@
 			<g:Label text="Reporter:"/>
 		</g:at>
 		<g:at left="20" top="10">
-			<g:Image url="resource/request.png" width="103px" height="98px"/>
+			<g:Image url="resource/request.png" width="103px" height="69px"/>
 		</g:at>
 		<g:at left="137" top="79">
 			<g:Label text="Manager:"/>
@@ -110,7 +110,7 @@
 			<g:Label text="Tags:" ui:field="tagslabel"/>
 		</g:at>
 		<g:at left="42" top="498">
-			<g:Label text="- An Email and Request will be send to Manager" width="293px" height="16px" styleName="{style.label2}"/>
+			<g:Label text="- An Email and Request will be sent to Manager" width="293px" height="16px" styleName="{style.label2}"/>
 		</g:at>
 		<g:at left="22" top="451">
 			<g:Image width="313px" height="16px" url="resource/line2.png"/>
@@ -141,6 +141,9 @@
 		</g:at>
 		<g:at left="233" top="520">
 			<g:Button width="102px" height="28px" text="Close" styleName="{style.none}" ui:field="closebutton"/>
+		</g:at>
+		<g:at left="20" top="87">
+			<g:Button width="103px" height="22px" text="income" styleName="incomebtn" ui:field="btnFinance"/>
 		</g:at>
 	</g:AbsolutePanel>
 	</div>
