@@ -1,0 +1,198 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:p1="urn:import:com.google.gwt.user.cellview.client">
+
+  <ui:style>
+  .detail {
+    border: 1px solid #666;
+    background-color: white;
+  }
+
+  .header {
+    background: #eee;
+    border: 1px solid #666;
+    padding: 0.5em;
+  }
+  
+  .title {
+  	font-weight: bold;
+  }
+  
+  .sendbutton{
+  	color: White;
+  	border: 1px solid Silver;
+  	background-color: #cc3333;
+  }
+  
+  .boxchat {
+  	color: Gray;
+  	border: 1px solid Gray;
+  	background-color: White;
+  }
+  
+  .cellTable {
+ 	background-color: lemonchiffon;	
+  }
+  </ui:style>
+
+<g:ScrollPanel width="100%" height="100%">
+  <g:DockLayoutPanel unit='EM' styleName='{style.detail}' ui:field="docklayoutpanel" height="478px" width="99.85%">
+  	<g:north size="3.0">
+  		<g:AbsolutePanel styleName='{style.header}' ui:field="headerpanel">
+  			<g:at left="10" top="10">
+  				<g:Label text="Request Drafts" styleName="{style.title}"/>
+  			</g:at>
+  			<g:at left="925" top="10">
+  				<p1:SimplePager ui:field="pager"/>
+  			</g:at>
+  		</g:AbsolutePanel>
+  	</g:north>
+  	<g:center>
+  		<g:ScrollPanel ui:field="scrollpanel">
+  			<p1:CellTable ui:field="draftcellTable" width="100%" styleName="{style.cellTable}" height="100%" pageSize="13"/>
+  		</g:ScrollPanel>
+  	</g:center>
+  	<g:south size="16.7">
+  		<g:AbsolutePanel styleName="header" ui:field="composebox">
+  			<g:at left="22" top="15">
+  				<g:Label text="Request_id:"/>
+  			</g:at>
+  			<g:at left="313" top="47">
+  				<g:Label text="Manager:"/>
+  			</g:at>
+  			<g:at left="373" top="41">
+  				<g:TextBox width="115px" height="10px" ui:field="manager" readOnly="true"/>
+  			</g:at>
+  			<g:at left="28" top="47">
+  				<g:Label text="Requester:" ui:field="requesterlabel"/>
+  			</g:at>
+  			<g:at left="97" top="41">
+  				<g:TextBox width="115px" height="10px" ui:field="requester"/>
+  			</g:at>
+  			<g:at left="22" top="171">
+  				<g:Label text="Description:" ui:field="descriptionlabel"/>
+  			</g:at>
+  			<g:at left="97" top="169">
+  				<g:TextArea width="391px" height="32px" ui:field="description"/>
+  			</g:at>
+  			<g:at left="39" top="87">
+  				<g:Label text="Account:"/>
+  			</g:at>
+  			<g:at left="311" top="87">
+  				<g:Label text="Currency:"/>
+  			</g:at>
+  			<g:at left="12" top="129">
+  				<g:Label text="Real Amount:"/>
+  			</g:at>
+  			<g:at left="293" top="129">
+  				<g:Label text="Tax Amount:"/>
+  			</g:at>
+  			<g:at left="97" top="81">
+  				<g:TextBox width="115px" height="10px" ui:field="account" readOnly="true"/>
+  			</g:at>
+  			<g:at left="373" top="81">
+  				<g:TextBox width="115px" height="10px" ui:field="currency" readOnly="true"/>
+  			</g:at>
+  			<g:at left="97" top="123">
+  				<g:IntegerBox width="119px" height="16px" ui:field="real_amount"/>
+  			</g:at>
+  			<g:at left="373" top="123">
+  				<g:IntegerBox width="119px" height="16px" ui:field="tax_amount"/>
+  			</g:at>
+  			<g:at left="575" top="0">
+  				<g:Image url="resource/thumb_vertical.png" width="7px" height="221px"/>
+  			</g:at>
+  			<g:at left="607" top="15">
+  				<g:Label text="Relates Infomation" styleName="{style.title}"/>
+  			</g:at>
+  			<g:at left="607" top="47">
+  				<g:Label text="Cus_ID:"/>
+  			</g:at>
+  			<g:at left="769" top="47">
+  				<g:Label text="Assets_ID:"/>
+  			</g:at>
+  			<g:at left="607" top="180">
+  				<g:Label text="Document:"/>
+  			</g:at>
+  			<g:at left="607" top="129">
+  				<g:Label text="Reference:"/>
+  			</g:at>
+  			<g:at left="659" top="41">
+  				<g:LongBox ui:field="cus_id" width="48px" height="16px" readOnly="true" text="null"/>
+  			</g:at>
+  			<g:at left="839" top="41">
+  				<g:LongBox ui:field="assets_id" width="48px" height="16px" readOnly="true" text="null"/>
+  			</g:at>
+  			<g:at left="676" top="129">
+  				<g:TextArea width="235px" height="20px" ui:field="reference"/>
+  			</g:at>
+  			<g:at left="97" top="15">
+  				<g:Label text="None" width="125px" height="16px" ui:field="req_id"/>
+  			</g:at>
+  			<g:at left="965" top="15">
+  				<g:Label text="Comment box:" styleName="{style.title}"/>
+  			</g:at>
+  			<g:at left="941" top="0">
+  				<g:Image width="7px" height="221px" url="resource/thumb_vertical.png"/>
+  			</g:at>
+  			<g:at left="232" top="81">
+  				<g:Button width="32px" height="22px" text="---"/>
+  			</g:at>
+  			<g:at left="504" top="41">
+  				<g:Button width="32px" height="22px" text="---"/>
+  			</g:at>
+  			<g:at left="504" top="81">
+  				<g:Button width="32px" height="22px" text="---"/>
+  			</g:at>
+  			<g:at left="719" top="41">
+  				<g:Button width="22px" height="22px" text="---"/>
+  			</g:at>
+  			<g:at left="899" top="41">
+  				<g:Button width="22px" height="22px" text="---"/>
+  			</g:at>
+  			<g:at left="965" top="171">
+  				<g:Label text="Your comment:"/>
+  			</g:at>
+  			<g:at left="965" top="189">
+  				<g:TextBox width="131px" height="10px" ui:field="comment"/>
+  			</g:at>
+  			<g:at left="965" top="41">
+  				<g:TextArea width="137px" height="120px" styleName="{style.boxchat}" ui:field="commentbox" readOnly="true"/>
+  			</g:at>
+  			<g:at left="607" top="81">
+  				<g:Label text="Tags:"/>
+  			</g:at>
+  			<g:at left="676" top="81">
+  				<g:TextArea width="235px" height="20px" ui:field="tags"/>
+  			</g:at>
+  			<g:at left="676" top="180">
+  				<g:TextArea width="235px" height="20px" ui:field="document"/>
+  			</g:at>
+  		</g:AbsolutePanel>
+  	</g:south>
+  	<g:south size="3.0">
+  		<g:AbsolutePanel styleName="{style.header}" ui:field="composeheader">
+  			<g:at left="10" top="10">
+  				<g:Label text="Compose" styleName="{style.title}"/>
+  			</g:at>
+  			<g:at left="1018" top="10">
+  				<g:Button width="100px" height="28px" styleName="gwt-Button" text="Delete" ui:field="delete"/>
+  			</g:at>
+  			<g:at left="901" top="10">
+  				<g:Button width="100px" height="28px" text="Send" styleName="{style.sendbutton}" ui:field="send"/>
+  			</g:at>
+  			<g:at left="119" top="10">
+  				<g:Label text="- An email and request will be send to manager" styleName="loginlabel"/>
+  			</g:at>
+  			<g:at left="562" top="6">
+  				<g:Image url="resource/arrowup.png" title="Expand" ui:field="expandbutton"/>
+  			</g:at>
+  			<g:at left="562" top="6">
+  				<g:Image url="resource/arrowdown.png" ui:field="collapsebutton" title="Collapse" visible="false"/>
+  			</g:at>
+  		</g:AbsolutePanel>
+  	</g:south>
+  </g:DockLayoutPanel>
+  </g:ScrollPanel>
+
+</ui:UiBinder>

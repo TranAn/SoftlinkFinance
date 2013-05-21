@@ -21,17 +21,17 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.softlink.financeuser.services.UserServices;
-import com.softlink.financeuser.services.UserServicesAsync;
-import com.softlink.financeuser.widget.TopPanel;
+import com.softlink.financeuser.client.view.TopPanel;
+import com.softlink.financeuser.client.request.UserServicesRequest;
+import com.softlink.financeuser.client.request.UserServicesRequestAsync;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class UserService implements EntryPoint {
 
-	private final static UserServicesAsync userservices = 
-			  GWT.create(UserServices.class);
+	private final static UserServicesRequestAsync userservices = 
+			  GWT.create(UserServicesRequest.class);
 	
 	public void onModuleLoad() {
 		

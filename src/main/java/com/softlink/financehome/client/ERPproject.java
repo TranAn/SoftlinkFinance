@@ -12,16 +12,16 @@ import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.softlink.financehome.services.UserServices;
-import com.softlink.financehome.services.UserServicesAsync;
+import com.softlink.financehome.client.request.UserServicesRequest;
+import com.softlink.financehome.client.request.UserServicesRequestAsync;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class ERPproject implements EntryPoint {
 	
-	private final static UserServicesAsync userservices = 
-			  GWT.create(UserServices.class);
+	private final static UserServicesRequestAsync userservices = 
+			  GWT.create(UserServicesRequest.class);
 	String thisURL = Window.Location.getPath();
 	
 	public void onModuleLoad() {

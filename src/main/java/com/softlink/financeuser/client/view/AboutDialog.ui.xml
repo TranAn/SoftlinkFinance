@@ -23,15 +23,14 @@
 
   <g:HTMLPanel width='25em' styleName='{style.panel}'>
     <div class='{style.logo}'>
-    	 <g:Image url="resource/gwt-logo.png"/>
+    	<g:Image url="resource/gwt-logo.png"/>
 	</div>
-
     <div class='{style.aboutText}'>
     Financial Module v3.0 <br/>
     Build on GAE Framework and design by GWT <br/> <br/>
     @Author: Tran An <br/> <br/>
     Update: <br/> <br/>
-    + Make it faster <br/>
+   	+ Make it faster <br/>
    	+ Go to the simple things like Google. <br/>
    	+ Login to your Google Account and fly to anywhere you like. <br/>
     </div>

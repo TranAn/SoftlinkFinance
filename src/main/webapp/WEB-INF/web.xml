@@ -10,90 +10,75 @@
   <!-- StartUp Servlets -->
   <servlet>
     <servlet-name>StartUpServlet</servlet-name>
-    <servlet-class>com.softlink.financedatastore.server.StartUpServletImpl</servlet-class>
+    <servlet-class>com.softlink.finance.server.StartUpServlet</servlet-class>
     <load-on-startup>0</load-on-startup>
   </servlet>
 
   <!-- Home Module Servlets -->
   <servlet>
     <servlet-name>Home-userservice</servlet-name>
-    <servlet-class>com.softlink.financehome.server.UserServicesImpl</servlet-class>
+    <servlet-class>com.softlink.financehome.server.services.UserServices</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Home-userservice</servlet-name>
-    <url-pattern>/financehome/userservice</url-pattern>
+    <url-pattern>/financehome/userservice_rq</url-pattern>
   </servlet-mapping> 
   
   <!-- Financial Module Servlets -->
   <servlet>
     <servlet-name>Financial-financialrequirementsImpl</servlet-name>
-    <servlet-class>com.softlink.finance.server.FinanceRequirementsObjImpl</servlet-class>
+    <servlet-class>com.softlink.finance.server.services.DataStoreServices</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Financial-financialrequirementsImpl</servlet-name>
-    <url-pattern>/finance/financialrequirementsImpl</url-pattern>
+    <url-pattern>/finance/financerequirements_rq</url-pattern>
   </servlet-mapping> 
   
   <servlet>
     <servlet-name>Financial-seriuserImpl</servlet-name>
-    <servlet-class>com.softlink.finance.server.SeriUserObjImpl</servlet-class>
+    <servlet-class>com.softlink.finance.server.services.DataStoreServices</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Financial-seriuserImpl</servlet-name>
-    <url-pattern>/finance/seriuserImpl</url-pattern>
+    <url-pattern>/finance/seriuser_rq</url-pattern>
   </servlet-mapping> 
   
   <servlet>
     <servlet-name>Financial-userservice</servlet-name>
-    <servlet-class>com.softlink.finance.server.UserServicesImpl</servlet-class>
+    <servlet-class>com.softlink.finance.server.services.UserServices</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Financial-userservice</servlet-name>
-    <url-pattern>/finance/userservice</url-pattern>
+    <url-pattern>/finance/userservices_rq</url-pattern>
   </servlet-mapping>
   
   <servlet>
     <servlet-name>Financial-mailservice</servlet-name>
-    <servlet-class>com.softlink.finance.server.MailServicesImpl</servlet-class>
+    <servlet-class>com.softlink.finance.server.services.MailServices</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Financial-mailservice</servlet-name>
-    <url-pattern>/finance/mailservice</url-pattern>
+    <url-pattern>/finance/mailservices_rq</url-pattern>
   </servlet-mapping>
   
   <!-- User Module Servlets -->
   <servlet>
     <servlet-name>User-userservice</servlet-name>
-    <servlet-class>com.softlink.financeuser.server.UserServicesImpl</servlet-class>
+    <servlet-class>com.softlink.financeuser.server.services.UserServices</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>User-userservice</servlet-name>
-    <url-pattern>/financeuser/userservice</url-pattern>
+    <url-pattern>/financeuser/userservices_rq</url-pattern>
   </servlet-mapping> 
   
   <servlet>
     <servlet-name>User-seriuserImpl</servlet-name>
-    <servlet-class>com.softlink.financeuser.server.SeriUserObjImpl</servlet-class>
+    <servlet-class>com.softlink.financeuser.server.services.DataStoreServices</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>User-seriuserImpl</servlet-name>
-    <url-pattern>/financeuser/seriuserImpl</url-pattern>
+    <url-pattern>/financeuser/seriuser_rq</url-pattern>
   </servlet-mapping> 
-  
-  <!-- System Servlets -->
-  <servlet>
-    <servlet-name>SystemServiceServlet</servlet-name>
-    <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
-    <init-param>
-      <param-name>services</param-name>
-      <param-value/>
-    </init-param>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>SystemServiceServlet</servlet-name>
-    <url-pattern>/_ah/spi/*</url-pattern>
-  </servlet-mapping>
   
   <!-- Security Config -->
   <security-constraint>

@@ -1,0 +1,89 @@
+<!DOCTYPE ui:UiBinder 
+  SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent"
+>
+<ui:UiBinder
+  xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:mail='urn:import:com.softlink.finance.client' 
+  xmlns:p1="urn:import:com.google.gwt.user.cellview.client" 
+  xmlns:p2="urn:import:com.softlink.financeuser.client.view">
+  
+  <!-- IE6 cannot handle transparent png, which is what ImageResource creates -->
+
+  <ui:style>
+  .statusDiv {
+    text-align: right;
+    margin: 1em;
+  }
+
+  .linksDiv {
+    text-align: right;
+  }
+  
+  .label{
+  	color: Gray;
+  }
+	
+  .relate {
+	position: absolute;
+	left: 655px;
+	color: Gray;
+	font-size: 12px;
+  }
+  
+  .cellTable {
+	background-color: lemonchiffon;	
+  }
+  </ui:style>
+
+  <g:AbsolutePanel width="1340px">
+  	<g:at left="10" top="10">
+		<g:Image url="resource/logo-itpro.png"/>
+	</g:at>
+	<g:at left="358" top="0">
+  		<g:MenuBar autoOpen="true" animationEnabled="true">
+  			<g:MenuItem text="Home" width="45" ui:field="homeMenu"/>
+  			<g:MenuItem text="User Center" ui:field="userMenu"/>
+  			<g:MenuItem text="Modules" width="70">
+  				<g:MenuBar vertical="true">
+  					<g:MenuItem text="Finance" ui:field="financialMenu"/>
+  				</g:MenuBar>
+  			</g:MenuItem>
+  			<g:MenuItemSeparator/>
+  			<g:MenuItem text="Support"/>
+  		</g:MenuBar>
+  	</g:at>
+  	<g:at left="1092" top="10">
+  		<g:Label ui:field="userlabel" text="You are not sign in!" styleName="loginlabel" width="247px" height="16px" horizontalAlignment="ALIGN_RIGHT"></g:Label>
+  	</g:at>
+  	<g:at left="1201" top="32">
+  		<g:Anchor ui:field='signLink' text="Sign In" width="94px" height="16px" horizontalAlignment="ALIGN_RIGHT" href="javascript:;"></g:Anchor>
+  	</g:at>
+  	<g:at left="1305" top="32">
+  		<g:Anchor ui:field='aboutLink' href="javascript:;">About</g:Anchor>
+  	</g:at>
+  	<g:at left="10" top="82">
+  		<g:Image url="resource/line2.png" width="1329px" height="17px"/>
+  	</g:at>
+  	<g:at left="10" top="117">
+  		<g:Image url="resource/user.png"/>
+  	</g:at>
+  	<g:at left="202" top="117">
+  		<g:TabPanel width="801px" height="347px" animationEnabled="true" ui:field="tabpanel">
+  			<g:Tab text="User List">
+  				<p2:UserList width="100%" height="312px"/>
+  			</g:Tab>
+  			<g:Tab text="Creat User">
+  				<p2:UserCreat width="100%" height="312px"/>
+  			</g:Tab>
+  		</g:TabPanel>
+  	</g:at>
+  	<g:at left="202" top="517">
+  		<g:Label text="- Application will have private users to manage system." styleName="{style.label}"/>
+  	</g:at>
+  	<g:at left="202" top="539">
+  		<g:Label text="- Each user have User Log to support Notification." styleName="{style.label}"/>
+  	</g:at>
+  </g:AbsolutePanel>
+	
+</ui:UiBinder>

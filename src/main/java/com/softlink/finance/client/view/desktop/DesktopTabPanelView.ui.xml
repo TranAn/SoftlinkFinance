@@ -1,0 +1,46 @@
+<ui:UiBinder
+  xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:mail='urn:import:com.softlink.finance.client'>
+  <ui:style>
+  .shortcuts {
+    border-left: 1px solid #999;
+    border-right: 1px solid #999;
+    border-bottom: 1px solid #999;
+  }
+
+  .stackHeader {
+    text-shadow: rgba(255, 255, 255, 1) 0 1px 1px;
+  	color: #000;
+  	padding: .4em .5em .8em .6em;
+  	border-top: 1px solid #888;
+  	font-size: 1.2em;
+  	font-weight: bold;
+  	background-color: #b4b6bc;
+  	background-repeat: repeat;
+  	background-image: url('resource/gradient_bg_dark.png');
+  	cursor: pointer;
+  }
+  </ui:style>
+  
+  <g:StackLayoutPanel styleName='{style.shortcuts}' unit='EM' ui:field="stackpanel">
+  	<g:stack>
+    	<g:header size='3'><div class='{style.stackHeader}'><img src="resource/statistics.png" height="22px"/>&#160; Finance</div></g:header>
+    	<g:Tree>
+    		<g:Hyperlink text="Static Finance" targetHistoryToken="construction" ui:field="staticexpenses"/>
+    		<g:Hyperlink text="Finance Requirement" targetHistoryToken="finance_reqs" ui:field="financialrequirement"/>
+    		<g:Hyperlink text="Future" targetHistoryToken="construction" ui:field="future"/>
+    		<g:Hyperlink text="Drafts" targetHistoryToken="drafts" ui:field="drafts"/>
+    		<g:Hyperlink text="Trash" targetHistoryToken="trash" ui:field="trash"/>
+    	</g:Tree>
+    </g:stack>
+  	<g:stack>
+    	<g:header size='3'><div class='{style.stackHeader}'><img src="resource/income.png" height="22px"/>&#160; Statistics</div></g:header>
+    	<g:Tree>
+    		<g:Hyperlink text="Statistics" targetHistoryToken="construction" ui:field="statistics"/>
+    	</g:Tree>
+    </g:stack>
+    
+  </g:StackLayoutPanel>
+ 
+</ui:UiBinder>

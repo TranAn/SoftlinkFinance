@@ -1,0 +1,58 @@
+<!DOCTYPE ui:UiBinder 
+  SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent"
+>
+<ui:UiBinder
+  xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+  
+  <!-- IE6 cannot handle transparent png, which is what ImageResource creates -->
+
+  <ui:style>
+
+  .statusDiv {
+    text-align: right;
+    margin: 1em;
+  }
+
+  .linksDiv {
+    text-align: right;
+  }
+  
+  .relate {
+	position: absolute;
+	left: 655px;
+	color: Gray;
+	font-size: 12px;
+  }
+  
+  </ui:style>
+
+  <g:AbsolutePanel width="1340px">
+  	<g:at left="10" top="10">
+		<g:Image url="resource/logo-itpro.png"/>
+	</g:at>
+  	<g:at left="1097" top="10">
+  		<g:Label ui:field="userlabel" text="You are not sign in!" styleName="loginlabel" width="247px" height="16px" horizontalAlignment="ALIGN_RIGHT"></g:Label>
+  	</g:at>
+  	<g:at left="1206" top="32">
+  		<g:Anchor href='javascript:;' ui:field='signLink' text="Sign In" width="94px" height="16px" horizontalAlignment="ALIGN_RIGHT"></g:Anchor>
+  	</g:at>
+  	<g:at left="1310" top="32">
+  		<g:Anchor href='javascript:;' ui:field='aboutLink'>About</g:Anchor>
+  	</g:at>
+  	<g:at left="358" top="0">
+  		<g:MenuBar animationEnabled="true" autoOpen="true">
+  			<g:MenuItem text="Home" width="45" ui:field="homeMenu"/>
+  			<g:MenuItem text="User Center" ui:field="userMenu"/>
+  			<g:MenuItem text="Modules" width="70">
+  				<g:MenuBar vertical="true">
+  					<g:MenuItem text="Finance" ui:field="financialMenu"/>
+  				</g:MenuBar>
+  			</g:MenuItem>
+  			<g:MenuItemSeparator/>
+  			<g:MenuItem text="Support"/>
+  		</g:MenuBar>
+  	</g:at>
+  </g:AbsolutePanel>
+	
+</ui:UiBinder>
