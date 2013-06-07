@@ -15,26 +15,16 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
-import com.softlink.finance.client.events.ApprovedRequestEvent;
-import com.softlink.finance.client.events.CreateRequestFailEvent;
-import com.softlink.finance.client.events.CreateRequestSuccessEvent;
-import com.softlink.finance.client.events.DeniedRequestEvent;
-import com.softlink.finance.client.events.InConstructionPlaceEvent;
-import com.softlink.finance.client.events.InDraftsPlaceEvent;
-import com.softlink.finance.client.events.InFinanceRequirementPlaceEvent;
-import com.softlink.finance.client.events.InTrashPlaceEvent;
-import com.softlink.finance.client.events.LoadFailEvent;
-import com.softlink.finance.client.events.LoadSuccessEvent;
-import com.softlink.finance.client.events.LoadingEvent;
-import com.softlink.finance.client.events.RefreshingEvent;
-import com.softlink.finance.client.events.SendBackRequestEvent;
+import com.softlink.finance.client.ClientFactory;
 
 public class DesktopToolBarPanelView extends Composite{
 
 	interface Binder extends UiBinder<Widget, DesktopToolBarPanelView> { }
 	private static final Binder binder = GWT.create(Binder.class);
 	
+	private ClientFactory clientFactory;
 	private EventBus eventBus;
+	
 	private DesktopRequestDialogView dlg;
 	private Timer elapsedTimer = null;
 	
@@ -49,6 +39,17 @@ public class DesktopToolBarPanelView extends Composite{
 	@UiField Button settingbutton;
 	@UiField Button deletebutton;
 	@UiField Label datelabel;
+	
+	/*
+	 * ---Procedure---
+	 */
+	public void setDisable() {
+		request.setEnabled(false);
+	}
+	
+	public void setEnable() {
+		request.setEnabled(true);
+	}
 
 	/*
 	 * ---Constructor---
@@ -70,9 +71,9 @@ public class DesktopToolBarPanelView extends Composite{
 	/*
 	 * ---Procedure---
 	 */
-	public void setEventBus(EventBus eventBus) {
-		this.eventBus = eventBus;
-		setHandlerEventBus();
+	public void setController(ClientFactory clientFactory){
+		this.eventBus = clientFactory.getEventBus();
+		this.clientFactory = clientFactory;
 	}
 	
 	public void setDesktopRequestDialogView(DesktopRequestDialogView dlg) {
@@ -97,53 +98,46 @@ public class DesktopToolBarPanelView extends Composite{
 		toolbar.add(defaulttitle,230,30);
 	}
 	
-	public void setRequestDetailToolBar1() {
+	public void setRequestDetailToolBar() {
 		removeAllTool();
-		toolbar.add(backbutton,230,18);
-		toolbar.add(refreshbutton,310,18);
-		toolbar.add(printbutton,390,18);
-	}
-	
-	public void setRequestDetailToolBar2() {
-		removeAllTool();
-		toolbar.add(backbutton,230,18);
-		toolbar.add(refreshbutton,310,18);
-		toolbar.add(printbutton,390,18);
-		toolbar.add(deletebutton,470,18);
-		deletebutton.setTitle("Move To DesktopTrashView");
+		toolbar.add(backbutton,230,30);
+		toolbar.add(refreshbutton,310,30);
+		toolbar.add(printbutton,390,30);
+		toolbar.add(deletebutton,470,30);
+		deletebutton.setTitle("Move To Trash");
 	}
 	
 	public void setFinanceRequirementToolBar() {
 		removeAllTool();
-		toolbar.add(markbutton,230,18);
-		toolbar.add(refreshbutton,310,18);
-		toolbar.add(printbutton,390,18);
-		toolbar.add(settingbutton,470,18);
+		toolbar.add(markbutton,230,30);
+		toolbar.add(refreshbutton,310,30);
+		toolbar.add(printbutton,390,30);
+		toolbar.add(settingbutton,470,30);
 	}
 	
 	public void setDraftsToolBar() {
 		removeAllTool();
-		toolbar.add(markbutton,230,18);
-		toolbar.add(refreshbutton,310,18);
-		toolbar.add(settingbutton,390,18);
+		toolbar.add(markbutton,230,30);
+		toolbar.add(refreshbutton,310,30);
+		toolbar.add(settingbutton,390,30);
 	}
 	
 	public void setTrashToolBar() {
 		removeAllTool();
-		toolbar.add(markbutton,230,18);
-		toolbar.add(deletebutton,310,18);
+		toolbar.add(markbutton,230,30);
+		toolbar.add(deletebutton,310,30);
 		refreshbutton.setTitle("Restore");
-		toolbar.add(refreshbutton,390,18);
-		toolbar.add(settingbutton,470,18);
+		toolbar.add(refreshbutton,390,30);
+		toolbar.add(settingbutton,470,30);
 		deletebutton.setTitle("Remove Request");
 	}
 	
 	public void setTrashDetailToolBar() {
 		removeAllTool();
-		toolbar.add(backbutton,230,18);
-		toolbar.add(deletebutton,310,18);
+		toolbar.add(backbutton,230,30);
+		toolbar.add(deletebutton,310,30);
 		refreshbutton.setTitle("Restore");
-		toolbar.add(refreshbutton,390,18);
+		toolbar.add(refreshbutton,390,30);
 	}
 	
 	public void removeAllTool() {
@@ -201,108 +195,5 @@ public class DesktopToolBarPanelView extends Composite{
 //			if(Trash_listener!=null)
 //				Trash_listener.onDeleteButtonClick();
 	}
-	
-	/*
-	 * ---EventBus Handler---
-	 */
-	void setHandlerEventBus() {
-		eventBus.addHandler(CreateRequestFailEvent.TYPE, new CreateRequestFailEvent.Handler() {
-			@Override
-			public void onCreateRequestFail(CreateRequestFailEvent event) {
-				// TODO Auto-generated method stub
-				noticelabel.setVisible(true);
-				noticelabel.setText("Sent Request Failure!");
-			}
-		});
-		eventBus.addHandler(CreateRequestSuccessEvent.TYPE, new CreateRequestSuccessEvent.Handler() {
-			@Override
-			public void onCreateRequestSuccess(CreateRequestSuccessEvent event) {
-				// TODO Auto-generated method stub
-				noticelabel.setVisible(true);
-				noticelabel.setText("Request has been sent!");
-			}
-		});
-		eventBus.addHandler(LoadingEvent.TYPE, new LoadingEvent.Handler() {
-			@Override
-			public void onLoading(LoadingEvent event) {
-				noticelabel.setVisible(true);
-				noticelabel.setText("Loading...");
-			}
-		});
-		eventBus.addHandler(LoadFailEvent.TYPE, new LoadFailEvent.Handler() {
-			@Override
-			public void onLoadFail(LoadFailEvent event) {
-				// TODO Auto-generated method stub
-				noticelabel.setVisible(true);
-				noticelabel.setText("Load Failure!");
-			}
-		});
-		eventBus.addHandler(LoadSuccessEvent.TYPE, new LoadSuccessEvent.Handler() {
-			@Override
-			public void onLoadSuccess(LoadSuccessEvent event) {
-				noticelabel.setVisible(false);
-			}
-		});
-		eventBus.addHandler(InDraftsPlaceEvent.TYPE, new InDraftsPlaceEvent.Handler() {
-			@Override
-			public void inDraftsPlace(InDraftsPlaceEvent event) {
-				// TODO Auto-generated method stub
-				setDraftsToolBar();
-			}
-		});
-		eventBus.addHandler(InFinanceRequirementPlaceEvent.TYPE, new InFinanceRequirementPlaceEvent.Handler() {
-			@Override
-			public void inFinanceRequirementPlace(
-					InFinanceRequirementPlaceEvent event) {
-				// TODO Auto-generated method stub
-				setFinanceRequirementToolBar();
-			}
-		});
-		eventBus.addHandler(InTrashPlaceEvent.TYPE, new InTrashPlaceEvent.Handler() {
-			@Override
-			public void inTrashPlace(InTrashPlaceEvent event) {
-				// TODO Auto-generated method stub
-				setTrashToolBar();
-			}
-		});
-		eventBus.addHandler(InConstructionPlaceEvent.TYPE, new InConstructionPlaceEvent.Handler() {
-			@Override
-			public void inConstructionPlace(InConstructionPlaceEvent event) {
-				// TODO Auto-generated method stub
-				setDefault();
-			}
-		});
-		eventBus.addHandler(RefreshingEvent.TYPE, new RefreshingEvent.Handler() {
-			@Override
-			public void onRefreshing(RefreshingEvent event) {
-				// TODO Auto-generated method stub
-				noticelabel.setVisible(true);
-				noticelabel.setText("Refreshing...");
-			}
-		});
-		eventBus.addHandler(ApprovedRequestEvent.TYPE, new ApprovedRequestEvent.Handler() {		
-			@Override
-			public void onApprovedRequest(ApprovedRequestEvent event) {
-				// TODO Auto-generated method stub
-				noticelabel.setVisible(true);
-				noticelabel.setText("Request has been approved!");
-			}
-		});
-		eventBus.addHandler(DeniedRequestEvent.TYPE, new DeniedRequestEvent.Handler() {		
-			@Override
-			public void onDeniedRequest(DeniedRequestEvent event) {
-				// TODO Auto-generated method stub
-				noticelabel.setVisible(true);
-				noticelabel.setText("Request has been denied!");
-			}
-		});
-		eventBus.addHandler(SendBackRequestEvent.TYPE, new SendBackRequestEvent.Handler() {		
-			@Override
-			public void onSendBackRequest(SendBackRequestEvent event) {
-				// TODO Auto-generated method stub
-				noticelabel.setVisible(true);
-				noticelabel.setText("Request has been send back to requester!");
-			}
-		});
-	}
+
 }

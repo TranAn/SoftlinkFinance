@@ -17,14 +17,14 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.Label;
 import com.softlink.financeuser.client.request.*;
-import com.softlink.financeuser.shared.SeriUser;
+import com.softlink.datastore.model.FinanceUser;
 
 public class UserCreat extends Composite {
 
 	interface Binder extends UiBinder<Widget, UserCreat> { }
 	private static final Binder binder = GWT.create(Binder.class);
-	private final SeriUserRequestAsync SeriUserObj = GWT
-			  .create(SeriUserRequest.class);
+	private final FinanceUserRequestAsync SeriUserObj = GWT
+			  .create(FinanceUserRequest.class);
 	private Timer elapsedTimer = null;
 	
 	@UiField TextBox username;
@@ -48,7 +48,7 @@ public class UserCreat extends Composite {
 	
 	@UiHandler("creatuserButton")
 	void onCreatuserButtonClick(ClickEvent event) {
-		SeriUser user = new SeriUser();
+		FinanceUser user = new FinanceUser();
 		user.setUsername(username.getText());
 		user.setRole(role.getValue(role.getSelectedIndex()));
 		Date date = new Date(2000);

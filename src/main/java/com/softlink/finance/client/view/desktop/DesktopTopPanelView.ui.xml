@@ -25,33 +25,68 @@
 	font-size: 12px;
   }
   
+  .notifyLabel{
+  	color: orangered;
+  	font-size: 14px;
+  	font-weight: bold;
+  }
+  
   </ui:style>
 
   <g:AbsolutePanel width="1340px">
+  	<g:at left="530" top="35">
+		<g:DeckLayoutPanel width="560px" height="32px" ui:field="searchtxb" animationDuration="400" animationVertical="true"/>
+  	</g:at>
   	<g:at left="10" top="10">
 		<g:Image url="resource/logo-itpro.png"/>
 	</g:at>
-  	<g:at left="1097" top="10">
-  		<g:Label ui:field="userlabel" text="You are not sign in!" styleName="loginlabel" width="247px" height="16px" horizontalAlignment="ALIGN_RIGHT"></g:Label>
+  	<g:at left="1147" top="21">
+  		<g:Label ui:field="userlabel" text="test@example.com" styleName="loginlabel" width="135px" height="16px" horizontalAlignment="ALIGN_RIGHT"></g:Label>
   	</g:at>
-  	<g:at left="1206" top="32">
-  		<g:Anchor href='javascript:;' ui:field='signLink' text="Sign In" width="94px" height="16px" horizontalAlignment="ALIGN_RIGHT"></g:Anchor>
+  	<g:at left="1192" top="49">
+  		<g:Anchor href='javascript:;' ui:field='signLink' text="Sign Out" width="57px" height="16px" horizontalAlignment="ALIGN_RIGHT"></g:Anchor>
   	</g:at>
-  	<g:at left="1310" top="32">
-  		<g:Anchor href='javascript:;' ui:field='aboutLink'>About</g:Anchor>
+  	<g:at left="1153" top="49">
+  		<g:Anchor href='javascript:;' ui:field='aboutLink' horizontalAlignment="ALIGN_RIGHT">About</g:Anchor>
   	</g:at>
-  	<g:at left="358" top="0">
-  		<g:MenuBar animationEnabled="true" autoOpen="true">
-  			<g:MenuItem text="Home" width="45" ui:field="homeMenu"/>
-  			<g:MenuItem text="User Center" ui:field="userMenu"/>
-  			<g:MenuItem text="Modules" width="70">
+  	<g:at left="445" top="0">
+  		<g:MenuBar animationEnabled="true" autoOpen="true" focusOnHoverEnabled="false">
+  			<g:MenuItem width="45" ui:field="homeMenu">
+  				<img src="resource/home_menu.png" height="16px"/>&#160; Home
+  			</g:MenuItem>
+  			<g:MenuItemSeparator/>
+  			<g:MenuItem width="70" ui:field="searchMenu">
+  				<img src="resource/search_menu.png" height="16px"/>&#160; Search
+  			</g:MenuItem>
+  			<g:MenuItemSeparator/>
+  			<g:MenuItem text="User Guide" ui:field="userguideMenu"/>
+  			<g:MenuItem text="Finance" ui:field="financeMenu" />
+  			<g:MenuItem text="Task Manager" ui:field="taskmanagerMenu"/>
+  			<g:MenuItem text="More App" width="70">
   				<g:MenuBar vertical="true">
-  					<g:MenuItem text="Finance" ui:field="financialMenu"/>
+  					<g:MenuItem text="(No App available)"/>
   				</g:MenuBar>
   			</g:MenuItem>
   			<g:MenuItemSeparator/>
-  			<g:MenuItem text="Support"/>
+  			<g:MenuItem ui:field="supportMenu">
+  				<img src="resource/support_menu.png" height="16px"/>&#160; Support
+  			</g:MenuItem>
   		</g:MenuBar>
+  	</g:at>
+  	<g:at left="1297" top="18">
+  		<g:Image url="resource/staff_icon.png" width="47px" height="47px"/>
+  	</g:at>
+  	<g:at left="1257" top="46">
+  		<g:Image url="resource/user-center-lock.png" width="25px" height="19px" ui:field="userCenterbtn" title="User Center" styleName="userCenterbtn"/>
+  	</g:at>
+  	<g:at left="317" top="0">
+  		<g:Image url="resource/notificationicon.png" width="57px" height="58px" ui:field="notificationbtn" title="notifycation" styleName="notificationbtn"/>
+  	</g:at>
+  	<g:at left="334" top="55">
+  		<g:Image url="resource/notificationflag.png" width="25px" height="25px" ui:field="notifyflag" visible="false"/>
+  	</g:at>
+  	<g:at left="333" top="56">
+  		<g:Label text="1" styleName="{style.notifyLabel}" horizontalAlignment="ALIGN_CENTER" width="25px" height="20px" ui:field="notifyLabel" visible="false"/>
   	</g:at>
   </g:AbsolutePanel>
 	

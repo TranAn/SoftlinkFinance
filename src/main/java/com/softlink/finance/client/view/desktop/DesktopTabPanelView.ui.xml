@@ -25,19 +25,25 @@
   
   <g:StackLayoutPanel styleName='{style.shortcuts}' unit='EM' ui:field="stackpanel">
   	<g:stack>
-    	<g:header size='3'><div class='{style.stackHeader}'><img src="resource/statistics.png" height="22px"/>&#160; Finance</div></g:header>
+    	<g:header size='3'><div class='{style.stackHeader}'><img src="resource/finance-icon.png" height="23px"/>&#160; Finance</div></g:header>
     	<g:Tree>
-    		<g:Hyperlink text="Static Finance" targetHistoryToken="construction" ui:field="staticexpenses"/>
-    		<g:Hyperlink text="Finance Requirement" targetHistoryToken="finance_reqs" ui:field="financialrequirement"/>
-    		<g:Hyperlink text="Future" targetHistoryToken="construction" ui:field="future"/>
-    		<g:Hyperlink text="Drafts" targetHistoryToken="drafts" ui:field="drafts"/>
-    		<g:Hyperlink text="Trash" targetHistoryToken="trash" ui:field="trash"/>
+    		<g:Anchor ui:field="staticexpenses">
+    			Static Expenses &#160; <img src="resource/under-construction.png" height="20px"/> 
+    		</g:Anchor>
+    		<g:Anchor text="Finance Requirement" ui:field="financialrequirement"/>
+    		<g:Anchor ui:field="future">
+    			Future &#160; <img src="resource/under-construction.png" height="20px"/>
+    		</g:Anchor>
+    		<g:Anchor text="Drafts" ui:field="drafts"/>
+    		<g:Anchor text="Trash" ui:field="trash"/>
     	</g:Tree>
     </g:stack>
   	<g:stack>
-    	<g:header size='3'><div class='{style.stackHeader}'><img src="resource/income.png" height="22px"/>&#160; Statistics</div></g:header>
+    	<g:header size='3'><div class='{style.stackHeader}'><img src="resource/statistic-icon.png" height="23px"/>&#160; Statistics</div></g:header>
     	<g:Tree>
-    		<g:Hyperlink text="Statistics" targetHistoryToken="construction" ui:field="statistics"/>
+    		<g:Anchor ui:field="statistics">
+    			Statistics &#160; <img src="resource/under-construction.png" height="20px"/>
+    		</g:Anchor>
     	</g:Tree>
     </g:stack>
     

@@ -27,27 +27,30 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.softlink.datastore.model.FinanceData;
+import com.softlink.datastore.model.FinanceUser;
+import com.softlink.finance.client.ClientFactory;
 import com.softlink.finance.client.events.CreateRequestFailEvent;
 import com.softlink.finance.client.events.CreateRequestSuccessEvent;
-import com.softlink.finance.client.request.FinanceRequirementsRequest;
-import com.softlink.finance.client.request.FinanceRequirementsRequestAsync;
+import com.softlink.finance.client.request.FinanceDataRequest;
+import com.softlink.finance.client.request.FinanceDataRequestAsync;
 import com.softlink.finance.client.request.MailServicesRequest;
 import com.softlink.finance.client.request.MailServicesRequestAsync;
 import com.softlink.finance.client.request.UserServicesRequest;
 import com.softlink.finance.client.request.UserServicesRequestAsync;
-import com.softlink.finance.shared.FinanceRequirements;
-import com.softlink.finance.shared.SeriUser;
 
 public class DesktopRequestDialogView extends DialogBox{
 
 	interface Binder extends UiBinder<Widget, DesktopRequestDialogView> { }
 	private static final Binder binder = GWT.create(Binder.class);
 	
+	private ClientFactory clientFactory;
 	private EventBus eventBus;
+	
 	private final static UserServicesRequestAsync userservices = 
 			  GWT.create(UserServicesRequest.class);
-	private final FinanceRequirementsRequestAsync FinancialRequirementsObj = GWT
-			  .create(FinanceRequirementsRequest.class);
+	private final FinanceDataRequestAsync FinancialRequirementsObj = GWT
+			  .create(FinanceDataRequest.class);
 	private final MailServicesRequestAsync MailServicesRequest = GWT
 			  .create(MailServicesRequest.class);
 	//true is income-request, false is expenses-request
@@ -60,7 +63,7 @@ public class DesktopRequestDialogView extends DialogBox{
 	@UiField ListBox account;
 	@UiField ListBox currency;
 	@UiField IntegerBox real_amount;
-	@UiField IntegerBox tax_amount;
+	@UiField IntegerBox bill_amount;
 	@UiField TextArea tags;
 	@UiField ListBox cus_id;
 	@UiField ListBox assets_id;
@@ -105,13 +108,13 @@ public class DesktopRequestDialogView extends DialogBox{
 	    });
 	    
 	    //init Dialog
-	    FinancialRequirementsObj.list_manager(new AsyncCallback<List<SeriUser>>() {
+	    FinancialRequirementsObj.list_manager(new AsyncCallback<List<FinanceUser>>() {
 			public void onFailure(Throwable caught) {}
-			public void onSuccess(List<SeriUser> result) {
+			public void onSuccess(List<FinanceUser> result) {
 				if(result.isEmpty())
 					 manager.addItem("");
 				else
-					for(SeriUser user: result)
+					for(FinanceUser user: result)
 						 manager.addItem(user.getUsername());
 			}
 	    	
@@ -144,8 +147,9 @@ public class DesktopRequestDialogView extends DialogBox{
 	/*
 	 * ---Procedure---
 	 */
-	public void setEventBus(EventBus eventBus){
-		this.eventBus = eventBus;
+	public void setController(ClientFactory clientFactory){
+		this.eventBus = clientFactory.getEventBus();
+		this.clientFactory = clientFactory;
 	}
 	
 	public boolean checkUsername(String username) {
@@ -177,8 +181,8 @@ public class DesktopRequestDialogView extends DialogBox{
 		requester.setStyleName("textbox");
 		real_amount.setText("0");
 		real_amount.setStyleName("textbox");
-		tax_amount.setText("0");
-		tax_amount.setStyleName("textbox");
+		bill_amount.setText("0");
+		bill_amount.setStyleName("textbox");
 		tags.setText("relate with project?");
 		tags.setStyleName("textbox");
 		document.setText("relate with documents?");
@@ -198,7 +202,7 @@ public class DesktopRequestDialogView extends DialogBox{
 	
 	
 	/*
-	 * Event Handler---
+	 * ---Event Handler---
 	 */
 	@UiHandler("closebutton")
 	  void onSignOutClicked(ClickEvent event) {
@@ -226,11 +230,11 @@ public class DesktopRequestDialogView extends DialogBox{
 		}
 	}
 	
-	@UiHandler("tax_amount")
+	@UiHandler("bill_amount")
 	void onTax_amountMouseDown(MouseDownEvent event) {
-		if(tax_amount.getText().equals("0")){
-			tax_amount.setText("");
-			tax_amount.removeStyleName("textbox");
+		if(bill_amount.getText().equals("0")){
+			bill_amount.setText("");
+			bill_amount.removeStyleName("textbox");
 		}
 	}
 	
@@ -255,14 +259,14 @@ public class DesktopRequestDialogView extends DialogBox{
 	@UiHandler("sendrequest")
 	void onSendrequestClick(ClickEvent event) {
 		if(VerifyField()) {
-			FinanceRequirements fr = new FinanceRequirements();
+			final FinanceData fr = new FinanceData();
 			fr.setReporter(reporter.getText());
 			fr.setRequester(requester.getText());
 			fr.setManager(manager.getValue(manager.getSelectedIndex()));
 			fr.setAccount(account.getValue(account.getSelectedIndex()));
 			fr.setCurrency(currency.getValue(currency.getSelectedIndex()));
 			fr.setReal_amount(real_amount.getValue());
-			fr.setTax_amount(tax_amount.getValue());
+			fr.setBill_amount(bill_amount.getValue());
 			fr.setDescription(description.getText());
 			if(cus_id.getValue(cus_id.getSelectedIndex()).equals("null")==false)
 				fr.setCus_id(Long.valueOf(cus_id.getValue(cus_id.getSelectedIndex())));
@@ -287,7 +291,7 @@ public class DesktopRequestDialogView extends DialogBox{
 			fr.setComment("");
 			final String fromAddress = reporter.getText();
 			final String toAddress = manager.getValue(manager.getSelectedIndex());
-			final String subject = "ITPRO-New Request # real_amount: "+real_amount.getText()+fr.getCurrency()+", tax_amount: "+tax_amount.getText()+fr.getCurrency()+" # for "+description.getText();
+			final String subject = "ITPRO-New Request # real_amount: "+real_amount.getText()+fr.getCurrency()+", tax_amount: "+bill_amount.getText()+fr.getCurrency()+" # for "+description.getText();
 			final String url = Window.Location.getHost()+"/financial/#Finance%20Requirement";
 			final String msgBody = "see Detail: "
 					  +"\r\n "+url;
@@ -296,7 +300,7 @@ public class DesktopRequestDialogView extends DialogBox{
 					  eventBus.fireEvent(new CreateRequestFailEvent());
 				  }
 				  public void onSuccess(Void result) {
-					  eventBus.fireEvent(new CreateRequestSuccessEvent());
+					  eventBus.fireEvent(new CreateRequestSuccessEvent(fr));
 					  try {
 							MailServicesRequest.sendmail(fromAddress, toAddress, subject, msgBody,
 								  new AsyncCallback<Void>(){
@@ -318,10 +322,10 @@ public class DesktopRequestDialogView extends DialogBox{
 			real_amount.setText("0");
 	}
 	
-	@UiHandler("tax_amount")
+	@UiHandler("bill_amount")
 	void onTax_amountMouseOut(MouseOutEvent event) {
-		if (tax_amount.getText().equals(""))
-			tax_amount.setText("0");
+		if (bill_amount.getText().equals(""))
+			bill_amount.setText("0");
 	}
 	
 	@UiHandler("tags")
@@ -348,14 +352,14 @@ public class DesktopRequestDialogView extends DialogBox{
 	
 	@UiHandler("draft")
 	void onDraftClick(ClickEvent event) {
-		FinanceRequirements fr = new FinanceRequirements();
+		final FinanceData fr = new FinanceData();
 		fr.setReporter(reporter.getText());
 		fr.setRequester(requester.getText());
 		fr.setManager(manager.getValue(manager.getSelectedIndex()));
 		fr.setAccount(account.getValue(account.getSelectedIndex()));
 		fr.setCurrency(currency.getValue(currency.getSelectedIndex()));
 		fr.setReal_amount(real_amount.getValue());
-		fr.setTax_amount(tax_amount.getValue());
+		fr.setBill_amount(bill_amount.getValue());
 		fr.setDescription(description.getText());
 		if(cus_id.getValue(cus_id.getSelectedIndex()).equals("null")==false)
 			fr.setCus_id(Long.valueOf(cus_id.getValue(cus_id.getSelectedIndex())));
@@ -383,7 +387,7 @@ public class DesktopRequestDialogView extends DialogBox{
 				  eventBus.fireEvent(new CreateRequestFailEvent());
 			  }
 			  public void onSuccess(Void result) {
-				  eventBus.fireEvent(new CreateRequestSuccessEvent());
+				  eventBus.fireEvent(new CreateRequestSuccessEvent(fr));
 			  }
 		  });
 		hide();

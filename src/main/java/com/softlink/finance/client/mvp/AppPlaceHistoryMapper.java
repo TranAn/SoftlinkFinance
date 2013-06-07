@@ -20,11 +20,14 @@ public class AppPlaceHistoryMapper implements PlaceHistoryMapper {
 	 */
 	@Override
 	public Place getPlace(String token) {
+		 if(token == null||token.equals(""))
+			 return null;
+		 
 		 if(!token.contains(delimiter))
 			 token = token + delimiter;
 		 
 		 String[] tokens = token.split(delimiter, 2); 
-
+		 
          if (tokens[0].equals("drafts")) {
         	 if(tokens[1].length()!=0)
         		 return new DraftsPlace(tokens[1]);
@@ -43,10 +46,11 @@ public class AppPlaceHistoryMapper implements PlaceHistoryMapper {
          else if (tokens[0].equals("construction")||
         		 tokens[0].equals("statistics")||
         		 tokens[0].equals("static_finance")||
-        		 tokens[0].equals("future"))
+        		 tokens[0].equals("future")) {
         	 return new ConstructionPlace();
-         
-         return null;
+         } else {
+        	 return new FinanceRequirementPlace(null);
+         }
 	}
 
 	/**

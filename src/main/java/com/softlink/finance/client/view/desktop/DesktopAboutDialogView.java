@@ -37,6 +37,9 @@ public class DesktopAboutDialogView extends DialogBox {
  
   @UiField Button closeButton;
   
+  /*
+   * ---Constructor---
+   */
   public DesktopAboutDialogView() {
     // Use this opportunity to set the dialog's caption.
     setText("About the Finance Module");
@@ -63,6 +66,9 @@ public class DesktopAboutDialogView extends DialogBox {
     }
   }
   
+  /*
+   * ---Event Handler---
+   */
   @UiHandler("closeButton")
   void onSignOutClicked(ClickEvent event) {
     hide();

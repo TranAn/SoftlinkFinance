@@ -117,7 +117,7 @@
         		<groupId>org.codehaus.mojo</groupId>
         		<artifactId>gwt-maven-plugin</artifactId>
         		<configuration> <!--com.softlink.uc.Underconstruction/-->
-          			<runTarget>ERPproject.html</runTarget>
+          			<runTarget>a/finance/</runTarget>
         		</configuration>
         		<executions>
           			<execution>

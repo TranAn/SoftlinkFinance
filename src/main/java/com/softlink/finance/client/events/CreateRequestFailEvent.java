@@ -5,7 +5,6 @@ import com.google.gwt.event.shared.GwtEvent;
 
 /**
  * Fire by RequestDialogView when create request failure.
- *
  */
 public class CreateRequestFailEvent extends GwtEvent<CreateRequestFailEvent.Handler>{
 

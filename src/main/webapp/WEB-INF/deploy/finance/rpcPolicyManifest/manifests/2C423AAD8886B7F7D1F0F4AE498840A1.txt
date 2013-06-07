@@ -1,0 +1,2 @@
+serviceClass: com.softlink.finance.client.request.UserServicesRequest
+path: F7FF3CB9728C57A09B6480FDBCEB19C4.gwt.rpc

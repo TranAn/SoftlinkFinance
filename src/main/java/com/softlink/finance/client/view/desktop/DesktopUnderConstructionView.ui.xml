@@ -26,6 +26,18 @@
 	  	color: orangered;
 	  	font-size: 24px;
 	  }
+	  .gobackLabel{
+	  	font-size: 14px;
+	  }
+	  .countdownLabel{
+	  	color: Black;
+	  	font-size: 14px;
+	  	font-weight: bold;
+	  }
+	  .link{
+	  	color: darkblue;
+	  	cursor: pointer;
+      }
   </ui:style>
 
   <g:DockLayoutPanel unit='EM' styleName='{style.detail}'>
@@ -38,6 +50,21 @@
     	<g:AbsolutePanel>
     		<g:at left="400" top="200">
     			<g:Label text="Service is under construction!" width="331px" height="48px" styleName="{style.label}"/>
+    		</g:at>
+    		<g:at left="421" top="254">
+    			<g:Label text="Go back to previous place in" styleName="{style.gobackLabel}"/>
+    		</g:at>
+    		<g:at left="610" top="254">
+    			<g:Label text="3" styleName="{style.countdownLabel}" ui:field="countDownLabel"/>
+    		</g:at>
+    		<g:at left="624" top="254">
+    			<g:Label text="..." styleName="{style.gobackLabel}"/>
+    		</g:at>
+    		<g:at left="642" top="254">
+    			<g:Anchor text="&lt;&lt;Go Back!" ui:field="goBackbtn" styleName="{style.link}"/>
+    		</g:at>
+    		<g:at left="516" top="79">
+    			<g:Image width="100px" height="100px" url="resource/under-construction.png"/>
     		</g:at>
     	</g:AbsolutePanel>
     </g:center>

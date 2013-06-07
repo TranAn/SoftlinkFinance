@@ -10,7 +10,7 @@
   <!-- StartUp Servlets -->
   <servlet>
     <servlet-name>StartUpServlet</servlet-name>
-    <servlet-class>com.softlink.finance.server.StartUpServlet</servlet-class>
+    <servlet-class>com.softlink.datastore.StartUp</servlet-class>
     <load-on-startup>0</load-on-startup>
   </servlet>
 
@@ -32,15 +32,6 @@
   <servlet-mapping>
     <servlet-name>Financial-financialrequirementsImpl</servlet-name>
     <url-pattern>/finance/financerequirements_rq</url-pattern>
-  </servlet-mapping> 
-  
-  <servlet>
-    <servlet-name>Financial-seriuserImpl</servlet-name>
-    <servlet-class>com.softlink.finance.server.services.DataStoreServices</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Financial-seriuserImpl</servlet-name>
-    <url-pattern>/finance/seriuser_rq</url-pattern>
   </servlet-mapping> 
   
   <servlet>

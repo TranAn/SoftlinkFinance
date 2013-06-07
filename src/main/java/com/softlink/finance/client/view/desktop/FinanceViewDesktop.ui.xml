@@ -3,22 +3,28 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:p1="urn:import:com.softlink.finance.client.view.desktop">
 	<ui:style>
 	</ui:style>
-	<g:DockLayoutPanel width="100%" height="635px">
-		<g:north size="80.0">
-			<p1:DesktopTopPanelView width="100%" ui:field="topPanel"/>
-		</g:north>
-		<g:north size="75.0">
-			<p1:DesktopToolBarPanelView width="100%" ui:field="toolbarPanel"/>
-		</g:north>
-		<g:center>
-			<g:SplitLayoutPanel width="100%" ui:field="splitPanel" height="100%">
-				<g:west size="222.0">
-					<p1:DesktopTabPanelView ui:field="tabPanel"/>
-				</g:west>
+	<g:AbsolutePanel width="100%" height="635px">
+		<g:at left="0" top="0">
+				<p1:DesktopTopPanelView width="1346px" height="80px" ui:field="topPanel"/>
+		</g:at>
+		<g:at left="0" top="80">
+			<g:DockLayoutPanel width="100%" height="555px">
+				<g:north size="75.0">
+					<p1:DesktopToolBarPanelView width="100%" ui:field="toolbarPanel"/>
+				</g:north>
 				<g:center>
-					<g:DeckLayoutPanel ui:field="ContainerView"/>
+					<g:SplitLayoutPanel width="100%" ui:field="splitPanel" height="100%">
+						<g:west size="222.0">
+							<p1:DesktopTabPanelView ui:field="tabPanel"/>
+						</g:west>
+						<g:center>
+						<g:ScrollPanel width="102%" height="100%">
+							<g:DeckLayoutPanel ui:field="ContainerView" width="1140px" height="480px"/>
+							</g:ScrollPanel>
+						</g:center>
+					</g:SplitLayoutPanel>
 				</g:center>
-			</g:SplitLayoutPanel>
-		</g:center>
-	</g:DockLayoutPanel>
+			</g:DockLayoutPanel>
+		</g:at>
+	</g:AbsolutePanel>
 </ui:UiBinder> 

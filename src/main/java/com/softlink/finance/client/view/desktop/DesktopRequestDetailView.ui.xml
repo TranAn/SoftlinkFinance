@@ -116,8 +116,7 @@
   
   </ui:style>
 
-<g:ScrollPanel width="100%" height="100%">
-  <g:DockLayoutPanel unit='EM' styleName="{style.detail}" height="478px" width="99.85%">
+  <g:DockLayoutPanel unit='EM' styleName="{style.detail}" width="99.47%" height="99.47%">
     <g:center>
     	<g:AbsolutePanel>
     		<g:at left="10" top="370">
@@ -142,7 +141,7 @@
     			<g:Label text="Real Amount" styleName="{style.headlabel}"/>
     		</g:at>
     		<g:at left="643" top="100">
-    			<g:Label text="Tax Amount" styleName="{style.headlabel}"/>
+    			<g:Label text="Bill Amount" styleName="{style.headlabel}"/>
     		</g:at>
     		<g:at left="10" top="122">
     			<g:Image url="resource/line2.png" width="703px" height="16px"/>
@@ -157,7 +156,7 @@
     			<g:Label text="0" width="180px" height="16px" horizontalAlignment="ALIGN_RIGHT" ui:field="real_amount" styleName="{style.valueLabel}"/>
     		</g:at>
     		<g:at left="545" top="144">
-    			<g:Label text="0" width="168px" height="16px" horizontalAlignment="ALIGN_RIGHT" ui:field="tax_amount" styleName="{style.valueLabel}"/>
+    			<g:Label text="0" width="168px" height="16px" horizontalAlignment="ALIGN_RIGHT" ui:field="bill_amount" styleName="{style.valueLabel}"/>
     		</g:at>
     		<g:at left="432" top="193">
     			<g:Label text="Relates Infomation:" styleName="tableStyle"/>
@@ -265,5 +264,5 @@
     	</g:AbsolutePanel>
     </g:north>
   </g:DockLayoutPanel>
-</g:ScrollPanel>
+
 </ui:UiBinder>

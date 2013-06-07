@@ -1,0 +1,4 @@
+# Module finance
+# RPC service class, partial path of RPC policy file
+com.softlink.finance.client.request.UserServicesRequest, F7FF3CB9728C57A09B6480FDBCEB19C4.gwt.rpc
+com.softlink.finance.client.request.FinanceDataRequest, FB655E6900F4EA26E831DCAC47734222.gwt.rpc

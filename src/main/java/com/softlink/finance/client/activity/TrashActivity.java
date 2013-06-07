@@ -22,8 +22,10 @@ public class TrashActivity extends AbstractActivity {
 	@Override
 	public void start(AcceptsOneWidget containerView, EventBus eventBus) {
 		TrashView trashView = clientFactory.getTrashView();
+		
 		eventBus.fireEvent(new InTrashPlaceEvent());
 		eventBus.fireEvent(new InParentPlaceEvent());
+		
 		containerView.setWidget(trashView.asWidget());
 		
 	}

@@ -21,41 +21,41 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
-import com.softlink.financeuser.client.request.SeriUserRequest;
-import com.softlink.financeuser.client.request.SeriUserRequestAsync;
-import com.softlink.financeuser.shared.SeriUser;
+import com.softlink.financeuser.client.request.FinanceUserRequest;
+import com.softlink.financeuser.client.request.FinanceUserRequestAsync;
+import com.softlink.datastore.model.FinanceUser;
 
 public class UserList extends Composite {
 
 	interface Binder extends UiBinder<Widget, UserList> { }
 	private static final Binder binder = GWT.create(Binder.class);
-	private final SeriUserRequestAsync SeriUserObj = GWT
-			  .create(SeriUserRequest.class);
-	@UiField(provided=true) CellTable<SeriUser> cellTable = 
-			new CellTable<SeriUser>();
+	private final FinanceUserRequestAsync SeriUserObj = GWT
+			  .create(FinanceUserRequest.class);
+	@UiField(provided=true) CellTable<FinanceUser> cellTable = 
+			new CellTable<FinanceUser>();
 	@UiField Button button;
-	private List<SeriUser> list_user = new ArrayList<SeriUser>();
+	private List<FinanceUser> list_user = new ArrayList<FinanceUser>();
 
 	public UserList() {
 		 // Do not refresh the headers and footers every time the data is updated.
 	    cellTable.setAutoHeaderRefreshDisabled(true);
 	    cellTable.setAutoFooterRefreshDisabled(true);
 	    
-	    ListHandler<SeriUser> columnSortHandler = 
-	    		new ListHandler<SeriUser>(list_user);
+	    ListHandler<FinanceUser> columnSortHandler = 
+	    		new ListHandler<FinanceUser>(list_user);
 	    cellTable.addColumnSortHandler(columnSortHandler);
 	    
-	    final TextColumn<SeriUser> UserNameColumn = new 
-				TextColumn<SeriUser>() {
+	    final TextColumn<FinanceUser> UserNameColumn = new 
+				TextColumn<FinanceUser>() {
 			@Override
-		    public String getValue(SeriUser object) {
+		    public String getValue(FinanceUser object) {
 				return object.getUsername();
 		    }
 		};
 		UserNameColumn.setSortable(true);
-		columnSortHandler.setComparator(UserNameColumn, new Comparator<SeriUser>() {
+		columnSortHandler.setComparator(UserNameColumn, new Comparator<FinanceUser>() {
 		      @Override
-		      public int compare(SeriUser o1, SeriUser o2) {		    	  
+		      public int compare(FinanceUser o1, FinanceUser o2) {		    	  
 		    	  return o1.getUsername().compareTo(o2.getUsername());	    	  
 		      }
 		});
@@ -63,27 +63,27 @@ public class UserList extends Composite {
 		cellTable.setColumnWidth(UserNameColumn,"35%");
 		
 		
-		final TextColumn<SeriUser> RoleColumn = new 
-				TextColumn<SeriUser>() {
+		final TextColumn<FinanceUser> RoleColumn = new 
+				TextColumn<FinanceUser>() {
 			@Override
-		    public String getValue(SeriUser object) {
+		    public String getValue(FinanceUser object) {
 				return object.getRole();
 		    }
 		};
 		RoleColumn.setSortable(true);
-		columnSortHandler.setComparator(RoleColumn, new Comparator<SeriUser>() {
+		columnSortHandler.setComparator(RoleColumn, new Comparator<FinanceUser>() {
 		      @Override
-		      public int compare(SeriUser o1, SeriUser o2) {		    	  
+		      public int compare(FinanceUser o1, FinanceUser o2) {		    	  
 		    	  return o1.getRole().compareTo(o2.getRole());	    	  
 		      }
 		});
 		cellTable.addColumn(RoleColumn, "Role");
 		cellTable.setColumnWidth(RoleColumn,"15%");
 		
-		final TextColumn<SeriUser> TimeWorkColumn = new 
-				TextColumn<SeriUser>() {
+		final TextColumn<FinanceUser> TimeWorkColumn = new 
+				TextColumn<FinanceUser>() {
 			@Override
-		    public String getValue(SeriUser object) {
+		    public String getValue(FinanceUser object) {
 				return String.valueOf(object.getTimework());
 		    }
 		};
@@ -91,9 +91,9 @@ public class UserList extends Composite {
 		cellTable.setColumnWidth(TimeWorkColumn,"50%");
 		
 		@SuppressWarnings("rawtypes")
-		ActionCell action = new ActionCell<SeriUser>("Kick", new ActionCell.Delegate<SeriUser>(){
+		ActionCell action = new ActionCell<FinanceUser>("Kick", new ActionCell.Delegate<FinanceUser>(){
 			@Override
-			public void execute(final SeriUser object) {
+			public void execute(final FinanceUser object) {
 				SeriUserObj.delete(object, new AsyncCallback<Void>(){
 					@Override
 					public void onFailure(Throwable caught) {
@@ -108,17 +108,17 @@ public class UserList extends Composite {
 			}
 		});
 		@SuppressWarnings("unchecked")
-		Column<SeriUser,SeriUser> ActionColumn = new Column<SeriUser,SeriUser>(action) {
+		Column<FinanceUser,FinanceUser> ActionColumn = new Column<FinanceUser,FinanceUser>(action) {
 			@Override
-			public SeriUser getValue(SeriUser object) {
+			public FinanceUser getValue(FinanceUser object) {
 				return object;
 			}
 		};
 		cellTable.addColumn(ActionColumn);
 	    
 	    // Create a data provider.
-	    final ListDataProvider<SeriUser> dataProvider = new 
-			 ListDataProvider<SeriUser>();
+	    final ListDataProvider<FinanceUser> dataProvider = new 
+			 ListDataProvider<FinanceUser>();
 	    
 	    dataProvider.addDataDisplay(cellTable);
  		list_user = dataProvider.getList();
@@ -129,16 +129,16 @@ public class UserList extends Composite {
 	
 	//RPC call-----------------------------------------------------
 	private void getData(){
-		 SeriUserObj.list_user(new AsyncCallback<List<SeriUser>>(){
+		 SeriUserObj.list_user(new AsyncCallback<List<FinanceUser>>(){
 			@Override
 			public void onFailure(Throwable caught) {
 				cellTable.setTitle("Load Failure, the connection may be interupt!");
 			}
 			@Override
-			public void onSuccess(List<SeriUser> result) {
+			public void onSuccess(List<FinanceUser> result) {
 				if(result.isEmpty())
 					cellTable.setTitle("No Data Has Been Found!");
-				for(SeriUser user: result)
+				for(FinanceUser user: result)
 					list_user.add(user);
 			}
 		 });

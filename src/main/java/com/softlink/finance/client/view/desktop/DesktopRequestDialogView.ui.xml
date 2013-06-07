@@ -65,13 +65,13 @@
 			<g:IntegerBox width="70px" height="16px" styleName="textbox" text="0" ui:field="real_amount" alignment="RIGHT"/>
 		</g:at>
 		<g:at left="265" top="214">
-			<g:IntegerBox width="70px" height="16px" text="0" styleName="textbox" ui:field="tax_amount" alignment="RIGHT"/>
+			<g:IntegerBox width="70px" height="16px" text="0" styleName="textbox" ui:field="bill_amount" alignment="RIGHT"/>
 		</g:at>
 		<g:at left="24" top="220">
 			<g:Label text="Real Amount:" width="89px" height="16px"/>
 		</g:at>
 		<g:at left="185" top="220">
-			<g:Label text="Tax Amount:"/>
+			<g:Label text="Bill Amount:"/>
 		</g:at>
 		<g:at left="24" top="180">
 			<g:Label text="Account:"/>

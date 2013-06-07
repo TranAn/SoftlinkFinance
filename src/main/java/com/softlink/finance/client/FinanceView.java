@@ -9,4 +9,5 @@ import com.google.gwt.user.client.ui.IsWidget;
  */
 public interface FinanceView extends IsWidget{
 	DeckLayoutPanel getContainerView();
+	void setDefaultPlace();
 }

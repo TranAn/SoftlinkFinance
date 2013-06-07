@@ -33,7 +33,7 @@ import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.SelectionModel;
 import com.softlink.finance.client.view.RequestDetailView;
 import com.softlink.finance.client.view.TrashView;
-import com.softlink.finance.shared.FinanceRequirements;
+import com.softlink.datastore.model.FinanceData;
 
 public class DesktopTrashView extends Composite 
 	implements TrashView{
@@ -41,15 +41,15 @@ public class DesktopTrashView extends Composite
 	interface Binder extends UiBinder<Widget, DesktopTrashView> {}
 	private static final Binder binder = GWT.create(Binder.class);
 
-	private List<FinanceRequirements> list_fr = new ArrayList<FinanceRequirements>();
-	private List<FinanceRequirements> list_selectedfr = new ArrayList<FinanceRequirements>();
-	private FinanceRequirements selectedfr = null;
+	private List<FinanceData> list_fr = new ArrayList<FinanceData>();
+	private List<FinanceData> list_selectedfr = new ArrayList<FinanceData>();
+	private FinanceData selectedfr = null;
 	private RequestDetailView requestdetail;
 	private AbsolutePanel panel = new AbsolutePanel();
 	private Label label = new Label("<Folder is empty>");
 	
-	@UiField(provided=true) CellTable<FinanceRequirements> cellTable = new 
-			CellTable<FinanceRequirements>();
+	@UiField(provided=true) CellTable<FinanceData> cellTable = new 
+			CellTable<FinanceData>();
 	@UiField(provided=true) SimplePager pager;
 	@UiField DockLayoutPanel docklayoutpanel;
 	@UiField AbsolutePanel headerpanel;
@@ -70,49 +70,49 @@ public class DesktopTrashView extends Composite
 		
 		initWidget(binder.createAndBindUi(this));
 		
-		final SelectionModel<FinanceRequirements> selectionModel = new 
-				MultiSelectionModel<FinanceRequirements>();
+		final SelectionModel<FinanceData> selectionModel = new 
+				MultiSelectionModel<FinanceData>();
 		cellTable.setSelectionModel(selectionModel,
-		        DefaultSelectionEventManager.<FinanceRequirements> createCheckboxManager());
+		        DefaultSelectionEventManager.<FinanceData> createCheckboxManager());
 		
-		ListHandler<FinanceRequirements> columnSortHandler = 
-	    		new ListHandler<FinanceRequirements>(list_fr);
+		ListHandler<FinanceData> columnSortHandler = 
+	    		new ListHandler<FinanceData>(list_fr);
 		
-		final Column<FinanceRequirements, Boolean> checkColumn = 
-				new Column<FinanceRequirements, Boolean>(
+		final Column<FinanceData, Boolean> checkColumn = 
+				new Column<FinanceData, Boolean>(
 		        new CheckboxCell(true, false)) {
 		      @Override
-		      public Boolean getValue(FinanceRequirements object) { 
+		      public Boolean getValue(FinanceData object) { 
 		    	  return selectionModel.isSelected(object);
 			  }
 		    };
 		cellTable.addColumn(checkColumn, SafeHtmlUtils.fromSafeConstant("<br/>"));
 		cellTable.setColumnWidth(checkColumn,"5%");
 		
-		final TextColumn<FinanceRequirements> RequestIDColumn = new 
-				TextColumn<FinanceRequirements>() {
+		final TextColumn<FinanceData> RequestIDColumn = new 
+				TextColumn<FinanceData>() {
 			@Override
-		    public String getValue(FinanceRequirements object) {
+		    public String getValue(FinanceData object) {
 				return String.valueOf(object.getRequest_id());
 		    }
 		};
 		cellTable.addColumn(RequestIDColumn, "Request ID");
 		cellTable.setColumnWidth(RequestIDColumn,"10%");
 		
-		final TextColumn<FinanceRequirements> ReporterColumn = new 
-				TextColumn<FinanceRequirements>() {
+		final TextColumn<FinanceData> ReporterColumn = new 
+				TextColumn<FinanceData>() {
 			@Override
-			public String getValue(FinanceRequirements object) {
+			public String getValue(FinanceData object) {
 				return object.getReporter();
 			}
 		};
 		cellTable.addColumn(ReporterColumn, "Reporter");
 		cellTable.setColumnWidth(ReporterColumn,"15%");
 		
-		final TextColumn<FinanceRequirements> DescriptionColumn = new 
-				TextColumn<FinanceRequirements>() {
+		final TextColumn<FinanceData> DescriptionColumn = new 
+				TextColumn<FinanceData>() {
 			@Override
-			public String getValue(FinanceRequirements object) {
+			public String getValue(FinanceData object) {
 				if (object.getDescription().length()<=51)
 					return object.getDescription();
 				return object.getDescription().substring(0, 51)+" . . .";
@@ -121,37 +121,37 @@ public class DesktopTrashView extends Composite
 		cellTable.addColumn(DescriptionColumn, "Description");
 		cellTable.setColumnWidth(DescriptionColumn,"35%");
 		
-		final Column<FinanceRequirements, Date> Update_TimeColumn = new 
-		    		Column<FinanceRequirements, Date>(new DateCell()) {
+		final Column<FinanceData, Date> Update_TimeColumn = new 
+		    		Column<FinanceData, Date>(new DateCell()) {
 		      @Override
-		      public Date getValue(FinanceRequirements object) {
+		      public Date getValue(FinanceData object) {
 		        return object.getUpdate_time();
 		      }
 		    };
 	    Update_TimeColumn.setSortable(true);
 	    cellTable.addColumn(Update_TimeColumn, "Update_Time");
 	    cellTable.setColumnWidth(Update_TimeColumn,"25%");
-	    columnSortHandler.setComparator(Update_TimeColumn, new Comparator<FinanceRequirements>() {
+	    columnSortHandler.setComparator(Update_TimeColumn, new Comparator<FinanceData>() {
 		      @Override
-		      public int compare(FinanceRequirements o1, FinanceRequirements o2) {		    	  
+		      public int compare(FinanceData o1, FinanceData o2) {		    	  
 		    	  return o1.getUpdate_time().compareTo(o2.getUpdate_time());    	  
 		      }
 		});
 	    cellTable.addColumnSortHandler(columnSortHandler);
 		    
-	    final TextColumn<FinanceRequirements> StatusColumn = new 
-	    		TextColumn<FinanceRequirements>() {
+	    final TextColumn<FinanceData> StatusColumn = new 
+	    		TextColumn<FinanceData>() {
 			@Override
-			public String getValue(FinanceRequirements object) {
+			public String getValue(FinanceData object) {
 				return object.getStatus();
 			}
 		};
 		cellTable.addColumn(StatusColumn, "Status");
 		cellTable.setColumnWidth(StatusColumn,"10%");
 			
-		cellTable.addCellPreviewHandler(new Handler<FinanceRequirements>(){
+		cellTable.addCellPreviewHandler(new Handler<FinanceData>(){
 			public void onCellPreview(
-					CellPreviewEvent<FinanceRequirements> event) {
+					CellPreviewEvent<FinanceData> event) {
 				if (BrowserEvents.CLICK.equals(event.getNativeEvent().getType())) {
 					if(event.getColumn()!=0){
 						selectedfr = event.getValue();
@@ -170,15 +170,15 @@ public class DesktopTrashView extends Composite
 			}
 		});
 		    
-	    cellTable.setRowStyles(new RowStyles<FinanceRequirements>() {
-			public String getStyleNames(FinanceRequirements row, int rowIndex) {
+	    cellTable.setRowStyles(new RowStyles<FinanceData>() {
+			public String getStyleNames(FinanceData row, int rowIndex) {
 				return null;
 			}
 		});
 		
 		// Create a data provider.
-	    final ListDataProvider<FinanceRequirements> dataProvider = new 
-			 ListDataProvider<FinanceRequirements>(); 
+	    final ListDataProvider<FinanceData> dataProvider = new 
+			 ListDataProvider<FinanceData>(); 
 		dataProvider.addDataDisplay(cellTable);
 		list_fr = dataProvider.getList();
 //		toolbar.setVisibleNotice();
@@ -214,6 +214,33 @@ public class DesktopTrashView extends Composite
 //		docklayoutpanel.addNorth(headerpanel, 3);
 //		docklayoutpanel.add(table);
 //		list_selectedfr.remove(selectedfr);
+	}
+
+	/*
+	 * ---Implement View Interface---
+	 */
+	@Override
+	public void setNewData(List<FinanceData> list_fr) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setUpdateData(List<FinanceData> list_fr) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeDataItem(FinanceData fr) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setPresenter(Presenter listener) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

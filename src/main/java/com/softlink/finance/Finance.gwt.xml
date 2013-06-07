@@ -20,6 +20,9 @@
   <!-- Other module inherits                                      -->
   <inherits name="com.google.gwt.activity.Activity"/>
   <inherits name="com.google.gwt.place.Place"/>
+  <!-- <inherits name="com.google.gwt.logging.Logging"/> -->
+  
+  <inherits name="com.softlink.datastore.DataStore"/>
   
   <!-- Use ClientFactoryImpl by default for Desktop -->
   <replace-with class="com.softlink.finance.client.ClientFactoryImpl">
@@ -31,7 +34,6 @@
 
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>
-  <source path='shared'/>
 
   <set-property name="user.agent" value="gecko1_8,safari"/>
 </module>

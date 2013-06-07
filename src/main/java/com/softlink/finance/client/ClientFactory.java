@@ -23,6 +23,12 @@ public interface ClientFactory
 	PlaceController getPlaceController();
 	
 	/**
+	 * Get the {@link LocalStorage}
+	 * @return the LocalStorage of app
+	 */
+	LocalStorage getLocalStorage();
+	
+	/**
 	 * MainView, it has been add to RootPanel
 	 * @return {@link FinanceView}
 	 */

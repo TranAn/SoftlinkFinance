@@ -2,12 +2,14 @@ package com.softlink.finance.client.view;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.softlink.finance.shared.FinanceRequirements;
+import com.softlink.datastore.model.FinanceData;
 
 public interface RequestDetailView extends IsWidget{
-	void setData(FinanceRequirements fr);
+	void setData(FinanceData fr);
 	void setUserRole(boolean isAdmin);
-	FinanceRequirements getData();
+	
+	FinanceData getData();
+	
 	void setPresenter(Presenter listener);
 	
 	public interface Presenter {

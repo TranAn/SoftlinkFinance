@@ -21,8 +21,8 @@ import com.softlink.finance.client.view.desktop.FinanceViewDesktop;
 public class ClientFactoryImpl implements ClientFactory
 {
 	private static final EventBus eventBus = new SimpleEventBus();
-	@SuppressWarnings("deprecation")
 	private static final PlaceController placeController = new PlaceController(eventBus);
+	private static final LocalStorage localStorage = new LocalStorage();
 	
 	private final FinanceView financeView = new FinanceViewDesktop(this);
 	
@@ -32,6 +32,8 @@ public class ClientFactoryImpl implements ClientFactory
 	private static final TrashView trashView = new DesktopTrashView();
 	private static final UnderConstructionView underConstructionView = new DesktopUnderConstructionView();
 
+	public ClientFactoryImpl() {}
+	
 	@Override
 	public EventBus getEventBus()
 	{
@@ -42,6 +44,12 @@ public class ClientFactoryImpl implements ClientFactory
 	public PlaceController getPlaceController()
 	{
 		return placeController;
+	}
+	
+	@Override
+	public LocalStorage getLocalStorage()
+	{
+		return localStorage;
 	}
 
 	@Override

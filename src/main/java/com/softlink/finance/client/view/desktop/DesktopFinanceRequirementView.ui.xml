@@ -35,13 +35,17 @@
   .label {
   	color: Gray;
   }
+  
   .cellTable {
-	  		background-color: lemonchiffon;	
+	  background-color: lemonchiffon;	
+  }
+  
+  .trademarklabel {
+  	color: Gray;
   }
   </ui:style>
   
-<g:ScrollPanel width="100%" height="100%">
-  <g:DockLayoutPanel unit='EM' styleName='{style.detail}' ui:field="docklayoutpanel" height="478px" width="99.85%">
+  <g:DockLayoutPanel unit='EM' styleName='{style.detail}' ui:field="docklayoutpanel" width="99.47%" height="99.47%">
   	<g:north size="2.9">
   		<g:AbsolutePanel styleName='{style.header}' ui:field="headerpanel">
   			<g:at left="10" top="10">
@@ -49,12 +53,6 @@
   			</g:at>
   			<g:at left="406" top="10">
   				<g:ListBox width="103px" height="22px" ui:field="amountlist"/>
-  			</g:at>
-  			<g:at left="939" top="10">
-  				<g:TextBox width="170px" height="16px" text="search for request" styleName="{style.textbox}"/>
-  			</g:at>
-  			<g:at left="907" top="10">
-  				<g:Image width="26px" height="28px" url="resource/searchicon.png" title="Search Request"/>
   			</g:at>
   			<g:at left="220" top="10">
   				<g:Hyperlink text="View All" targetHistoryToken="newHistoryToken" ui:field="viewall"/>
@@ -80,25 +78,33 @@
   			<g:at left="767" top="10">
   				<g:ListBox width="79px" height="22px" ui:field="currencylist"/>
   			</g:at>
+  			<g:at left="924" top="8">
+  				<c:SimplePager ui:field="pager"/>
+  			</g:at>
+  			<g:at left="868" top="0">
+  				<g:Image width="9px" height="38px" url="resource/thumb_vertical.png"/>
+  			</g:at>
   		</g:AbsolutePanel>
   	</g:north>
   	<g:center>
   		<g:DockLayoutPanel unit="EM">
 		 <g:south size="2.4">
 			<g:AbsolutePanel styleName="{style.header}">
-				<g:at left="0" top="0">
-					<c:SimplePager ui:field="pager"/>
+				<g:at left="489" top="10">
+					<g:Label text="@2013 ITPro -" styleName="{style.trademarklabel}"/>
+				</g:at>
+				<g:at left="578" top="7">
+					<g:Image width="29px" height="19px" url="resource/Welcome-ITPro.png"/>
 				</g:at>
 			</g:AbsolutePanel>
 		</g:south>
 		<g:center>
 			<g:ScrollPanel ui:field="scrollpanel">
-				<c:CellTable ui:field="cellTable" pageSize="13" width="100%" styleName="{style.cellTable}" height="100%"/>
+				<c:CellTable ui:field="cellTable" pageSize="100" width="100%" styleName="{style.cellTable}" height="100%"/>
 			</g:ScrollPanel>
 		</g:center>
 	</g:DockLayoutPanel>
   	</g:center>
   </g:DockLayoutPanel>
-  </g:ScrollPanel>
 
 </ui:UiBinder>

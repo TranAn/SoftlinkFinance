@@ -33,7 +33,7 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.softlink.finance.client.view.RequestDetailView;
-import com.softlink.finance.shared.FinanceRequirements;
+import com.softlink.datastore.model.FinanceData;
 
 /**
  * A composite for displaying the details of an email message.
@@ -44,7 +44,7 @@ public class DesktopRequestDetailView extends Composite
 	  interface Binder extends UiBinder<Widget, DesktopRequestDetailView> { }
 	  private static final Binder binder = GWT.create(Binder.class);
 	  
-	  private FinanceRequirements item;
+	  private FinanceData item;
 	  private boolean isAdmin;
 	  private String savecomment="";
 	  private Presenter listener;
@@ -57,7 +57,7 @@ public class DesktopRequestDetailView extends Composite
 	  @UiField Label tags;
 	  @UiField Label currency;
 	  @UiField Label real_amount;
-	  @UiField Label tax_amount;
+	  @UiField Label bill_amount;
 	  @UiField Label cus_id;
 	  @UiField Label reference;
 	  @UiField Hyperlink document;
@@ -85,7 +85,7 @@ public class DesktopRequestDetailView extends Composite
 		  savecomment="";
 	  }
 	
-	  public void setItem(FinanceRequirements item) {
+	  public void setItem(FinanceData item) {
 		  reporter.setText(item.getReporter());
 		  manager.setText(item.getManager());
 		  requester.setText(item.getRequester());
@@ -94,7 +94,7 @@ public class DesktopRequestDetailView extends Composite
 		  account.setText(item.getAccount());
 		  currency.setText(item.getCurrency());
 		  real_amount.setText(String.valueOf(item.getReal_amount()));
-		  tax_amount.setText(String.valueOf(item.getTax_amount()));
+		  bill_amount.setText(String.valueOf(item.getBill_amount()));
 		  cus_id.setText(String.valueOf(item.getCus_id()));
 		  assets_id.setText(String.valueOf(item.getAssets_id()));
 		  document.setText(item.getDocument());
@@ -181,10 +181,10 @@ public class DesktopRequestDetailView extends Composite
 	
 
 	/*
-	 * ---Implement Function---
+	 * ---Implement View Interface---
 	 */
 	@Override
-	public void setData(FinanceRequirements fr) {
+	public void setData(FinanceData fr) {
 		// TODO Auto-generated method stub
 		item = fr;
 		setItem(item);
@@ -218,7 +218,7 @@ public class DesktopRequestDetailView extends Composite
 	}
 
 	@Override
-	public FinanceRequirements getData() {
+	public FinanceData getData() {
 		// TODO Auto-generated method stub
 		return item;
 	}

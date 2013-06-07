@@ -43,7 +43,7 @@ import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.SelectionModel;
 import com.softlink.finance.client.view.DraftsView;
-import com.softlink.finance.shared.FinanceRequirements;
+import com.softlink.datastore.model.FinanceData;
 
 public class DesktopDraftsView extends Composite 
 	implements DraftsView{
@@ -51,16 +51,17 @@ public class DesktopDraftsView extends Composite
 	interface Binder extends UiBinder<Widget, DesktopDraftsView> {}
 	private static final Binder binder = GWT.create(Binder.class);
 
-	private List<FinanceRequirements> list_fr = new ArrayList<FinanceRequirements>();
-	private List<FinanceRequirements> list_selectedfr = new ArrayList<FinanceRequirements>();
-	private FinanceRequirements selected_fr;
+	private List<FinanceData> list_fr = new ArrayList<FinanceData>();
+	private List<FinanceData> list_selectedfr = new ArrayList<FinanceData>();
+	private FinanceData selected_fr;
 	private AbsolutePanel panel = new AbsolutePanel();
 	private Label label = new Label("<Folder is empty>");
 	private int newDraft;
 	private Date UserLog;
+	private Presenter listener;
 	
-	@UiField(provided=true) CellTable<FinanceRequirements> draftcellTable = new 
-			CellTable<FinanceRequirements>();
+	@UiField(provided=true) CellTable<FinanceData> draftcellTable = new 
+			CellTable<FinanceData>();
 	@UiField(provided=true) SimplePager pager;
 	@UiField DockLayoutPanel docklayoutpanel;
 	@UiField Button send;
@@ -70,7 +71,7 @@ public class DesktopDraftsView extends Composite
 	@UiField TextBox account;
 	@UiField TextBox manager;
 	@UiField TextBox currency;
-	@UiField IntegerBox tax_amount;
+	@UiField IntegerBox bill_amount;
 	@UiField IntegerBox real_amount;
 	@UiField TextArea description;
 	@UiField LongBox cus_id;
@@ -89,7 +90,7 @@ public class DesktopDraftsView extends Composite
 	@UiField ScrollPanel scrollpanel;
 	
 	/*
-	 * Constructor---
+	 * ---Constructor---
 	 */
 	public DesktopDraftsView() {
 		 // Do not refresh the headers and footers every time the data is updated.
@@ -105,49 +106,49 @@ public class DesktopDraftsView extends Composite
 	
 		docklayoutpanel.remove(composebox);
 		
-		final SelectionModel<FinanceRequirements> selectionModel = new 
-				MultiSelectionModel<FinanceRequirements>();
+		final SelectionModel<FinanceData> selectionModel = new 
+				MultiSelectionModel<FinanceData>();
 		draftcellTable.setSelectionModel(selectionModel,
-		        DefaultSelectionEventManager.<FinanceRequirements> createCheckboxManager());
+		        DefaultSelectionEventManager.<FinanceData> createCheckboxManager());
 		
-		ListHandler<FinanceRequirements> columnSortHandler = 
-	    		new ListHandler<FinanceRequirements>(list_fr);
+		ListHandler<FinanceData> columnSortHandler = 
+	    		new ListHandler<FinanceData>(list_fr);
 		
-		final Column<FinanceRequirements, Boolean> checkColumn = 
-				new Column<FinanceRequirements, Boolean>(
+		final Column<FinanceData, Boolean> checkColumn = 
+				new Column<FinanceData, Boolean>(
 		        new CheckboxCell(true, false)) {
 		      @Override
-		      public Boolean getValue(FinanceRequirements object) { 
+		      public Boolean getValue(FinanceData object) { 
 		    	  return selectionModel.isSelected(object);
 			  }
 		    };
 		draftcellTable.addColumn(checkColumn, SafeHtmlUtils.fromSafeConstant("<br/>"));
-		draftcellTable.setColumnWidth(checkColumn,"5%");
+		draftcellTable.setColumnWidth(checkColumn,"10px");
 		
-		final TextColumn<FinanceRequirements> RequestIDColumn = new 
-				TextColumn<FinanceRequirements>() {
+		final TextColumn<FinanceData> RequestIDColumn = new 
+				TextColumn<FinanceData>() {
 			@Override
-		    public String getValue(FinanceRequirements object) {
+		    public String getValue(FinanceData object) {
 				return String.valueOf(object.getRequest_id());
 		    }
 		};
 		draftcellTable.addColumn(RequestIDColumn, "Request ID");
 		draftcellTable.setColumnWidth(RequestIDColumn,"10%");
 		
-		final TextColumn<FinanceRequirements> ReporterColumn = new 
-				TextColumn<FinanceRequirements>() {
+		final TextColumn<FinanceData> ReporterColumn = new 
+				TextColumn<FinanceData>() {
 			@Override
-			public String getValue(FinanceRequirements object) {
+			public String getValue(FinanceData object) {
 				return object.getReporter();
 			}
 		};
 		draftcellTable.addColumn(ReporterColumn, "Reporter");
 		draftcellTable.setColumnWidth(ReporterColumn,"15%");
 		
-		final TextColumn<FinanceRequirements> DescriptionColumn = new 
-				TextColumn<FinanceRequirements>() {
+		final TextColumn<FinanceData> DescriptionColumn = new 
+				TextColumn<FinanceData>() {
 			@Override
-			public String getValue(FinanceRequirements object) {
+			public String getValue(FinanceData object) {
 				if (object.getDescription().length()<=51)
 					return object.getDescription();
 				return object.getDescription().substring(0, 51)+" . . .";
@@ -156,40 +157,40 @@ public class DesktopDraftsView extends Composite
 		draftcellTable.addColumn(DescriptionColumn, "Description");
 		draftcellTable.setColumnWidth(DescriptionColumn,"35%");
 		
-		final Column<FinanceRequirements, Date> Update_TimeColumn = new 
-		    		Column<FinanceRequirements, Date>(new DateCell()) {
+		final Column<FinanceData, Date> Update_TimeColumn = new 
+		    		Column<FinanceData, Date>(new DateCell()) {
 		      @Override
-		      public Date getValue(FinanceRequirements object) {
+		      public Date getValue(FinanceData object) {
 		        return object.getUpdate_time();
 		      }
 		    };
 	    Update_TimeColumn.setSortable(true);
 	    draftcellTable.addColumn(Update_TimeColumn, "Update_Time");
 	    draftcellTable.setColumnWidth(Update_TimeColumn,"25%");
-	    columnSortHandler.setComparator(Update_TimeColumn, new Comparator<FinanceRequirements>() {
+	    columnSortHandler.setComparator(Update_TimeColumn, new Comparator<FinanceData>() {
 		      @Override
-		      public int compare(FinanceRequirements o1, FinanceRequirements o2) {		    	  
+		      public int compare(FinanceData o1, FinanceData o2) {		    	  
 		    	  return o1.getUpdate_time().compareTo(o2.getUpdate_time());	    	     	  
 		      }
 		});
 	    draftcellTable.addColumnSortHandler(columnSortHandler);
 		    
-	    final TextColumn<FinanceRequirements> StatusColumn = new 
-	    		TextColumn<FinanceRequirements>() {
+	    final TextColumn<FinanceData> StatusColumn = new 
+	    		TextColumn<FinanceData>() {
 			@Override
-			public String getValue(FinanceRequirements object) {
+			public String getValue(FinanceData object) {
 				return object.getStatus();
 			}
 		};
 		draftcellTable.addColumn(StatusColumn, "Status");
 		draftcellTable.setColumnWidth(StatusColumn,"10%");
 			
-		draftcellTable.addCellPreviewHandler(new Handler<FinanceRequirements>(){
+		draftcellTable.addCellPreviewHandler(new Handler<FinanceData>(){
 			public void onCellPreview(
-					CellPreviewEvent<FinanceRequirements> event) {
+					CellPreviewEvent<FinanceData> event) {
 				if (BrowserEvents.CLICK.equals(event.getNativeEvent().getType())) {
 					selected_fr = event.getValue();
-					if(selected_fr.getUpdate_time().equals(UserLog))
+//					if(selected_fr.getUpdate_time().equals(UserLog))
 //						FinancialRequirementsObj.updateUserLog(selected_fr.getUpdate_time(), 
 //								new AsyncCallback<Void> () {
 //									public void onFailure(Throwable caught) {}
@@ -210,14 +211,14 @@ public class DesktopDraftsView extends Composite
 						docklayoutpanel.remove(composeheader);
 						docklayoutpanel.addSouth(composebox, 17);
 						docklayoutpanel.addSouth(composeheader, 3);
-						FinanceRequirements requestselected = event.getValue();
+						FinanceData requestselected = event.getValue();
 						req_id.setText(String.valueOf(requestselected.getRequest_id()));
 						requester.setText(requestselected.getRequester());
 						manager.setText(requestselected.getManager());
 						account.setText(requestselected.getAccount());
 						currency.setText(requestselected.getCurrency());
 						real_amount.setValue(requestselected.getReal_amount());
-						tax_amount.setValue(requestselected.getTax_amount());
+						bill_amount.setValue(requestselected.getBill_amount());
 						description.setText(requestselected.getDescription());
 						cus_id.setValue(requestselected.getCus_id());
 						if(requestselected.getCus_id()==null)
@@ -241,8 +242,8 @@ public class DesktopDraftsView extends Composite
 			}
 		});
 		    
-	    draftcellTable.setRowStyles(new RowStyles<FinanceRequirements>() {
-			public String getStyleNames(FinanceRequirements row, int rowIndex) {
+	    draftcellTable.setRowStyles(new RowStyles<FinanceData>() {
+			public String getStyleNames(FinanceData row, int rowIndex) {
 				if(row.getComment().length()>1)
 					return "moreinfoRowStyle";
 				return null;
@@ -250,15 +251,12 @@ public class DesktopDraftsView extends Composite
 		});
 		
 		// Create a data provider.
-	    final ListDataProvider<FinanceRequirements> dataProvider = new 
-			 ListDataProvider<FinanceRequirements>();
+	    final ListDataProvider<FinanceData> dataProvider = new 
+			 ListDataProvider<FinanceData>();
 		dataProvider.addDataDisplay(draftcellTable);
  		list_fr = dataProvider.getList();
-// 		toolbar.setVisibleNotice();
-//		toolbar.setTextNotice("Loading...");
 		panel.setSize("100%", "60px");
 		panel.add(label,500,10);
-// 		getData();
 	}
 	
 	/*
@@ -292,8 +290,8 @@ public class DesktopDraftsView extends Composite
 	}
 	
 	public void redrawTable() {
-		draftcellTable.setRowStyles(new RowStyles<FinanceRequirements>() {
-			public String getStyleNames(FinanceRequirements row, int rowIndex) {
+		draftcellTable.setRowStyles(new RowStyles<FinanceData>() {
+			public String getStyleNames(FinanceData row, int rowIndex) {
 				if((row.getComment().length()>0)&&(rowIndex+1>newDraft))
 					return "moreinfoRowStyle";
 				if((row.getComment().length()>0)&&(rowIndex+1<=newDraft))
@@ -350,7 +348,7 @@ public class DesktopDraftsView extends Composite
 			account.setText("");
 			currency.setText("");
 			real_amount.setText("");
-			tax_amount.setText("");
+			bill_amount.setText("");
 			description.setText("");
 			cus_id.setText("null");
 			assets_id.setText("null");
@@ -376,7 +374,7 @@ public class DesktopDraftsView extends Composite
 	void onSendClick(ClickEvent event) {
 		if(VerifyField()&&draftcellTable.getPageSize()==5) {
 			if(Window.confirm("Do you want to send this request?")) {
-				FinanceRequirements fr = new FinanceRequirements();
+				FinanceData fr = new FinanceData();
 				fr.setRequest_id(selected_fr.getRequest_id());
 				fr.setReporter(selected_fr.getReporter());
 				fr.setRequester(requester.getText());
@@ -384,7 +382,7 @@ public class DesktopDraftsView extends Composite
 				fr.setAccount(account.getText());
 				fr.setCurrency(currency.getText());
 				fr.setReal_amount(real_amount.getValue());
-				fr.setTax_amount(tax_amount.getValue());
+				fr.setBill_amount(bill_amount.getValue());
 				fr.setDescription(description.getText());
 				if(cus_id.getText().equals("null")==false)
 					fr.setCus_id(cus_id.getValue());
@@ -400,7 +398,7 @@ public class DesktopDraftsView extends Composite
 				fr.setComment(selected_fr.getComment());
 				final String fromAddress = selected_fr.getReporter();
 				final String toAddress = manager.getText();
-				final String subject = "ITPRO-New Request # real_amount: "+real_amount.getText()+selected_fr.getCurrency()+", tax_amount: "+tax_amount.getText()+selected_fr.getCurrency()+" # for "+description.getText();
+				final String subject = "ITPRO-New Request # real_amount: "+real_amount.getText()+selected_fr.getCurrency()+", tax_amount: "+bill_amount.getText()+selected_fr.getCurrency()+" # for "+description.getText();
 				final String url = Window.Location.getHost()+"/financial/#Finance%20Requirement";
 				final String msgBody = "see Detail: "
 						  +"\r\n "+url;
@@ -488,7 +486,7 @@ public class DesktopDraftsView extends Composite
 		}
 		if(draftcellTable.getPageSize()==13 && list_selectedfr.isEmpty()==false) {
 			if(Window.confirm("Do you want to remove all selected request?")) {
-				for(final FinanceRequirements fr: list_selectedfr) {
+				for(final FinanceData fr: list_selectedfr) {
 //					FinancialRequirementsObj.delete(fr, new AsyncCallback<Void>() {
 //						public void onFailure(Throwable caught) {
 //							toolbar.setVisibleNotice();
@@ -510,23 +508,52 @@ public class DesktopDraftsView extends Composite
 	}
 
 	/*
-	 * Implement Function---
+	 * ---Implement View Interface---
 	 */
-	@Override
-	public void setListDraftFinanceRequirement(List<FinanceRequirements> list_fr) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setSelectedFinanceRequirement(FinanceRequirements selected_fr) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public void setPresenter(Presenter listener) {
 		// TODO Auto-generated method stub
-		
+		this.listener = listener;
+	}
+
+	@Override
+	public void setNewData(List<FinanceData> list_fr) {
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
+		 if(list_fr.isEmpty()) {
+			 scrollpanel.remove(draftcellTable);
+			 scrollpanel.add(panel);
+		 } else {
+			 for(int i=list_fr.size()-1;i>=0;i--)
+				 this.list_fr.add(list_fr.get(i));
+			 scrollpanel.remove(panel);
+			 scrollpanel.add(draftcellTable);
+		 }
+	}
+
+	@Override
+	public void setUpdateData(List<FinanceData> list_fr) {
+		// TODO Auto-generated method stub
+		for(FinanceData fr: list_fr)   				
+			this.list_fr.add(0,fr);
+		redrawTable();
+	}
+
+	@Override
+	public void removeDataItem(FinanceData fr) {
+		// TODO Auto-generated method stub
+		list_fr.remove(fr);
+	}
+
+	@Override
+	public int getDataCount() {
+		// TODO Auto-generated method stub
+		return list_fr.size();
+	}
+
+	@Override
+	public FinanceData getLastData() {
+		// TODO Auto-generated method stub
+		return list_fr.get(0);
 	}
 }
